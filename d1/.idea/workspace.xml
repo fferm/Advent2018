@@ -1,7 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b630dca0-3eb0-4b72-990e-eb50a261fb8e" name="Default Changelist" comment="" />
+    <list default="true" id="b630dca0-3eb0-4b72-990e-eb50a261fb8e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/d1-b8405840ec4c6163/bin-d1-b8405840ec4c6163" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/.fingerprint/d1-b8405840ec4c6163/bin-d1-b8405840ec4c6163" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/.fingerprint/d1-b8405840ec4c6163/bin-d1-b8405840ec4c6163.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/.fingerprint/d1-b8405840ec4c6163/bin-d1-b8405840ec4c6163.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/d1" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/d1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/deps/d1-b8405840ec4c6163" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/deps/d1-b8405840ec4c6163" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/deps/d1-b8405840ec4c6163.dSYM/Contents/Resources/DWARF/d1-b8405840ec4c6163" beforeDir="false" afterPath="$PROJECT_DIR$/target/debug/deps/d1-b8405840ec4c6163.dSYM/Contents/Resources/DWARF/d1-b8405840ec4c6163" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/12ix914agrby70nc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/13k8ye3uizuwecu9.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/15z0dnk42tns7tdb.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/19rj3127v8yo51if.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1apw7x4j4b4dxvos.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1b51ewjy7a28ss4c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1cidul20ry3f0i8j.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1f1bze4579g56ak2.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1grogoa3olj3kf8q.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1ho3xhaztg6mg6un.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1if75axvy2rqt94v.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1t5ej4lag08dvau4.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1tojq62chokt7md4.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/1xuk0jn27mg1fncx.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/20id5w7aqkn029w8.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/21z43eqx4dcifyti.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/235v7fpmdpddqxjj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/2d81mulz4e2rbyhk.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/2kyzeycwe1rcjbof.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/2shu1do0750ga9to.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/2typwwsjycv4tvvy.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/3dsq8wn8ifm5ixku.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/3flq58a0l1pycvgv.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/3tlkbqol2qi8qsfo.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/3xynnuz2yltamf7p.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/45obgpkezrwy0mpn.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/46fn28vo7723fdz6.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/46hbu9hcaa9rsjrb.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/477qca3nzry9hojk.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/48qszj21vpfjcbah.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/492hid88o4qgg1r2.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/4ffv1tez8gk3lnyy.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/4k2c9wobp1geycxj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/4yz5tok6dwswep5k.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/52gwz9s0bno1xnxg.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/55px8jexl14mc9yb.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/58zf5kmj2hgxyz49.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/5c4bfpt9g53s6z2g.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/9l9uqqz612gxkde.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/a8s2bqo93knjt4u.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/dep-graph.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/nmblfx1xjx2kthg.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/o0ezeu5zahe6kg.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/query-cache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/tyurm8pwu7acp32.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/u0s58mwswm43k8b.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/w9e6b8f0d7bk9ij.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/work-products.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/x5fi41u9op4ec5s.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/yicmdlfqm7py0j5.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd-hhgpg1ggl39n/yurhbeftgzdmno8.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/debug/incremental/d1-39adf6oqdc5k5/s-f76r1vsm9m-14d2ufd.lock" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,25 +80,26 @@
         <counts>
           <entry key="gitignore" value="1" />
           <entry key="rs" value="1" />
-          <entry key="txt" value="1" />
+          <entry key="txt" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="PLAIN_TEXT" value="4" />
           <entry key="Rust" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="9" />
-          <entry key="rs" value="445" />
+          <entry key="rs" value="1647" />
+          <entry key="txt" value="32" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="9" />
-          <entry key="Rust" value="445" />
+          <entry key="PLAIN_TEXT" value="41" />
+          <entry key="Rust" value="1647" />
         </counts>
       </usages-collector>
     </session>
@@ -48,13 +109,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="90" selection-start-line="13" selection-start-column="90" selection-end-line="13" selection-end-column="90" />
+            <state relative-caret-position="169">
+              <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/input_small.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/input.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="14640">
+              <caret line="976" column="6" selection-start-line="976" selection-start-column="6" selection-end-line="976" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state>
@@ -72,8 +151,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/input.txt" />
-        <option value="$PROJECT_DIR$/src/main.rs" />
         <option value="$PROJECT_DIR$/../.gitignore" />
+        <option value="$PROJECT_DIR$/src/main.rs" />
+        <option value="$PROJECT_DIR$/input_small.txt" />
       </list>
     </option>
   </component>
@@ -120,7 +200,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543676396832" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543679507037" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -149,12 +229,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1543675635356</updated>
-      <workItem from="1543675636914" duration="744000" />
+      <workItem from="1543675636914" duration="3693000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="744000" />
+    <option name="totallyTimeSpent" value="3693000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="18" y="27" width="1923" height="1100" extended-state="0" />
@@ -165,11 +245,11 @@
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2498671" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2498671" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" visible="true" weight="0.32994923" />
+      <window_info anchor="bottom" id="Version Control" visible="true" weight="0.32994923" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -198,24 +278,31 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/input.txt">
+    <entry file="file://$PROJECT_DIR$/../.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="976" column="6" selection-start-line="976" selection-start-column="6" selection-end-line="976" selection-end-column="6" />
+        <state>
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="90" selection-start-line="13" selection-start-column="90" selection-end-line="13" selection-end-column="90" />
+        <state relative-caret-position="169">
+          <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../.gitignore">
+    <entry file="file://$PROJECT_DIR$/input.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="9" selection-start-column="9" selection-end-column="9" />
+        <state relative-caret-position="14640">
+          <caret line="976" column="6" selection-start-line="976" selection-start-column="6" selection-end-line="976" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input_small.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
