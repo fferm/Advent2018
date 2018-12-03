@@ -26,22 +26,13 @@ impl PartialEq for Coord {
 impl Eq for Coord {}
 
 fn main() {
-    let file_contents = fs::read_to_string("input.txt").expect("Error in reading file");
-
-    let lines: Vec<&str> = file_contents.split("\n").collect();
+    let filename = "input.txt";
 
     let mut num_hits_per_coord = HashMap::new();
 
-    for line in lines {
+    for claim in get_claims(filename) {
+//        println!("{:?}", claim);
 
-        println!("{}", line);
-
-        let re = Regex::new("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)").unwrap();
-        let cap = re.captures_iter(line).next().unwrap();
-
-        let claim = Claim {id: cap[1].parse().unwrap(), top_left: Coord{x: cap[2].parse().unwrap(), y: cap[3].parse().unwrap()}, size: Coord{x: cap[4].parse().unwrap(), y: cap[5].parse().unwrap()}};
-
-        println!("{:?}", claim);
         for dx in 0..claim.size.x {
             let x = claim.top_left.x + dx;
 
@@ -69,14 +60,44 @@ fn main() {
     println!("{} cords with several hits", num_coords_with_several_hits);
 
 
+    for claim in get_claims(filename) {
+        let mut has_overlap = false;
+        for dx in 0..claim.size.x {
+            let x = claim.top_left.x + dx;
 
-/*
-    let c = Claim{ id: 231, top_left: Coord{x:1, y:2}, size: Coord{x: 2, y:3}};
+            for dy in 0..claim.size.y {
+                let y = claim.top_left.y + dy;
 
-    let s = Coord {x: 1, y: 2};
+                let my_coord = Coord { x: x, y: y };
 
-    println!("{:?}", c);
-*/
+                let num_hits = num_hits_per_coord.get(&my_coord).unwrap();
+                if *num_hits > 1 {
+                    has_overlap = true;
+                }
+            }
+        }
+        if !has_overlap {
+            println!("{:?} does not have overlap", claim);
+            panic!();
+        }
+    }
+}
+
+fn get_claims(filename: &str) -> Vec<Claim> {
+    let mut ret = Vec::new();
+
+    let file_contents = fs::read_to_string(filename).expect("Error in reading file");
+
+    let lines: Vec<&str> = file_contents.split("\n").collect();
+
+    for line in lines {
+        let re = Regex::new("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)").unwrap();
+        let cap = re.captures_iter(line).next().unwrap();
+        let claim = Claim {id: cap[1].parse().unwrap(), top_left: Coord{x: cap[2].parse().unwrap(), y: cap[3].parse().unwrap()}, size: Coord{x: cap[4].parse().unwrap(), y: cap[5].parse().unwrap()}};
+        ret.push(claim);
+    }
+
+    return ret;
 }
 
 
