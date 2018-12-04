@@ -1,0 +1,9 @@
+[package]
+name = "d4"
+version = "0.1.0"
+authors = ["Fredrik Ferm <fredrik@fermitet.se>"]
+
+[dependencies]
+regex = "1"
+bit-vec = "0.5.0"
+
