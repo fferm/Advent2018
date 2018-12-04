@@ -49,7 +49,9 @@ fn main() {
     let max_minute = find_minute_where_max_guard_sleeps_most(guard_with_most_minutes_asleep, &guard_datas);
 
 
-    println!("Answer is {} * {} = {}", guard_with_most_minutes_asleep, max_minute, guard_with_most_minutes_asleep * max_minute);
+    println!("Answer to problem 1 is {} * {} = {}", guard_with_most_minutes_asleep, max_minute, guard_with_most_minutes_asleep * max_minute);
+
+    analyze_most_frequently_asleep_on_same_minute(&guard_datas);
 }
 
 fn read_inputs(filename: &str) -> Vec<InputData> {
@@ -212,6 +214,44 @@ fn find_minute_where_max_guard_sleeps_most(max_guard: i32, guard_datas: &HashMap
     println!("guard {} slept at the most in minute {} for a total of {}", max_guard, max_minute, max_sleep);
 
     return max_minute as i32;
+
+}
+
+fn analyze_most_frequently_asleep_on_same_minute(guard_datas: &HashMap<GuardDayDataIndex, BitVec<u32>>) {
+    // HashMap<guard_id, HashMap<minute, sleep>>
+    let mut map = HashMap::new();
+
+    for (idx, guard_data) in guard_datas {
+        let guard = idx.guard_id;
+
+        let inner_map_for_this_guard = map.entry(guard).or_insert(HashMap::new());
+
+        for current_minute in 0..59 {
+            let is_asleep_this_minute_this_day = guard_data.get(current_minute).unwrap();
+
+            if is_asleep_this_minute_this_day {
+                let previous_sleep_this_minute = inner_map_for_this_guard.entry(current_minute).or_insert(0);
+                *previous_sleep_this_minute = *previous_sleep_this_minute + 1;
+            }
+        }
+    }
+
+    let mut max_guard = -1;
+    let mut max_minute= -1;
+    let mut max_sleep = -1;
+    for (guard, inner_map) in map {
+        for (minute, sleep) in inner_map {
+            if sleep > max_sleep {
+                max_guard = guard;
+                max_minute = minute as i32;
+                max_sleep = sleep;
+            }
+        }
+    }
+
+    println!("Guard {} was asleep the most on minute {} for a total of {}", max_guard, max_minute, max_sleep);
+    println!("Answer to part two is {} * {} = {}", max_guard, max_minute, max_guard * max_minute);
+
 
 }
 
