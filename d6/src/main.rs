@@ -15,8 +15,6 @@ struct Coord {
 struct Input {
     id: char,
     c: Coord,
-    is_infinite: bool = false,
-    score: i32 = 0
 }
 
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone)]
@@ -27,7 +25,8 @@ struct BoardPointData {
 }
 
 fn main() {
-    let filename = "input_small.txt";
+//    let filename = "input_small.txt";
+    let filename = "input.txt";
     let inputs = read_inputs(filename);
     println!("Inputs");
     for c in &inputs {
@@ -112,14 +111,35 @@ fn main() {
     }
 
 
-//    let mut ids_and_scores
+    let mut ids_and_scores = HashMap::new();
     for j in min_y..max_y+1 {
         for i in min_x..max_x+1 {
             let current_coord = Coord{x: i, y: j};
 
-
+            let current_coord_is_infinite = j == min_y || j == max_y || i == min_x || i == max_x;
+            match &board.get(&current_coord) {
+                Some(current_board_data) => {
+                    if current_board_data.has_closest_input {
+                        let current_score = ids_and_scores.entry(current_board_data.closest_input).or_insert((0, false));
+                        let infinite_flag_to_use = current_coord_is_infinite || current_score.1;
+                        *current_score = (current_score.0 + 1, infinite_flag_to_use);
+                    }
+                },
+                None => {}
+            }
         }
     }
+
+    let mut max_score = 0;
+    let mut max_id = '(';
+    for (id, score) in ids_and_scores {
+        println!("Input {} has score {} with infinite_flag: {}", id, score.0, score.1);
+        if !score.1 && score.0 > max_score {
+            max_score = score.0;
+            max_id = id;
+        }
+    }
+    println!("Max score from {} which is {}", max_id, max_score);
 }
 
 fn points_with_distance(c: &Coord, dist: i32) -> Vec<Coord> {
