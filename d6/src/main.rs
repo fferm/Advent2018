@@ -21,12 +21,18 @@ struct Input {
 struct BoardPointData {
     has_closest_input: bool,
     closest_input: char,
-    closest_input_distance: i32
+    closest_input_distance: i32,
+    total_distance: i32
 }
 
 fn main() {
 //    let filename = "input_small.txt";
     let filename = "input.txt";
+//    let LIMIT = 32;
+    let LIMIT = 10000;
+
+
+
     let inputs = read_inputs(filename);
     println!("Inputs");
     for c in &inputs {
@@ -58,9 +64,9 @@ fn main() {
     let mut board: HashMap<Coord, BoardPointData> = HashMap::new();
 
     for input in &inputs {
-        board.insert(input.c.clone(), BoardPointData{has_closest_input: true, closest_input: input.id, closest_input_distance: 0});
+//        board.insert(input.c.clone(), BoardPointData{has_closest_input: true, closest_input: input.id, closest_input_distance: 0});
 
-        let mut current_distance = 0;
+        let mut current_distance = -1;
         let mut did_insert = true;
 
         while did_insert {
@@ -81,19 +87,34 @@ fn main() {
                         let previous = previous_entry.get();
 
                         if previous.closest_input_distance < current_distance {
-                            // Do nothing
-                            data_to_insert = None;
+                            // Not closest
+                            let mut new_data = previous.clone();
+                            new_data.total_distance = previous.total_distance + current_distance;
+
+                            data_to_insert = Some(new_data);
                         } else if previous.closest_input_distance == current_distance {
                             // Equal distance
-                            data_to_insert = Some(BoardPointData{has_closest_input: false, closest_input: '.', closest_input_distance: current_distance});
+                            let mut new_data = previous.clone();
+                            new_data.has_closest_input = false;
+                            new_data.closest_input = '.';
+                            new_data.closest_input_distance = current_distance;
+                            new_data.total_distance = previous.total_distance + current_distance;
 
+                            data_to_insert = Some(new_data);
                         } else {
                             // Current one is smaller, overwrite
-                            data_to_insert = Some(BoardPointData{has_closest_input: true, closest_input: input.id, closest_input_distance: current_distance});
+                            let mut new_data = previous.clone();
+                            new_data.has_closest_input = true;
+                            new_data.closest_input = input.id;
+                            new_data.closest_input_distance = current_distance;
+                            new_data.total_distance = previous.total_distance + current_distance;
+
+
+                            data_to_insert = Some(new_data);
                         }
                     },
                     Vacant(_) => {
-                        data_to_insert = Some(BoardPointData{has_closest_input: true, closest_input: input.id, closest_input_distance: current_distance});
+                        data_to_insert = Some(BoardPointData{has_closest_input: true, closest_input: input.id, closest_input_distance: current_distance, total_distance: current_distance});
                     }
                 }
 
@@ -140,6 +161,16 @@ fn main() {
         }
     }
     println!("Max score from {} which is {}", max_id, max_score);
+
+
+    let mut region_size = 0;
+    for (_, data) in &board {
+        if data.total_distance < LIMIT {
+            region_size = region_size + 1;
+        }
+    }
+    println!("Region size is {}", region_size);
+
 }
 
 fn points_with_distance(c: &Coord, dist: i32) -> Vec<Coord> {
@@ -198,6 +229,33 @@ fn print_board(board: &HashMap<Coord, BoardPointData>, max_x: i32, max_y: i32, m
 
         println!();
     }
+
+    println!();
+    for j in min_y..max_y+1 {
+        for i in min_x..max_x+1 {
+            let current_coord = Coord{x: i, y: j};
+
+            let data = board.get(&current_coord);
+
+            match data {
+                Some(d) => {
+                    if d.closest_input_distance == 0 {
+                        print!("{} ", d.closest_input);
+                    } else if d.total_distance < 32 {
+                        print!("# ");
+                    } else {
+                        print!(". ");
+                    }
+                },
+                None => {
+                    print!("- ");
+                }
+            }
+        }
+
+        println!();
+    }
+
 }
 
 fn read_inputs(filename: &str) -> Vec<Input> {
