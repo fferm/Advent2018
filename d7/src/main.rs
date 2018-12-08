@@ -8,26 +8,57 @@ use std::collections::hash_map::Entry::*;
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Hash)]
 struct Step {
     id: char,
-    pre: Vec<char>
+    pre: Vec<char>,
+    required_time: i32
+}
+
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Hash)]
+struct WorkerStatus {
+    id: i32,
+    is_working: bool,
+    working_on_id: char,
+    time_left: i32
 }
 
 fn main() {
-//    let filename = "input_small.txt";
-    let filename = "input.txt";
+    let small_run = true;
 
-    let mut inputs = read_inputs(filename);
-    //let afters = analyze_after(&inputs);
+    let filename;
+    let additional_seconds_per_task;
+    let number_of_workers;
+
+    if small_run {
+        filename = "input_small.txt";
+        additional_seconds_per_task = 0;
+        number_of_workers = 2;
+    } else {
+        filename = "input.txt";
+        additional_seconds_per_task = 60;
+        number_of_workers = 5;
+    }
+
+    let mut inputs = read_inputs(filename, additional_seconds_per_task);
 
     print_inputs(&inputs);
 
-    while inputs.len() > 0 {
-        let steps_without_pre = find_steps_without_pre(&inputs);
-        let current_id = steps_without_pre.get(0).unwrap();
-        print!("{}", current_id);
-        take_one_out(*current_id, &mut inputs);
+    let mut workers_data = Vec::new();
+    for worker_idx in 0..number_of_workers {
+
+        workers_data.push(WorkerStatus{id: worker_idx, is_working: false, working_on_id: '0', time_left: 0});
     }
 
-    println!();
+
+    let mut current_second = 0;
+
+
+//    while inputs.len() > 0 {
+//        let steps_without_pre = find_steps_without_pre(&inputs);
+//        let current_id = steps_without_pre.get(0).unwrap();
+//        print!("{}", current_id);
+//        take_one_out(*current_id, &mut inputs);
+//    }
+//
+//    println!();
 
 }
 
@@ -63,7 +94,7 @@ fn find_steps_without_pre(inputs: &HashMap<char, Step>) -> Vec<char> {
     return ret;
 }
 
-fn read_inputs(filename: &str) -> HashMap<char, Step> {
+fn read_inputs(filename: &str, additional_seconds_per_task: i32) -> HashMap<char, Step> {
     let mut ret = HashMap::new();
 
     let file_contents = fs::read_to_string(filename).expect("Error in reading file");
@@ -78,26 +109,18 @@ fn read_inputs(filename: &str) -> HashMap<char, Step> {
         let current_predecessor_id = cap[1].chars().next().unwrap();
 
         {
-            let current_step = ret.entry(current_step_id).or_insert(Step{id: current_step_id, pre: Vec::new()});
+            let current_step = ret.entry(current_step_id).or_insert(Step{id: current_step_id, pre: Vec::new(), required_time: required_time_for_step(current_step_id, additional_seconds_per_task)});
             current_step.pre.push(current_predecessor_id);
         }
 
-        ret.entry(current_predecessor_id).or_insert(Step{id: current_predecessor_id, pre: Vec::new()});
+        ret.entry(current_predecessor_id).or_insert(Step{id: current_predecessor_id, pre: Vec::new(), required_time: required_time_for_step(current_predecessor_id, additional_seconds_per_task)});
     }
 
     return ret;
 }
 
-fn analyze_after(inputs: &HashMap<char, Step>) -> HashMap<char, Vec<char>> {
-    let mut ret: HashMap<char, Vec<char>> = HashMap::new();
+fn required_time_for_step(id: char, additional_time: i32) -> i32 {
+    let ascii = id as i32;
 
-    for (current_id, current_step) in inputs {
-        for pre_id in current_step.pre.clone() {
-            let mut afters_vec = ret.entry(pre_id).or_insert(Vec::new());
-            (*afters_vec).push((*current_id).clone());
-        }
-    }
-
-    return ret;
+    return additional_time + ascii - 64;
 }
-
