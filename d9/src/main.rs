@@ -1,8 +1,38 @@
 
+struct CircleElement {
+    value: i32,
+    left: &'static CircleElement,
+    right: &'static CircleElement
+}
+
+impl CircleElement {
+    fn go_right(&self) -> &CircleElement {
+        return self.right;
+    }
+
+    fn go_left(&self) -> &CircleElement {
+        return self.left;
+    }
+
+    fn insert(&self, value: i32) -> &CircleElement {
+        let new_element = CicleElement{value: value, left: self.left, right: self.right};
+        return &new_element;
+    }
+
+    fn remove(&self) -> &CircleElement {
+        let ret = self.right;
+
+    }
+}
+
+
 
 fn main() {
     let num_players = 424;
-    let max_points = 71482;
+    let max_points = 71482 * 100;
+
+//    let num_players = 13;
+//    let max_points = 7999;
 
     let mut circle = Vec::new();
     circle.push(0);
@@ -14,6 +44,7 @@ fn main() {
     let mut current_marble = 0;
     let mut next_marble = 1;
     let mut current_player = 1;
+    let mut current_marble_idx: i64 = 0;
 
     let mut scores = Vec::new();
     for _i in 0..num_players + 1 {
@@ -21,14 +52,12 @@ fn main() {
     }
 
     while next_marble <= max_points {
-        let current_marble_idx = *(&circle.iter().position( |i| *i == current_marble).unwrap());
-
         let ulen = circle.len();
 
         if next_marble % 23 == 0 {
 
-            let remove_idx = wrap_idx(current_marble_idx as i32 - 7, ulen);
-            let current_idx = wrap_idx(remove_idx as i32 + 1, ulen);
+            let remove_idx = wrap_idx(current_marble_idx - 7, ulen);
+            let current_idx = wrap_idx(remove_idx as i64 + 1, ulen);
 
             current_marble = circle.get(current_idx).unwrap().clone();
             let removed_marble = circle.get(remove_idx).unwrap().clone();
@@ -38,11 +67,14 @@ fn main() {
 
             &circle.remove(remove_idx as usize);
 
+            current_marble_idx = remove_idx as i64;
+
         } else {
-            let insert_idx = wrap_idx(current_marble_idx as i32 + 2, ulen);
+            let insert_idx = wrap_idx(current_marble_idx as i64 + 2, ulen);
             &circle.insert(insert_idx, next_marble);
 
             current_marble = next_marble;
+            current_marble_idx = insert_idx as i64;
         }
 
 //        print_current_circle(current_player, &circle, current_marble);
@@ -50,6 +82,10 @@ fn main() {
 
         next_marble = next_marble + 1;
         current_player = (current_player % num_players) + 1;
+
+        if next_marble % 10000 == 0 {
+            println!("Playing...  next_marble: {}   target: {},    size: {}", next_marble, max_points, &circle.len());
+        }
     }
 
     let mut max_score = 0;
@@ -64,10 +100,10 @@ fn main() {
     println!("Player {} wins with {}", max_player, max_score);
 }
 
-fn wrap_idx(input: i32, size: usize) -> usize {
+fn wrap_idx(input: i64, size: usize) -> usize {
     let mut iret = input;
 
-    let ilen = size as i32;
+    let ilen = size as i64;
 
     while iret < 0 {
         iret = iret + ilen;
@@ -81,7 +117,7 @@ fn wrap_idx(input: i32, size: usize) -> usize {
 }
 
 
-fn add_score_to_player(scores: &mut Vec<i32>, score: i32, player: i32) {
+fn add_score_to_player(scores: &mut Vec<i64>, score: i64, player: i64) {
     let prev_score = scores.get(player as usize).unwrap();
     let new_score = *prev_score + score;
 
@@ -89,7 +125,7 @@ fn add_score_to_player(scores: &mut Vec<i32>, score: i32, player: i32) {
     scores.insert(player as usize, new_score);
 }
 
-fn print_current_circle(current_player: i32, circle: &Vec<i32>, current_marble: i32) {
+fn print_current_circle(current_player: i64, circle: &Vec<i64>, current_marble: i64) {
     print!("[{:2}] ", current_player);
     print!("[{:5}] ", current_marble);
 
