@@ -3,8 +3,6 @@ extern crate regex;
 use std::fs;
 use regex::Regex;
 use std::collections::HashMap;
-use std::cell::Cell;
-use std::hash::{Hash, Hasher};
 
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Hash)]
 struct Coord {
@@ -38,14 +36,16 @@ fn main() {
     let mut prev_x_dist = 1000000;
     let mut prev_y_dist = 1000000;
     let mut i = 0;
-    while(cont) {
+    while cont {
         let min_max = min_max(&board);  // (min_x, max_x, min_y, max_y)
 
         let x_dist = min_max.1 - min_max.0;
         let y_dist = min_max.3 - min_max.2;
 
         if x_dist <= x_limit && y_dist <= y_limit {
+            println!("Num seconds: {}", i);
             print_board(&board, min_max);
+            println!();
         }
 
         board = move_board(&board);
@@ -154,11 +154,3 @@ fn move_board(board: &Vec<Point>) -> Vec<Point> {
     return ret;
 }
 
-fn get_alphabet() -> Vec<char> {
-    let mut small = (b'a'..b'z' + 1).filter_map(|c| Some(c as char)).collect::<Vec<_>>();
-    let mut large = (b'A'..b'Z' + 1).filter_map(|c| Some(c as char)).collect::<Vec<_>>();
-
-    small.append(&mut large);
-
-    return small;
-}
