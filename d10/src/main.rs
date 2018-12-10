@@ -20,7 +20,7 @@ fn main() {
     let small_input = false;
     let filename: &str;
     let x_limit = 150;
-    let y_limit = 50;
+    let y_limit = 40;
 
     if small_input {
         filename = "input_small.txt";
@@ -33,8 +33,8 @@ fn main() {
     let mut cont = true;
     let mut shrinking = true;
 
-    let mut prev_x_dist = 1000000;
-    let mut prev_y_dist = 1000000;
+    let mut prev_x_dist = std::i32::MAX;
+    let mut prev_y_dist = std::i32::MAX;
     let mut i = 0;
     while cont {
         let min_max = min_max(&board);  // (min_x, max_x, min_y, max_y)
@@ -118,8 +118,6 @@ fn min_max(board: &Vec<Point>) -> (i32, i32, i32, i32) {
 }
 
 fn print_board(board: &Vec<Point>, min_max: (i32, i32, i32, i32)) {
-//    let min_max = min_max(&board);  // (min_x, max_x, min_y, max_y)
-
     println!("Board from x: [ {} .. {} ]   y: [ {} .. {} ]", min_max.0, min_max.1, min_max.2, min_max.3);
     println!();
 
