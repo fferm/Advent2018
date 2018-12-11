@@ -9,7 +9,7 @@ struct Coord {
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Hash)]
 struct Grid {
     top_left: Coord,
-    size: isize
+    bottom_right: Coord,
 }
 
 fn main() {
@@ -33,13 +33,15 @@ fn main() {
         println!("Analyzing size {}", size);
         for y in 1..302 - size {
             for x in 1..302 - size {
-                let c = Coord{x: x, y: y};
+                let top_left = Coord{x: x, y: y};
+                let bottom_right = Coord{x: x + size - 1, y: y + size - 1};
+                let grid = Grid{top_left: top_left, bottom_right: bottom_right};
 
-                let total_power = grid_power(c, &power_levels, size, &mut grids);
+                let total_power = grid_power(grid, &power_levels, &mut grids);
 
                 if total_power > max_power {
                     max_power = total_power;
-                    max_top_left = c.clone();
+                    max_top_left = grid.top_left.clone();
                     max_size = size.clone();
                 }
             }
@@ -65,28 +67,63 @@ fn power_level(c: Coord, grid_serial_number: isize) -> isize {
     return power_level;
 }
 
-fn grid_power(c: Coord, power_levels: &HashMap<Coord, isize>, size: isize, grids: &mut HashMap<Grid, isize>) -> isize {
-    let smaller_grid = Grid{top_left: c.clone(), size: size - 1};
+fn grid_power(grid: Grid, power_levels: &HashMap<Coord, isize>, grids: &mut HashMap<Grid, isize>) -> isize {
+    if grids.contains_key(&grid) {
+        return *grids.get(&grid).unwrap();
+    }
+
+
+
+    let x_size = grid.bottom_right.x - grid.top_left.x + 1;
+    let y_size = grid.bottom_right.y - grid.top_left.y + 1;
 
     let mut total_power = 0;
 
-    if grids.contains_key(&smaller_grid) {
-        total_power = 0 + grids.get(&smaller_grid).unwrap();
-        for dx in 0..size {
-            total_power = total_power + power_levels.get(&Coord{x: c.x + dx, y: c.y + size - 1}).unwrap()
-        }
-        for dy in 0..size - 1 {
-            total_power = total_power + power_levels.get(&Coord{x: c.x + size - 1, y: c.y + dy}).unwrap()
-        }
-    } else {
-        for dx in 0..size {
-            for dy in 0..size {
-                total_power = total_power + power_levels.get(&Coord{x: c.x + dx, y: c.y + dy}).unwrap()
-            }
-        }
-    }
+    if x_size == 1 && y_size == 1 {
+        total_power = total_power + power_levels.get(&grid.top_left).unwrap();
+    } else if x_size == 1 {
+        let x = grid.top_left.x;
+        let mid_y = grid.top_left.y + (y_size / 2);
 
-    grids.insert(Grid{top_left:c.clone(), size: size}, total_power);
+        let grid1 = Grid{top_left: grid.top_left, bottom_right: Coord{x, y: mid_y - 1}};
+        let grid2 = Grid{top_left: Coord{x: x, y: mid_y}, bottom_right: grid.bottom_right};
+
+        total_power = total_power + grid_power(grid1, power_levels, grids);
+        total_power = total_power + grid_power(grid2, power_levels, grids);
+
+    } else if y_size == 1 {
+        let mid_x = grid.top_left.x + (x_size / 2);
+        let y = grid.top_left.y;
+
+        let grid1 = Grid{top_left: grid.top_left, bottom_right: Coord{x: mid_x - 1, y: y}};
+        let grid2 = Grid{top_left: Coord{x: mid_x, y: y}, bottom_right: grid.bottom_right};
+
+        total_power = total_power + grid_power(grid1, power_levels, grids);
+        total_power = total_power + grid_power(grid2, power_levels, grids);
+    } else {
+        let mid_x = grid.top_left.x + (x_size / 2);
+        let mid_y = grid.top_left.y + (y_size / 2);
+
+        let grid1 = Grid{top_left: grid.top_left, bottom_right: Coord{x: mid_x - 1, y: mid_y - 1}};
+        let grid2 = Grid{top_left: Coord{x: mid_x, y: grid.top_left.y}, bottom_right: Coord{x: grid.bottom_right.x, y: mid_y - 1}};
+        let grid3 = Grid{top_left: Coord{x: grid.top_left.x, y: mid_y}, bottom_right: Coord{x: mid_x - 1,y: grid.bottom_right.y}};
+        let grid4 = Grid{top_left: Coord{x: mid_x, y: mid_y}, bottom_right: grid.bottom_right};
+
+        total_power = total_power + grid_power(grid1, power_levels, grids);
+        total_power = total_power + grid_power(grid2, power_levels, grids);
+        total_power = total_power + grid_power(grid3, power_levels, grids);
+        total_power = total_power + grid_power(grid4, power_levels, grids);
+
+    }
+    grids.insert(grid, total_power);
 
     return total_power;
 }
+
+
+
+
+
+
+
+
