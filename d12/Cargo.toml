@@ -1,0 +1,6 @@
+[package]
+name = "d12"
+version = "0.1.0"
+authors = ["Fredrik Ferm <fredrik@fermitet.se>"]
+
+[dependencies]
