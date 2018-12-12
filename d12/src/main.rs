@@ -16,7 +16,7 @@ struct RuleSelector {
 
 fn main() {
     let small_input = false;
-    let num_generations = 20;
+    let num_generations: isize = 50000000000;
 
     let filename: &str;
     if small_input {
@@ -25,7 +25,7 @@ fn main() {
         filename = "input.txt";
     }
 
-    let input = read_inputs(filename);
+/*    let input = read_inputs(filename);
     let initial_state = input.0;
     let rules = input.1;
 
@@ -33,19 +33,32 @@ fn main() {
 
     let mut current_gen = 0;
     let print_min = minmax.0 - 5;
-    let print_max = minmax.1 + 10;
-    print_header(print_min, print_max);
-    print_state(&initial_state, current_gen, print_min, print_max);
+    let print_max = minmax.1 + 100;
+//    print_header(print_min, print_max);
+//    print_state(&initial_state, current_gen, print_min, print_max);
 
     let mut working_state = initial_state;
     while current_gen < num_generations {
         current_gen += 1;
 
         working_state = run_generation(&working_state, &rules);
-        print_state(&working_state, current_gen, print_min, print_max);
+
+        if current_gen % 1000 == 0{
+            println!("Current: {}   target: {}", current_gen, num_generations);
+        }
+//        print_state(&working_state, current_gen, print_min, print_max);
+        println!("Current: {}   target: {}   answer: {}", current_gen, num_generations, sum_of_state(&working_state));
     }
 
-    println!("Answer is {}", sum_of_state(&working_state));
+    println!("Answer is {}", sum_of_state(&working_state));*/
+
+    let mut answer: usize;
+    let m: usize = 1113;
+    let k: usize = 75;
+    let x: usize = 50 * 1000 * 1000 * 1000;
+
+    println!("k: {}  x: {}  m: {}   kx + m: {}", k, x, m, k * x + m);
+    println!("max usize: {}", std::usize::MAX);
 }
 
 fn run_generation(working_state: &HashSet<isize>, rules: &HashMap<RuleSelector, bool>) -> HashSet<isize>{
