@@ -1,6 +1,7 @@
 use std::fs;
 use std::cell::Cell;
 use std::collections::HashMap;
+use std::collections::HashSet;
 use std::fmt;
 
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy)]
@@ -24,8 +25,19 @@ impl Direction {
 
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Hash)]
 struct Coord {
-    x: isize,
-    y: isize
+    y: isize,
+    x: isize
+}
+
+impl Coord {
+    fn mv(&self, dir: Direction) -> Coord {
+        match dir {
+            Direction::Left => Coord{x: self.x - 1, y: self.y},
+            Direction::Right => Coord{x: self.x + 1, y: self.y},
+            Direction::Up => Coord{x: self.x, y: self.y - 1},
+            Direction::Down => Coord{x: self.x, y: self.y + 1}
+        }
+    }
 }
 
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy)]
@@ -85,7 +97,7 @@ struct Track {
 
 struct Sim {
     tracks: HashMap<Coord, Track>,
-    carts: HashMap<Coord, Cart>
+    carts: Vec<Cart>
 }
 
 impl Sim {
@@ -110,26 +122,27 @@ impl Sim {
             }
         }
 
-        for (coord, _cart) in &self.carts {
-            if coord.x > max_x {
-                max_x = coord.x;
+        for cart in &self.carts {
+            if cart.pos.get().x > max_x {
+                max_x = cart.pos.get().x;
             }
-            if coord.x < min_x {
-                min_x = coord.x;
+            if cart.pos.get().x < min_x {
+                min_x = cart.pos.get().x;
             }
-            if coord.y > max_y {
-                max_y = coord.y;
+            if cart.pos.get().y > max_y {
+                max_y = cart.pos.get().y;
             }
-            if coord.y < min_y {
-                min_y = coord.y;
+            if cart.pos.get().y < min_y {
+                min_y = cart.pos.get().y;
             }
         }
         return (min_x, max_x, min_y, max_y)
     }
     fn tic(&mut self) {
-        let mut new_carts = HashMap::new();
-        for (coord, cart) in &self.carts {
-            let current_track = self.tracks.get(&coord).unwrap();
+        &self.carts.sort();
+
+        for cart in &self.carts {
+            let current_track = self.tracks.get(&cart.pos.get()).unwrap();
 
             // Turn if needed
             if current_track.symbol == '/' || current_track.symbol == '\\' {
@@ -151,28 +164,31 @@ impl Sim {
                 Direction::Down => cart.symbol.set('v')
             }
 
-
             // Move in new direction
-            let mut new_coord = Coord{x: 0, y: 0};
-            match cart.direction.get() {
-                Direction::Left => new_coord = Coord{x: coord.x - 1, y: coord.y},
-                Direction::Right => new_coord = Coord{x: coord.x + 1, y: coord.y},
-                Direction::Up => new_coord = Coord{x: coord.x, y: coord.y - 1},
-                Direction::Down => new_coord = Coord{x: coord.x, y: coord.y + 1}
-            }
+            let new_coord = cart.pos.get().mv(cart.direction.get());
 
             cart.pos.set(new_coord);
 
-            let old_num = new_carts.len();
-            new_carts.insert(new_coord, cart.clone());
-            let new_num = new_carts.len();
+            for other_cart in &self.carts {
+                if other_cart == cart {
+                    continue;
+                }
+                if other_cart.pos.get() == cart.pos.get() {
+                    println!("Found collision at: {:?}", cart.pos.get());
+                    panic!();
+                }
+            }
 
-            if old_num != new_num - 1 {
-                println!("Crash at: {:?}    old_num: {}, new_num: {}", new_coord, old_num, new_num);
-                panic!();
+        }
+    }
+
+    fn get_cart_at(&self, coord: Coord) -> Option<Cart> {
+        for cart in &self.carts {
+            if cart.pos.get() == coord {
+                return Some(cart.clone());
             }
         }
-        self.carts = new_carts;
+        return None;
     }
 }
 impl fmt::Debug for Sim {
@@ -185,12 +201,14 @@ impl fmt::Debug for Sim {
         let max_y = minmax.3;
 
         let mut ret = "".to_owned();
+//        print!("{}[2J", 27 as char);
 
         for y in min_y .. max_y + 1 {
             for x in min_x .. max_x + 1 {
                 let coord = Coord{x: x, y: y};
-                if self.carts.contains_key(&coord) {
-                    ret.push(self.carts.get(&coord).unwrap().symbol.get())
+                let cart_at_coord = self.get_cart_at(coord);
+                if cart_at_coord.is_some() {
+                    ret.push(cart_at_coord.unwrap().symbol.get())
                 } else if self.tracks.contains_key(&coord) {
                     ret.push(self.tracks.get(&coord).unwrap().symbol)
                 } else {
@@ -218,15 +236,16 @@ fn main() {
     println!("{:?}", sim);
 
     let mut i = 0;
-    loop {
+    while i < 1000 {
         sim.tic();
-        if small_input {
+//        if small_input {
             println!("{:?}", sim);
-        }
-
-            println!("Generation: {}", i);
+//        }
 
         i += 1;
+
+        println!("Generation: {}    num_carts: {}", i, sim.carts.len());
+
     }
 }
 
@@ -251,21 +270,21 @@ fn read_inputs(filename: &str) -> Sim {
     }
 
     let mut tracks = HashMap::new();
-    let mut carts = HashMap::new();
+    let mut carts = Vec::new();
 
     for (coord, c) in chars.clone() {
         if c == ">" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Left, Direction::Right], symbol: '-'});
-            carts.insert(coord, Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Right), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('>')});
+            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Right), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('>')});
         } else if c == "<" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Left, Direction::Right], symbol: '-'});
-            carts.insert(coord, Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Left), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('<')});
+            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Left), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('<')});
         } else if c == "v" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Up, Direction::Down], symbol: '|'});
-            carts.insert(coord, Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Down), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('v')});
+            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Down), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('v')});
         } else if c == "^" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Up, Direction::Down], symbol: '|'});
-            carts.insert(coord, Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Up), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('^')});
+            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Up), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('^')});
         } else if c == "-" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Left, Direction::Right], symbol: '-'});
         } else if c == "|" {
