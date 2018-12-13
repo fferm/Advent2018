@@ -1,8 +1,35 @@
 use std::fs;
 use std::cell::Cell;
 use std::collections::HashMap;
-use std::collections::HashSet;
 use std::fmt;
+
+fn main() {
+    let small_input = false;
+    let show_anyway = true;
+
+    let filename: &str;
+    if small_input {
+        filename = "input_small.txt";
+    } else {
+        filename = "input.txt";
+    }
+
+    let mut sim = read_inputs(filename);
+    println!("{:?}", sim);
+
+    let mut i = 0;
+    while i < 10000 {
+        sim.tic();
+        if small_input || show_anyway {
+            println!("{:?}", sim);
+        }
+
+        i += 1;
+
+        println!("Generation: {}    num_carts: {}", i, sim.carts.len());
+
+    }
+}
 
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy)]
 enum Direction {
@@ -38,13 +65,19 @@ impl Coord {
             Direction::Down => Coord{x: self.x, y: self.y + 1}
         }
     }
+
+    fn manhattan_distance(&self, other: Coord) -> isize {
+        let x_dist = (self.x - other.x).abs();
+        let y_dist = (self.y - other.y).abs();
+
+        return x_dist + y_dist;
+    }
 }
 
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy)]
 enum TurnDirection {
     Left,
     Straight,
-    Straight2,
     Right
 }
 
@@ -52,7 +85,6 @@ impl TurnDirection {
     fn new_direction(&self, old_cart_direction:Direction) -> Direction {
         match *self {
             TurnDirection::Straight => old_cart_direction,
-            TurnDirection::Straight2 => old_cart_direction,
             TurnDirection::Left => {
                 match old_cart_direction {
                     Direction::Up => Direction::Left,
@@ -75,8 +107,7 @@ impl TurnDirection {
         match *self {
             TurnDirection::Left => TurnDirection::Straight,
             TurnDirection::Straight => TurnDirection::Right,
-            TurnDirection::Right => TurnDirection::Straight2,
-            TurnDirection::Straight2 => TurnDirection::Left
+            TurnDirection::Right => TurnDirection::Left,
         }
     }
 }
@@ -150,8 +181,10 @@ impl Sim {
                 let dir2 = current_track.directions.get(1).unwrap();
                 if cart.direction.get() == (*dir1).opposite() {
                     cart.direction.set(*dir2);
-                } else {
+                } else if cart.direction.get() == (*dir2).opposite() {
                     cart.direction.set(*dir1);
+                } else {
+                    panic!("Unknown cart direction: {:?}", cart);
                 }
             } else if current_track.symbol == '+' {
                 cart.direction.set(cart.next_turn.get().new_direction(cart.direction.get()));
@@ -172,6 +205,10 @@ impl Sim {
             for other_cart in &self.carts {
                 if other_cart == cart {
                     continue;
+                }
+                let manhattan = cart.pos.get().manhattan_distance(other_cart.pos.get());
+                if manhattan < 2 {
+                    println!("Manhattan distance {} between {:?} and {:?}", manhattan, cart.pos.get(), other_cart.pos.get());
                 }
                 if other_cart.pos.get() == cart.pos.get() {
                     println!("Found collision at: {:?}", cart.pos.get());
@@ -222,32 +259,6 @@ impl fmt::Debug for Sim {
     }
 }
 
-fn main() {
-    let small_input = true;
-
-    let filename: &str;
-    if small_input {
-        filename = "input_small.txt";
-    } else {
-        filename = "input.txt";
-    }
-
-    let mut sim = read_inputs(filename);
-    println!("{:?}", sim);
-
-    let mut i = 0;
-    while i < 1000 {
-        sim.tic();
-//        if small_input {
-            println!("{:?}", sim);
-//        }
-
-        i += 1;
-
-        println!("Generation: {}    num_carts: {}", i, sim.carts.len());
-
-    }
-}
 
 
 fn read_inputs(filename: &str) -> Sim {
@@ -291,26 +302,30 @@ fn read_inputs(filename: &str) -> Sim {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Up, Direction::Down], symbol: '|'});
         } else if c == "+" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Up, Direction::Down, Direction::Left, Direction::Right], symbol: '+'});
+        } else if c != "/" && c != "\\" {
+            panic!("Unknown char: {}  at {:?}", c, coord);
         }
     }
 
     for (coord, c) in chars.clone() {
-        if c == "/" {
-            let to_right = Coord{x: coord.x + 1, y: coord.y};
+        let to_right = coord.mv(Direction::Right);
+        let to_left = coord.mv(Direction::Left);
 
+        if c == "/" {
             if tracks.contains_key(&to_right) && tracks.get(&to_right).unwrap().directions.contains(&Direction::Left) {
                 tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Right, Direction::Down], symbol: '/'});
-            } else {
+            } else if tracks.contains_key(&to_left) && tracks.get(&to_left).unwrap().directions.contains(&Direction::Right) {
                 tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Left, Direction::Up], symbol: '/'});
+            } else {
+                panic!("Unknown turn {}  at {:?}", c, coord);
             }
-        }
-        if c == "\\" {
-            let to_right = Coord{x: coord.x + 1, y: coord.y};
-
+        } else if c == "\\" {
             if tracks.contains_key(&to_right) && tracks.get(&to_right).unwrap().directions.contains(&Direction::Left) {
                 tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Right, Direction::Up], symbol: '\\'});
-            } else {
+            } else if tracks.contains_key(&to_left) && tracks.get(&to_left).unwrap().directions.contains(&Direction::Right) {
                 tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Left, Direction::Down], symbol: '\\'});
+            } else {
+                panic!("Unknown turn {}  at {:?}", c, coord);
             }
         }
     }
