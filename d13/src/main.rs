@@ -5,7 +5,7 @@ use std::fmt;
 
 fn main() {
     let small_input = false;
-    let show_anyway = true;
+    let show_anyway = false;
 
     let filename: &str;
     if small_input {
@@ -18,16 +18,23 @@ fn main() {
     println!("{:?}", sim);
 
     let mut i = 0;
-    while i < 10000 {
-        sim.tic();
+    while sim.num_remaining_carts() > 1 {
+        &sim.tic();
         if small_input || show_anyway {
-            println!("{:?}", sim);
+            println!("{:?}", &sim);
         }
 
         i += 1;
 
-        println!("Generation: {}    num_carts: {}", i, sim.carts.len());
+//        println!("Generation: {}    num_carts: {}", i, sim.num_remaining_carts());
 
+    }
+
+    for cart in &sim.carts {
+        if !cart.alive.get() {
+            continue;
+        }
+        println!("Last cart is at: {:?}", cart.pos.get());
     }
 }
 
@@ -64,13 +71,6 @@ impl Coord {
             Direction::Up => Coord{x: self.x, y: self.y - 1},
             Direction::Down => Coord{x: self.x, y: self.y + 1}
         }
-    }
-
-    fn manhattan_distance(&self, other: Coord) -> isize {
-        let x_dist = (self.x - other.x).abs();
-        let y_dist = (self.y - other.y).abs();
-
-        return x_dist + y_dist;
     }
 }
 
@@ -113,10 +113,12 @@ impl TurnDirection {
 }
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone)]
 struct Cart {
+    id: isize,
     pos: Cell<Coord>,
     direction: Cell<Direction>,
     next_turn: Cell<TurnDirection>,
-    symbol: Cell<char>
+    symbol: Cell<char>,
+    alive: Cell<bool>
 }
 
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone)]
@@ -169,10 +171,15 @@ impl Sim {
         }
         return (min_x, max_x, min_y, max_y)
     }
+
     fn tic(&mut self) {
         &self.carts.sort();
 
         for cart in &self.carts {
+            if !cart.alive.get() {
+                continue;
+            }
+
             let current_track = self.tracks.get(&cart.pos.get()).unwrap();
 
             // Turn if needed
@@ -203,29 +210,46 @@ impl Sim {
             cart.pos.set(new_coord);
 
             for other_cart in &self.carts {
-                if other_cart == cart {
+                if !(other_cart.alive.get()) {
                     continue;
                 }
-                let manhattan = cart.pos.get().manhattan_distance(other_cart.pos.get());
-                if manhattan < 2 {
-                    println!("Manhattan distance {} between {:?} and {:?}", manhattan, cart.pos.get(), other_cart.pos.get());
+                if other_cart.id == cart.id {
+                    continue;
                 }
                 if other_cart.pos.get() == cart.pos.get() {
-                    println!("Found collision at: {:?}", cart.pos.get());
-                    panic!();
+                    other_cart.alive.set(false);
+                    cart.alive.set(false);
+                    println!("Found collision at: {:?} between carts {} and {}    Num carts left: {}", cart.pos.get(), cart.id, other_cart.id, self.num_remaining_carts());
                 }
             }
-
         }
     }
 
     fn get_cart_at(&self, coord: Coord) -> Option<Cart> {
         for cart in &self.carts {
+            if !cart.alive.get() {
+                continue;
+            }
             if cart.pos.get() == coord {
                 return Some(cart.clone());
             }
         }
         return None;
+    }
+
+    fn remove_cart(&self, cart: Cart) {
+        cart.alive.set(false);
+    }
+
+    fn num_remaining_carts(&self) -> isize {
+        let mut count = 0;
+
+        for cart in &self.carts {
+            if cart.alive.get() {
+                count += 1;
+            }
+        }
+        return count;
     }
 }
 impl fmt::Debug for Sim {
@@ -244,7 +268,7 @@ impl fmt::Debug for Sim {
             for x in min_x .. max_x + 1 {
                 let coord = Coord{x: x, y: y};
                 let cart_at_coord = self.get_cart_at(coord);
-                if cart_at_coord.is_some() {
+                if cart_at_coord.is_some() /*&& cart_at_coord.unwrap().alive.get() */{
                     ret.push(cart_at_coord.unwrap().symbol.get())
                 } else if self.tracks.contains_key(&coord) {
                     ret.push(self.tracks.get(&coord).unwrap().symbol)
@@ -283,19 +307,24 @@ fn read_inputs(filename: &str) -> Sim {
     let mut tracks = HashMap::new();
     let mut carts = Vec::new();
 
+    let mut cart_id: isize = 0;
     for (coord, c) in chars.clone() {
         if c == ">" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Left, Direction::Right], symbol: '-'});
-            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Right), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('>')});
+            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Right), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('>'), id: cart_id, alive: Cell::new(true)});
+            cart_id += 1;
         } else if c == "<" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Left, Direction::Right], symbol: '-'});
-            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Left), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('<')});
+            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Left), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('<'), id: cart_id, alive: Cell::new(true)});
+            cart_id += 1;
         } else if c == "v" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Up, Direction::Down], symbol: '|'});
-            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Down), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('v')});
+            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Down), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('v'), id: cart_id, alive: Cell::new(true)});
+            cart_id += 1;
         } else if c == "^" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Up, Direction::Down], symbol: '|'});
-            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Up), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('^')});
+            carts.push(Cart{pos: Cell::new(coord), direction: Cell::new(Direction::Up), next_turn: Cell::new(TurnDirection::Left), symbol: Cell::new('^'), id: cart_id, alive: Cell::new(true)});
+            cart_id += 1;
         } else if c == "-" {
             tracks.insert(coord, Track{pos: coord, directions: vec![Direction::Left, Direction::Right], symbol: '-'});
         } else if c == "|" {
