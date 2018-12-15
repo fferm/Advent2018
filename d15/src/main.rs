@@ -15,7 +15,9 @@ fn main() {
     }
 
     let mut sim = read_inputs(filename);
+    println!("{:?}", sim);
 
+    sim.run_round();
     println!("{:?}", sim);
 }
 
@@ -66,6 +68,92 @@ struct Sim {
     y_size: usize
 }
 
+impl Sim {
+    fn run_round(&mut self) {
+        // Sort players
+        self.players.sort();
+
+        for player in &self.players {
+            println!("Player at: {}, {}", player.pos.get().x, player.pos.get().y);
+
+            // Move
+            for enemy in &self.players {
+                if enemy.player_type == player.player_type {
+                    continue;
+                }
+
+                let coords_in_range = enemy.pos.get().coords_in_range();
+                for potential_move in coords_in_range {
+                    if self.walls.contains(&potential_move) {
+                        continue;
+                    }
+
+                    let movement_info = self.player_movement_info(player, potential_move, player.pos.get());
+
+                    if !movement_info.0 {
+                        println!("Cannot reach {:?}", potential_move);
+                        continue;
+                    }
+
+                    println!("In range: {:?}   Distance: {}", potential_move, movement_info.1);
+                }
+
+
+            }
+
+            // Attack
+        }
+    }
+
+    fn player_movement_info(&self, player: &Player, target: Coord, starting_point: Coord) -> (bool, usize) {
+        let mut distances: HashMap<Coord, usize> = HashMap::new();
+        distances.insert(starting_point, 0);
+
+        let mut positions = vec![starting_point];
+
+        while positions.len() > 0 {
+            let current_position = positions.pop().unwrap();
+            let current_distance = distances.get(&current_position).unwrap();
+
+            let in_range_from_current = current_position.coords_in_range();
+
+            for candidate in in_range_from_current {
+                if self.walls.contains(&candidate) {
+                    continue;
+                }
+                if self.get_player_at(candidate).is_some() {
+                    continue;
+                }
+
+                if distances.contains_key(&candidate) {
+                    continue;
+                }
+
+                if candidate == target {
+                    return (true, current_distance + 1);
+                }
+
+                distances.insert(candidate, current_distance + 1);
+                positions.push(candidate);
+            }
+
+        }
+
+        return (false, 0);
+
+    }
+
+    fn get_player_at(&self, pos: Coord) -> Option<&Player> {
+        for player in &self.players {
+            if player.pos.get() == pos {
+                return Some(player);
+            }
+        }
+        return None;
+    }
+
+}
+
 impl fmt::Debug for Sim {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let mut ret = "".to_owned();
@@ -78,17 +166,13 @@ impl fmt::Debug for Sim {
                     ch = "#";
                 }
 
-                for player in &self.players {
-                    if player.pos.get() == coord {
-                        match player.player_type {
-                            PlayerType::Elf => ch = "E",
-                            PlayerType::Goblin => ch = "G"
-                        }
+                let player_at_option = self.get_player_at(coord);
+                if player_at_option.is_some() {
+                    match player_at_option.unwrap().player_type {
+                        PlayerType::Elf => ch = "E",
+                        PlayerType::Goblin => ch = "G"
                     }
                 }
-
-
-
 
                 ret.push_str(&ch);
             }
@@ -100,10 +184,10 @@ impl fmt::Debug for Sim {
 }
 
 
-#[derive(Debug)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq)]
 struct Player {
+    pos: Cell<Coord>,           // position must be first so that players are sorted in reading order
     player_type: PlayerType,
-    pos: Cell<Coord>,
     hit_points: Cell<isize>,
     attack_power: isize
 }
@@ -117,15 +201,26 @@ impl Player {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq)]
 enum PlayerType {
     Elf,
     Goblin
 }
 
-#[derive(Debug, Eq, PartialEq, Hash, Copy, Clone)]
+#[derive(Debug, Eq, PartialEq, Hash, Copy, Clone, Ord, PartialOrd)]
 struct Coord {
-    y: usize,
+    y: usize,               // y must be before x so that positions are sorted in reading order
     x: usize
+}
+
+impl Coord {
+    fn coords_in_range(&self) -> Vec<Coord> {
+        return vec![
+            Coord{x: self.x + 1, y: self.y},
+            Coord{x: self.x - 1, y: self.y},
+            Coord{x: self.x, y: self.y + 1},
+            Coord{x: self.x, y: self.y - 1}
+        ];
+    }
 }
 
