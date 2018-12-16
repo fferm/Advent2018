@@ -3,12 +3,10 @@ extern crate regex;
 use std::fs;
 use regex::Regex;
 use std::cell::Cell;
-use std::collections::HashMap;
-use std::collections::HashSet;
 use std::fmt;
 
 fn main() {
-    let mut small_input = true;
+    let mut small_input = false;
     let filename;
 
     if small_input {
@@ -18,7 +16,16 @@ fn main() {
     }
 
     let mut program = read_inputs(filename);
-    println!("{:?}", program);
+
+    let mut counter = 0;
+    for step in program.steps {
+        let count = step.run_all_instructions();
+        if count >= 3 {
+            counter += 1;
+        }
+    }
+
+    println!("{} codes with more than 3", counter);
 }
 
 
@@ -56,7 +63,7 @@ fn read_register_line(line: &str, starting_text: &str) -> Registers {
     let regex = starting_text.to_owned() + "\\[(\\d+), (\\d+), (\\d+), (\\d+)\\]";
     let re = Regex::new(&regex[..]).unwrap();
     let cap = re.captures_iter(line).next().expect("Error in capturing regex");
-    let register = Registers{r0: Cell::new(cap[1].parse().unwrap()), r1: Cell::new(cap[2].parse().unwrap()), r2: Cell::new(cap[3].parse().unwrap()), r3: Cell::new(cap[4].parse().unwrap())};
+    let register = Registers{r0: cap[1].parse().unwrap(), r1: cap[2].parse().unwrap(), r2: cap[3].parse().unwrap(), r3: cap[4].parse().unwrap()};
 
     return register;
 
@@ -74,12 +81,91 @@ struct Step {
     instruction: Instruction
 }
 
-#[derive(Debug)]
+impl Step {
+    fn run_all_instructions(&self) -> isize {
+        let mut result = 0;
+
+        if self.instruction.perform_addr(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_addi(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_mulr(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_muli(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_banr(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_bani(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_borr(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_bori(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_setr(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_seti(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_gtir(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_gtri(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_gtrr(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_eqir(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_eqri(self.before) == self.after {
+            result += 1;
+        }
+        if self.instruction.perform_eqrr(self.before) == self.after {
+            result += 1;
+        }
+
+        return result;
+    }
+}
+
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 struct Registers {
-    r0: Cell<isize>,
-    r1: Cell<isize>,
-    r2: Cell<isize>,
-    r3: Cell<isize>
+    r0: isize,
+    r1: isize,
+    r2: isize,
+    r3: isize
+}
+
+impl Registers {
+    fn set(&mut self, idx: isize, value: isize) {
+        match idx {
+            0 => self.r0 = value,
+            1 => self.r1 = value,
+            2 => self.r2 = value,
+            3 => self.r3 = value,
+            _ => panic!("Unknownn idx: {}", idx)
+        }
+    }
+
+    fn get(&self, idx: isize) -> isize {
+        match idx {
+            0 => return self.r0,
+            1 => return self.r1,
+            2 => return self.r2,
+            3 => return self.r3,
+            _ => panic!("Unknownn idx: {}", idx)
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -88,4 +174,206 @@ struct Instruction {
     a: isize,
     b: isize,
     c: isize
+}
+
+impl Instruction {
+    fn perform_addr(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = input.get(self.b);
+
+        reg.set(self.c, v1 + v2);
+
+        return reg;
+    }
+
+    fn perform_addi(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = self.b;
+
+        reg.set(self.c, v1 + v2);
+
+        return reg;
+    }
+
+    fn perform_mulr(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = input.get(self.b);
+
+        reg.set(self.c, v1 * v2);
+
+        return reg;
+    }
+
+    fn perform_muli(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = self.b;
+
+        reg.set(self.c, v1 * v2);
+
+        return reg;
+    }
+
+    fn perform_banr(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = input.get(self.b);
+
+        reg.set(self.c, v1 & v2);
+
+        return reg;
+    }
+
+    fn perform_bani(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = self.b;
+
+        reg.set(self.c, v1 & v2);
+
+        return reg;
+    }
+
+    fn perform_borr(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = input.get(self.b);
+
+        reg.set(self.c, v1 | v2);
+
+        return reg;
+    }
+
+    fn perform_bori(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = self.b;
+
+        reg.set(self.c, v1 | v2);
+
+        return reg;
+    }
+
+    fn perform_setr(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+
+        reg.set(self.c, v1);
+
+        return reg;
+    }
+
+    fn perform_seti(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = self.a;
+
+        reg.set(self.c, v1);
+
+        return reg;
+    }
+
+    fn perform_gtir(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = self.a;
+        let v2 = input.get(self.b);
+
+        let mut result = 0;
+        if v1 > v2 {
+            result = 1;
+        }
+        reg.set(self.c, result);
+
+        return reg;
+    }
+
+    fn perform_gtri(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = self.b;
+
+        let mut result = 0;
+        if v1 > v2 {
+            result = 1;
+        }
+
+        reg.set(self.c, result);
+
+        return reg;
+    }
+
+    fn perform_gtrr(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = input.get(self.b);
+
+        let mut result = 0;
+        if v1 > v2 {
+            result = 1;
+        }
+        reg.set(self.c, result);
+
+        return reg;
+    }
+
+    fn perform_eqir(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = self.a;
+        let v2 = input.get(self.b);
+
+        let mut result = 0;
+        if v1 == v2 {
+            result = 1;
+        }
+        reg.set(self.c, result);
+
+        return reg;
+    }
+
+    fn perform_eqri(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = self.b;
+
+        let mut result = 0;
+        if v1 == v2 {
+            result = 1;
+        }
+
+        reg.set(self.c, result);
+
+        return reg;
+    }
+
+    fn perform_eqrr(&self, input: Registers) -> Registers {
+        let mut reg =input.clone();
+
+        let v1 = input.get(self.a);
+        let v2 = input.get(self.b);
+
+        let mut result = 0;
+        if v1 == v2 {
+            result = 1;
+        }
+        reg.set(self.c, result);
+
+        return reg;
+    }
 }
