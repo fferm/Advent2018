@@ -1,0 +1,22 @@
+opcode:  9, possible: ["addr"]
+opcode: 10, possible: ["addi"]
+
+opcode:  1, possible: ["mulr"]
+opcode: 15, possible: ["muli"]
+
+opcode:  6, possible: ["banr"]
+opcode:  8, possible: ["bani"]
+
+opcode:  5, possible: ["borr"]
+opcode:  4, possible: ["bori"]
+
+opcode: 14, possible: ["setr"]
+opcode:  2, possible: ["seti"]
+
+opcode:  0, possible: ["gtir"]
+opcode: 12, possible: ["gtri"]
+opcode:  3, possible: ["gtrr"]
+
+opcode: 13, possible: ["eqir"]
+opcode:  7, possible: ["eqri"]
+opcode: 11, possible: ["eqrr"]

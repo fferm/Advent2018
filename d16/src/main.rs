@@ -3,7 +3,6 @@ extern crate regex;
 use std::fs;
 use regex::Regex;
 use std::cell::Cell;
-use std::fmt;
 
 fn main() {
     let mut small_input = false;
@@ -17,15 +16,11 @@ fn main() {
 
     let mut program = read_inputs(filename);
 
-    let mut counter = 0;
     for step in program.steps {
-        let count = step.run_all_instructions();
-        if count >= 3 {
-            counter += 1;
-        }
+        let mut possible = step.run_all_instructions();
+        possible.sort();
+        println!("opcode: {:2}, possible: {:?}", step.instruction.op_code, possible);
     }
-
-    println!("{} codes with more than 3", counter);
 }
 
 
@@ -82,56 +77,56 @@ struct Step {
 }
 
 impl Step {
-    fn run_all_instructions(&self) -> isize {
-        let mut result = 0;
+    fn run_all_instructions(&self) -> Vec<String> {
+        let mut result = Vec::new();
 
         if self.instruction.perform_addr(self.before) == self.after {
-            result += 1;
+            result.push("addr".to_owned());
         }
         if self.instruction.perform_addi(self.before) == self.after {
-            result += 1;
+            result.push("addi".to_owned());
         }
         if self.instruction.perform_mulr(self.before) == self.after {
-            result += 1;
+            result.push("mulr".to_owned());
         }
         if self.instruction.perform_muli(self.before) == self.after {
-            result += 1;
+            result.push("muli".to_owned());
         }
         if self.instruction.perform_banr(self.before) == self.after {
-            result += 1;
+            result.push("banr".to_owned());
         }
         if self.instruction.perform_bani(self.before) == self.after {
-            result += 1;
+            result.push("bani".to_owned());
         }
         if self.instruction.perform_borr(self.before) == self.after {
-            result += 1;
+            result.push("borr".to_owned());
         }
         if self.instruction.perform_bori(self.before) == self.after {
-            result += 1;
+            result.push("bori".to_owned());
         }
         if self.instruction.perform_setr(self.before) == self.after {
-            result += 1;
+            result.push("setr".to_owned());
         }
         if self.instruction.perform_seti(self.before) == self.after {
-            result += 1;
+            result.push("seti".to_owned());
         }
         if self.instruction.perform_gtir(self.before) == self.after {
-            result += 1;
+            result.push("gtir".to_owned());
         }
         if self.instruction.perform_gtri(self.before) == self.after {
-            result += 1;
+            result.push("gtri".to_owned());
         }
         if self.instruction.perform_gtrr(self.before) == self.after {
-            result += 1;
+            result.push("gtrr".to_owned());
         }
         if self.instruction.perform_eqir(self.before) == self.after {
-            result += 1;
+            result.push("eqir".to_owned());
         }
         if self.instruction.perform_eqri(self.before) == self.after {
-            result += 1;
+            result.push("eqri".to_owned());
         }
         if self.instruction.perform_eqrr(self.before) == self.after {
-            result += 1;
+            result.push("eqrr".to_owned());
         }
 
         return result;
