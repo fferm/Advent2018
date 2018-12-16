@@ -1,6 +1,7 @@
 use std::fs;
 use std::cell::Cell;
 use std::collections::HashMap;
+use std::collections::hash_map::Entry;
 use std::collections::HashSet;
 use std::fmt;
 
@@ -116,8 +117,9 @@ impl Sim {
             return None;
         }
 
-        let mut routes: HashMap<Coord, Route> = HashMap::new();
-        routes.insert(player.pos.get(), Route::create_initial(player.pos.get()));
+        let mut routes = Routes::create();
+        routes.add_route(Route::create_initial(player.pos.get()));
+//        routes.insert(player.pos.get(), Route::create_initial(player.pos.get()));
 
         let mut positions = vec![player.pos.get()];
 
@@ -125,7 +127,8 @@ impl Sim {
         while positions.len() > 0 {
             let current_pos = positions.pop().unwrap();
 
-            let current_route = routes.get(&current_pos).unwrap();
+            let current_route = routes.get_route_to(&current_pos).unwrap();
+//            let current_route = routes.get(&current_pos).unwrap();
 
             let coords_in_range = current_pos.coords_in_range();
             for potential_move in coords_in_range {
@@ -142,7 +145,9 @@ impl Sim {
                     continue;
                 }
 
-                if routes.contains_key(&potential_move) && routes.get(&potential_move).unwrap().len() < route_to.len() {
+                let prev_route_to = routes.get_route_to(&potential_move);
+//                if routes.contains_key(&potential_move) && routes.get(&potential_move).unwrap().len() < route_to.len() {
+                if prev_route_to.is_some() && prev_route_to.unwrap().len() < route_to.len() {
                     // TODO: Välj rätt väg om det finns olika vägar till samma ställe
                     // Tror det är löst i och med reading order på coords_in_range
                     continue;
@@ -154,7 +159,7 @@ impl Sim {
 //                    return Some(*route_to.get(0).unwrap());
                 }
 
-                routes.insert(potential_move, route_to);
+                routes.add_route(route_to);
                 positions.push(potential_move);
             }
         }
@@ -313,6 +318,34 @@ impl Route {
 
     fn len(&self) -> usize {
         return self.steps.len() - 1;
+    }
+
+    fn get_end_pos(&self) -> Coord {
+        return *self.steps.get(self.steps.len() - 1).unwrap();
+    }
+}
+
+#[derive(Debug)]
+struct Routes {
+    routes: Vec<Route>
+}
+
+impl Routes {
+    fn create() -> Routes {
+        return Routes{routes: Vec::new()};
+    }
+
+    fn add_route(&mut self, route: Route) {
+        self.routes.push(route);
+    }
+
+    fn get_route_to(&self, to: &Coord) -> Option<&Route> {
+        for route in &(self.routes) {
+            if route.get_end_pos() == *to {
+                return Some(route);
+            }
+        }
+        return None;
     }
 }
 
