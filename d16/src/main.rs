@@ -18,6 +18,7 @@ fn main() {
     }
 
     let mut program = read_inputs(filename);
+    println!("{:?}", program);
 }
 
 
@@ -35,10 +36,14 @@ fn read_inputs(filename: &str) -> Program {
         let before_register = read_register_line(before_line, "Before: ");
 
         let instruction_line = lines.get(current_line + 1).unwrap();
-        
+        let instruction_regex = "(\\d+) (\\d+) (\\d+) (\\d+)";
+        let cap = Regex::new(&instruction_regex).unwrap().captures_iter(instruction_line).next().expect("Error in capturing instruction regex");
+        let instruction = Instruction{op_code: cap[1].parse().unwrap(), a: cap[2].parse().unwrap(), b: cap[3].parse().unwrap(), c: cap[4].parse().unwrap()};
 
         let after_line = lines.get(current_line + 2).unwrap();
         let after_register = read_register_line(after_line, "After:  ");
+
+        steps.push(Step{before: before_register, instruction: instruction, after: after_register});
 
         current_line += 4;
     }
@@ -57,10 +62,12 @@ fn read_register_line(line: &str, starting_text: &str) -> Registers {
 
 }
 
+#[derive(Debug)]
 struct Program {
     steps: Vec<Step>
 }
 
+#[derive(Debug)]
 struct Step {
     before: Registers,
     after: Registers,
@@ -75,6 +82,7 @@ struct Registers {
     r3: Cell<isize>
 }
 
+#[derive(Debug)]
 struct Instruction {
     op_code: isize,
     a: isize,
