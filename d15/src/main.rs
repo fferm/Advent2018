@@ -5,7 +5,7 @@ use std::collections::HashSet;
 use std::fmt;
 
 fn main() {
-    let mut small_input = true;
+    let small_input = true;
     let filename;
 
     if small_input {
@@ -125,7 +125,7 @@ impl Sim {
         while positions.len() > 0 {
             let current_pos = positions.pop().unwrap();
 
-            let current_route = routes.get(&current_pos).unwrap().clone();
+            let current_route = routes.get(&current_pos).unwrap();
 
             let coords_in_range = current_pos.coords_in_range();
             for potential_move in coords_in_range {
@@ -279,23 +279,36 @@ impl Coord {
     }
 }
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug)]
 struct Route {
-    steps: Cell<Vec<Coord>>,
+    steps: Vec<Coord>,
     enemy_position: Option<Coord>,
     own_end_position: Option<Coord>
 }
 
+/*impl Copy for Route {
+
+}
+impl Clone for Route {
+    fn clone(&self) -> Route {
+        let steps = self.steps.get().clone();
+        let enemy_position = self.enemy_position.clone();
+        let own_end_position = self.own_end_position.clone();
+
+        return Route{steps: Cell::new(steps), enemy_position, own_end_position};
+    }
+}*/
+
 impl Route {
     fn create_initial(starting_pos: Coord) -> Route {
-        return Route{steps: Cell::new(vec![starting_pos]), enemy_position: None, own_end_position: None}
+        return Route{steps: vec![starting_pos], enemy_position: None, own_end_position: None}
     }
 
     fn create_from_and_add(&self, pos: Coord) -> Route {
-        let mut ret: &Route = self.clone();
-        ret.steps.get_mut().push(pos);
+        let mut steps = self.steps.clone();
+        steps.push(pos);
 
-        return *ret;
+        return Route{steps: steps, enemy_position: self.enemy_position.clone(), own_end_position: self.own_end_position.clone() };
     }
 
     fn len(&self) -> usize {
