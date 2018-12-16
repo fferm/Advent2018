@@ -16,17 +16,18 @@ fn main() {
 
     let mut program = read_inputs(filename);
 
-    for step in program.steps {
-        let mut possible = step.run_all_instructions();
-        possible.sort();
-        println!("opcode: {:2}, possible: {:?}", step.instruction.op_code, possible);
+    for instruction in program.instructions {
+        let new_register = instruction.perform(program.registers.get());
+        program.registers.set(new_register);
     }
+
+    println!("Registers after program: {:?}", program.registers);
 }
 
 
 
 fn read_inputs(filename: &str) -> Program {
-    let mut steps = Vec::new();
+    let mut instructions = Vec::new();
 
     let file_contents = fs::read_to_string(filename).expect("Error in reading file");
 
@@ -34,23 +35,17 @@ fn read_inputs(filename: &str) -> Program {
     let mut current_line = 0;
 
     while current_line < lines.len() {
-        let before_line = lines.get(current_line).unwrap();
-        let before_register = read_register_line(before_line, "Before: ");
-
-        let instruction_line = lines.get(current_line + 1).unwrap();
+        let instruction_line = lines.get(current_line).unwrap();
         let instruction_regex = "(\\d+) (\\d+) (\\d+) (\\d+)";
         let cap = Regex::new(&instruction_regex).unwrap().captures_iter(instruction_line).next().expect("Error in capturing instruction regex");
         let instruction = Instruction{op_code: cap[1].parse().unwrap(), a: cap[2].parse().unwrap(), b: cap[3].parse().unwrap(), c: cap[4].parse().unwrap()};
 
-        let after_line = lines.get(current_line + 2).unwrap();
-        let after_register = read_register_line(after_line, "After:  ");
+        instructions.push(instruction);
 
-        steps.push(Step{before: before_register, instruction: instruction, after: after_register});
-
-        current_line += 4;
+        current_line += 1;
     }
 
-    let mut program = Program {steps};
+    let program = Program {instructions, registers: Cell::new(Registers{r0: 0, r1: 0, r2: 0, r3: 0})};
     return program;
 }
 
@@ -66,7 +61,8 @@ fn read_register_line(line: &str, starting_text: &str) -> Registers {
 
 #[derive(Debug)]
 struct Program {
-    steps: Vec<Step>
+    instructions: Vec<Instruction>,
+    registers: Cell<Registers>
 }
 
 #[derive(Debug)]
@@ -172,6 +168,29 @@ struct Instruction {
 }
 
 impl Instruction {
+    fn perform(&self, input: Registers) -> Registers {
+        match self.op_code {
+            0 => return self.perform_gtir(input),
+            1 => return self.perform_mulr(input),
+            2 => return self.perform_seti(input),
+            3 => return self.perform_gtrr(input),
+            4 => return self.perform_bori(input),
+            5 => return self.perform_borr(input),
+            6 => return self.perform_banr(input),
+            7 => return self.perform_eqri(input),
+            8 => return self.perform_bani(input),
+            9 => return self.perform_addr(input),
+            10 => return self.perform_addi(input),
+            11 => return self.perform_eqrr(input),
+            12 => return self.perform_gtri(input),
+            13 => return self.perform_eqir(input),
+            14 => return self.perform_setr(input),
+            15 => return self.perform_muli(input),
+            _ => panic!("Unknown opcode: {}", self.op_code)
+
+        }
+    }
+
     fn perform_addr(&self, input: Registers) -> Registers {
         let mut reg =input.clone();
 
