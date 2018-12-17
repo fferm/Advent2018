@@ -3,8 +3,6 @@ extern crate regex;
 use std::fs;
 use regex::Regex;
 use std::collections::HashSet;
-use std::cell::Cell;
-use std::cell::RefCell;
 use std::fmt;
 
 fn main() {
@@ -12,35 +10,44 @@ fn main() {
     let filename;
 
     if small_input {
-        filename = "input_small.txt";
+//        filename = "input_small.txt";
+        filename="input_test.txt";
     } else {
         filename = "input.txt";
     }
 
+    let mut flowing_water = Vec::new();
+    let mut flow_heads = Vec::new();
 
-    let mut sim = read_inputs(filename);
-    println!("{:?}", sim);
-
-    // TODO: Fixa loop
-//    for i in 0..40 {
-    while sim.run() {
-//        sim.run();
+    let mut sim = read_inputs(filename, &mut flowing_water, &mut flow_heads);
+    if small_input {
         println!("{:?}", sim);
     }
+
+    let mut step = 0;
+    while sim.run() {
+        println!("Step: {}", step);
+        if small_input {
+            println!("{:?}", sim);
+        }
+        step += 1;
+    }
+
+
+    println!("{:?}", sim);
+    println!("A total of {} units of water in {} steps", sim.num_water(), step);
+
 }
 
-fn read_inputs(filename: &str) -> Sim {
+fn read_inputs<'a>(filename: &str, flowing_water: &'a mut Vec<Coord>, flow_heads: &'a mut Vec<Coord>) -> Sim<'a> {
     let file_contents = fs::read_to_string(filename).expect("Error in reading file");
 
     let lines: Vec<&str> = file_contents.split("\n").collect();
 
     let mut clay = HashSet::new();
     let settled_water = HashSet::new();
-    let flowing_water = RefCell::new(Vec::new());
-    let source = Coord{x: 500, y:0};
-    let mut flow_heads_collection = Vec::new();
-    flow_heads_collection.push(source.clone());
-    let flow_heads = RefCell::new(flow_heads_collection);
+    let source = Coord { x: 500, y: 0 };
+    flow_heads.push(source.clone());
     let mut left = std::isize::MAX;
     let mut right = std::isize::MIN;
     let mut bottom = std::isize::MIN;
@@ -57,11 +64,11 @@ fn read_inputs(filename: &str) -> Sim {
         let second_min_value: isize = cap[4].parse().unwrap();
         let second_max_value: isize = cap[5].parse().unwrap();
 
-        for second_val in second_min_value .. second_max_value + 1 {
+        for second_val in second_min_value..second_max_value + 1 {
             if first_var == "x" {
-                clay.insert(Coord{x: first_value, y: second_val});
+                clay.insert(Coord { x: first_value, y: second_val });
             } else {
-                clay.insert(Coord{x: second_val, y: first_value});
+                clay.insert(Coord { x: second_val, y: first_value });
             }
         }
 
@@ -81,27 +88,24 @@ fn read_inputs(filename: &str) -> Sim {
     left -= 1;
     right += 1;
 
-    return Sim{source, clay, settled_water, flowing_water, flow_heads, left, right, bottom};
+    return Sim { source, clay, settled_water, flowing_water, flow_heads, left, right, bottom };
 }
 
-struct Sim {
+struct Sim<'a> {
     source: Coord,
     clay: HashSet<Coord>,
     settled_water: HashSet<Coord>,
-    flowing_water: RefCell<Vec<Coord>>,
-    flow_heads: RefCell<Vec<Coord>>,
+    flowing_water: &'a mut Vec<Coord>,
+    flow_heads: &'a mut Vec<Coord>,
     left: isize,
     right: isize,
-    bottom: isize
+    bottom: isize,
 }
 
-impl Sim {
+impl<'a> Sim<'a> {
     fn run(&mut self) -> bool {
-        let mut ref_to_flow_heads = self.flow_heads.borrow_mut();
-        let mut ref_to_flowing_water = self.flowing_water.borrow_mut();
-
-        if ref_to_flow_heads.len() > 0 {
-            let flow_head = ref_to_flow_heads.pop().unwrap();
+        if self.flow_heads.len() > 0 {
+            let flow_head = self.flow_heads.pop().unwrap();
 
             let down_from_flow_head = flow_head.mv(Direction::Down);
             let left_from_flow_head = flow_head.mv(Direction::Left);
@@ -109,21 +113,24 @@ impl Sim {
 
             // Flow if possible
             if self.can_flow_to(&down_from_flow_head) {
-                ref_to_flow_heads.push(down_from_flow_head);
-                ref_to_flowing_water.push(down_from_flow_head);
-//            if down_from_flow_head.y <= self.bottom {
-//            }
-            } else if self.can_flow_to(&left_from_flow_head) {
-                ref_to_flowing_water.push(left_from_flow_head);
-                ref_to_flow_heads.push(left_from_flow_head);
-            } else if self.can_flow_to(&right_from_flow_head) {
-                ref_to_flowing_water.push(right_from_flow_head);
-                ref_to_flow_heads.push(right_from_flow_head);
+                if down_from_flow_head.y <= self.bottom {
+                    self.flow_heads.push(down_from_flow_head);
+                    self.flowing_water.push(down_from_flow_head);
+                }
+            } else {
+                if self.can_flow_to(&left_from_flow_head) {
+                    self.flowing_water.push(left_from_flow_head);
+                    self.flow_heads.push(left_from_flow_head);
+                }
+                if self.can_flow_to(&right_from_flow_head) {
+                    self.flowing_water.push(right_from_flow_head);
+                    self.flow_heads.push(right_from_flow_head);
+                }
             }
         } else {
-            let flow_size = ref_to_flowing_water.len();
-            let latest_flow = ref_to_flowing_water.get(flow_size - 1).unwrap();
-            let second_latest = ref_to_flowing_water.get(flow_size - 2).unwrap();
+            let flow_size = self.flowing_water.len();
+            let latest_flow = self.flowing_water.get(flow_size - 1).unwrap().clone();
+            let second_latest = self.flowing_water.get(flow_size - 2).unwrap().clone();
 
             if latest_flow.y == second_latest.y {
                 // Handle blocked water
@@ -138,44 +145,46 @@ impl Sim {
                     right = right.mv(Direction::Right)
                 }
 
-                for x in left.x .. right.x + 1 {
-                    let coord = Coord{x: x, y: latest_flow.y};
+                for x in left.x..right.x + 1 {
+                    let coord = Coord { x: x, y: latest_flow.y };
                     self.settled_water.insert(coord);
-                    ref_to_flowing_water.pop();
+                    self.flowing_water.pop();
                 }
 
-                let new_flow_head = ref_to_flowing_water.get(ref_to_flowing_water.len() - 1).unwrap();
-                ref_to_flow_heads.push(new_flow_head.clone());
+                let new_flow_head = self.flowing_water.get(self.flowing_water.len() - 1).unwrap();
+                self.flow_heads.push(new_flow_head.clone());
             } else {
-                println!("no flow heads.  running_water: {:?}", ref_to_flowing_water);
-                println!("last: {:?}", latest_flow);
                 return false;
             }
         }
 
         return true;
-
     }
 
-    fn can_flow_to(&self, target: &Coord) -> bool{
-         return !self.is_blocked_at(target) && !self.flowing_water.borrow().contains(target);
+    fn can_flow_to(&self, target: &Coord) -> bool {
+        return !self.is_blocked_at(target) && !self.flowing_water.contains(target);
     }
 
     fn is_blocked_at(&self, target: &Coord) -> bool {
-        return self.clay.contains(target) || self.settled_water.contains(target)
+        return self.clay.contains(target) || self.settled_water.contains(target);
+    }
+
+    fn num_water(&self) -> usize {
+        return self.flowing_water.len() + self.settled_water.len();
     }
 }
-impl fmt::Debug for Sim {
+
+impl<'a> fmt::Debug for Sim<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let mut ret = "".to_owned();
 
-        for y in 0 .. self.bottom + 1 {
-            for x in self.left .. self.right + 1 {
-                let coord = Coord{x, y};
+        for y in 0..self.bottom + 1 {
+            for x in self.left..self.right + 1 {
+                let coord = Coord { x, y };
                 let mut ch = ".";
                 if self.clay.contains(&coord) {
                     ch = "#";
-                } else if self.flowing_water.borrow().contains(&coord) {
+                } else if self.flowing_water.contains(&coord) {
                     ch = "|";
                 } else if self.settled_water.contains(&coord) {
                     ch = "~";
@@ -187,6 +196,12 @@ impl fmt::Debug for Sim {
             }
             ret.push_str(&"\n");
         }
+        ret.push_str(&"Flow heads: ");
+        for flow_head in self.flow_heads.clone() {
+            ret.push_str(&format!("{:?}", flow_head));
+            ret.push_str(&", ");
+        }
+        ret.push_str(&"\n");
 
         return write!(f, "{}", ret);
     }
@@ -195,19 +210,20 @@ impl fmt::Debug for Sim {
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
 struct Coord {
     y: isize,
-    x: isize
+    x: isize,
 }
 
 impl Coord {
     fn mv(&self, dir: Direction) -> Coord {
         match dir {
-            Direction::Left => Coord{x: self.x - 1, y: self.y},
-            Direction::Right => Coord{x: self.x + 1, y: self.y},
-            Direction::Up => Coord{x: self.x, y: self.y - 1},
-            Direction::Down => Coord{x: self.x, y: self.y + 1}
+            Direction::Left => Coord { x: self.x - 1, y: self.y },
+            Direction::Right => Coord { x: self.x + 1, y: self.y },
+            Direction::Up => Coord { x: self.x, y: self.y - 1 },
+            Direction::Down => Coord { x: self.x, y: self.y + 1 }
         }
     }
 }
+
 impl fmt::Debug for Coord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         return write!(f, "({},{})", self.x, self.y);
@@ -219,7 +235,7 @@ enum Direction {
     Up,
     Left,
     Right,
-    Down
+    Down,
 }
 
 
