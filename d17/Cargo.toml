@@ -1,0 +1,8 @@
+[package]
+name = "d17"
+version = "0.1.0"
+authors = ["Fredrik Ferm <fredrik@fermitet.se>"]
+edition = "2018"
+
+[dependencies]
+regex="1"
