@@ -104,6 +104,26 @@ struct Sim<'a> {
 
 impl<'a> Sim<'a> {
     fn run(&mut self) -> bool {
+
+        // TODO: Skriv om
+
+        // 1 - bara en flow-head
+        // Om det går att flöda nedåt från denna, gör det (om inte nedåt är under kartan)
+        // Om inte nedåt, kolla om du är på fast mark (det finns lera under, eller vattenpelare som står på lera)
+        //      I så fall flöda vänster om det går
+        //      Annars flöda höger om det går
+        //
+        // Vid varje flöde ovan, nya positionen är ny flow head
+        //
+        // Om inget flöde ovan, sätt flow head till tidigare position och försök igen
+        //
+        // Om flow head kommer tillbaka till start, avbryt
+        //
+        // Detta är ju ingenting annat än en djupet-först-sökning.....
+
+
+
+
         if self.flow_heads.len() > 0 {
             let flow_head = self.flow_heads.pop().unwrap();
 
@@ -118,14 +138,24 @@ impl<'a> Sim<'a> {
                     self.flowing_water.push(down_from_flow_head);
                 }
             } else {
+                let mut can_go_left = false;
+                let mut can_go_right = false;
+
                 if self.can_flow_to(&left_from_flow_head) {
                     self.flowing_water.push(left_from_flow_head);
                     self.flow_heads.push(left_from_flow_head);
+                    can_go_left = true;
                 }
                 if self.can_flow_to(&right_from_flow_head) {
                     self.flowing_water.push(right_from_flow_head);
                     self.flow_heads.push(right_from_flow_head);
+                    can_go_right = true;
                 }
+
+                if !can_go_left && !can_go_right {
+                    println!("BLOCKED.  Flowhead: {:?}", flow_head);
+                }
+
             }
         } else {
             let flow_size = self.flowing_water.len();
