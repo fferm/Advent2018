@@ -4,7 +4,7 @@ use std::fmt;
 
 
 fn main() {
-    let small_input = false;
+/*    let small_input = false;
     let filename;
 
     if small_input {
@@ -16,17 +16,72 @@ fn main() {
     let mut generation = 0;
     let mut world = read_inputs(filename);
 
-    while generation <10 {
+    let target_generations = 100 * 1000;
+    println!("gen\t\ttrees\tlumb\tscore");
+    while generation < target_generations {
         generation += 1;
-        println!("After {} generations", generation);
+
         world = world.run_minute();
-        println!("{:?}", world);
+        //println!("{:?}", world);
+
+        let num_trees = world.how_many_have(State::Trees);
+        let num_lumberyards = world.how_many_have(State::Lumberyard);
+
+        println!("{:10}\t{:4}\t{:4}\t{:8}", generation, num_trees, num_lumberyards, num_trees * num_lumberyards);
     }
 
     let num_trees = world.how_many_have(State::Trees);
     let num_lumberyards = world.how_many_have(State::Lumberyard);
 
-    println!("There are {} acres with trees and {} acres with lumberyards.   Total score is: {}", num_trees, num_lumberyards, num_trees * num_lumberyards);
+    println!("{:10}\t{:4}\t{:4}\t{:8}", generation, num_trees, num_lumberyards, num_trees * num_lumberyards);*/
+
+    let values = vec![
+        210915,
+        217136,
+        224114,
+        234919,
+        238018,
+        245074,
+        245890,
+        248066,
+        242896,
+        241780,
+        235220,
+        224352,
+        213565,
+        207946,
+        203138,
+        198269,
+        196527,
+        200592,
+        196742,
+        197802,
+        194892,
+        196020,
+        192234,
+        194948,
+        195415,
+        198860,
+        199662,
+        207599
+    ];
+
+    let mut result = 0;
+    let mut gen = 0;
+    let mut idx = 0;
+    while gen <= 1000000000 {
+        if gen >= 454 {
+            result = *values.get(idx).unwrap();
+            idx = (idx + 1) % values.len();
+        }
+
+        if gen % 10000 == 0 {
+            println!("Gen: {}", gen);
+        }
+        gen += 1;
+    }
+
+    println!("Final value: {}", result);
 }
 
 fn read_inputs(filename: &str) -> World {
