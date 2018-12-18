@@ -4,7 +4,7 @@ use std::fmt;
 
 
 fn main() {
-    let small_input = true;
+    let small_input = false;
     let filename;
 
     if small_input {
@@ -13,12 +13,20 @@ fn main() {
         filename = "input.txt";
     }
 
+    let mut generation = 0;
     let mut world = read_inputs(filename);
-    println!("{:?}", world);
 
-    world = world.run_minute();
-    println!("{:?}", world);
+    while generation <10 {
+        generation += 1;
+        println!("After {} generations", generation);
+        world = world.run_minute();
+        println!("{:?}", world);
+    }
 
+    let num_trees = world.how_many_have(State::Trees);
+    let num_lumberyards = world.how_many_have(State::Lumberyard);
+
+    println!("There are {} acres with trees and {} acres with lumberyards.   Total score is: {}", num_trees, num_lumberyards, num_trees * num_lumberyards);
 }
 
 fn read_inputs(filename: &str) -> World {
@@ -43,7 +51,7 @@ fn read_inputs(filename: &str) -> World {
                 acres.insert(coord, State::Trees);
             }
 
-            if x > x_size {
+            if x > x_size && acres.contains_key(&coord) {
                 x_size = x;
             }
 
@@ -91,7 +99,6 @@ impl World {
                         }
                     },
                     State::Lumberyard => {
-                        println!("Coord: {:?}     numLumber: {},     numTrees: {}", &coord, self.how_many_neighbors_have(&coord, State::Lumberyard), self.how_many_neighbors_have(&coord, State::Trees));
                         if self.how_many_neighbors_have(&coord, State::Lumberyard) >= 1 &&
                             self.how_many_neighbors_have(&coord, State::Trees) >= 1 {
                             new_state = State::Lumberyard;
@@ -116,16 +123,14 @@ impl World {
                 let x = coord.x as isize + dx;
                 let y = coord.y as isize + dy;
 
-                if (x >= 0) && (x < self.x_size as isize) && (y >= 0) && (y < self.y_size as isize) {
-                    if x != coord.x as isize && y != coord.y as isize {
+                if (x >= 0) && (x <= self.x_size as isize) && (y >= 0) && (y <= self.y_size as isize) {
+                    if x != coord.x as isize || y != coord.y as isize {
                         neighbors.push(Coord{x: x as usize, y: y as usize});
                     }
                 }
             }
         }
 
-        println!("Coord: {:?}    neighbors: {:?}", &coord, &neighbors);
-        
         let mut counter = 0;
         for neighbor in neighbors {
             if *self.acres.get(&neighbor).unwrap() == state {
@@ -133,6 +138,16 @@ impl World {
             }
         }
 
+        return counter;
+    }
+
+    fn how_many_have(&self, target_state: State) -> usize {
+        let mut counter = 0;
+        for (_, state) in &self.acres {
+            if *state == target_state {
+                counter += 1;
+            }
+        }
         return counter;
     }
 }
