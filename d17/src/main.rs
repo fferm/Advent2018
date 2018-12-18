@@ -10,8 +10,8 @@ fn main() {
     let filename;
 
     if small_input {
-//        filename = "input_small.txt";
-        filename="input_test.txt";
+        filename = "input_small.txt";
+//        filename="input_test.txt";
     } else {
         filename = "input.txt";
     }
@@ -35,6 +35,7 @@ fn main() {
 
     println!("{:?}", sim);
     println!("A total of {} units of water in {} steps", sim.num_water(), step);
+    println!("When the water runs dry there will be {} units left", sim.num_settled());
 
 }
 
@@ -234,12 +235,22 @@ impl<'a> Sim<'a> {
         return ret;
     }
 
-    fn get_contents(&self, target: &Coord) -> Contents {
-        return *self.contents.get(target).unwrap_or(&Contents::Sand);
+    fn num_settled(&self) -> usize {
+        let mut ret = 0;
+
+        for y in self.top_clay..self.bottom + 1 {
+            for x in self.left .. self.right + 1 {
+                let contents = self.get_contents(&Coord{x, y});
+                if contents == Contents::Settled {
+                    ret += 1;
+                }
+            }
+        }
+        return ret;
     }
 
-    fn is_flow_head(&self, target: &Coord) -> bool {
-        return self.get_flow_head() == *target;
+    fn get_contents(&self, target: &Coord) -> Contents {
+        return *self.contents.get(target).unwrap_or(&Contents::Sand);
     }
 
     fn get_flow_head(&self) -> Coord {
