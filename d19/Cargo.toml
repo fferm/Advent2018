@@ -1,0 +1,7 @@
+[package]
+name = "d19"
+version = "0.1.0"
+authors = ["fredrik@fermitet.se"]
+
+[dependencies]
+regex="1"
