@@ -1,4 +1,4 @@
-#ip 0
+#ip 5
 seti 5 0 1
 seti 6 0 2
 addi 0 1 0

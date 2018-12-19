@@ -6,7 +6,7 @@ use std::cell::Cell;
 use std::fmt;
 
 fn main() {
-    let mut small_input = false;
+    let small_input = false;
     let filename;
 
     if small_input {
@@ -18,19 +18,13 @@ fn main() {
     let mut program = read_inputs(filename);
     println!("{:?}", program);
 
-    let mut reg = Registers::new();
-    let instr = Instruction{op_code: OpCode::Seti, a: 2, b: 3, c: 4};
-    println!("Before: {:?}", reg);
+    while program.should_continue() {
+        print!("ip={:2}\t{:?}\t", program.ip.get(), program.get_current_instruction());
 
-    instr.perform(&mut reg);
-    println!("After: {:?}", reg);
+        let new_registers = program.run_current_instruction();
 
-/*    for instruction in program.instructions {
-        let new_register = instruction.perform(program.registers.get());
-        program.registers.set(new_register);
+        println!("{:?}", new_registers);
     }
-
-    println!("Registers after program: {:?}", program.registers);*/
 }
 
 
@@ -58,7 +52,7 @@ fn read_inputs(filename: &str) -> Program {
         current_line += 1;
     }
 
-    return Program::new(instructions);
+    return Program::new(instructions, ip_reg_num);
 }
 
 struct Program {
@@ -69,9 +63,50 @@ struct Program {
 }
 
 impl Program {
-    fn new(instructions: Vec<Instruction>) -> Program {
+    fn new(instructions: Vec<Instruction>, ip_reg_num: isize) -> Program {
         let registers = Registers::new();
-        return Program{instructions, registers: Cell::new(registers), ip_reg_num: 0, ip: Cell::new(0)};
+        return Program{instructions, registers: Cell::new(registers), ip_reg_num, ip: Cell::new(0)};
+    }
+
+    fn run_current_instruction(&mut self) -> Registers {    // Returns registers after instruction is run
+        self.write_ip_to_ip_register();
+        self.run_actual_instruction();
+        self.write_ip_register_to_ip();
+
+        self.step_instruction_pointer();
+
+        return self.registers.get().clone()
+    }
+
+    fn write_ip_to_ip_register(&mut self) {
+        let mut reg = self.registers.get().clone();
+        reg.set(self.ip_reg_num, self.ip.get());
+        self.registers.set(reg);
+    }
+
+    fn run_actual_instruction(&mut self) {
+        let current_instruction = self.get_current_instruction();
+        let new_reg = current_instruction.perform(&self.registers.get());
+        self.registers.set(new_reg);
+    }
+
+    fn write_ip_register_to_ip(&self) {
+        let value = self.registers.get().get(self.ip_reg_num);
+        self.ip.set(value);
+    }
+
+    fn get_current_instruction(&self) -> &Instruction {
+        return self.instructions.get(self.ip.get() as usize).unwrap();
+    }
+
+    fn should_continue(&self) -> bool {
+        return (self.ip.get() as usize) < self.instructions.len();
+    }
+
+    fn step_instruction_pointer(&mut self) {
+        let prev = self.ip.get();
+
+        self.ip.set(prev + 1);
     }
 }
 
@@ -132,7 +167,7 @@ impl Registers {
 
 impl fmt::Debug for Registers {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        return write!(f, "[{}, {}, {}, {}, {}, {}]", self.r0, self.r1, self.r2, self.r3, self.r4, self.r5);
+        return write!(f, "[{:10}, {:10}, {:10}, {:10}, {:10}, {:10}]", self.r0, self.r1, self.r2, self.r3, self.r4, self.r5);
     }
 }
 
@@ -219,96 +254,138 @@ impl OpCode {
 }
 
 impl Instruction {
-    fn perform(&self, input: &mut Registers) {
+    fn perform(&self, input: &Registers) -> Registers {
         match self.op_code {
-            OpCode::Addr => self.perform_addr(input),
-            OpCode::Addi => self.perform_addi(input),
-            OpCode::Mulr => self.perform_mulr(input),
-            OpCode::Muli => self.perform_muli(input),
-            OpCode::Banr => self.perform_banr(input),
-            OpCode::Bani => self.perform_bani(input),
-            OpCode::Borr => self.perform_borr(input),
-            OpCode::Bori => self.perform_bori(input),
-            OpCode::Setr => self.perform_setr(input),
-            OpCode::Seti => self.perform_seti(input),
-            OpCode::Gtir => self.perform_gtir(input),
-            OpCode::Gtri => self.perform_gtri(input),
-            OpCode::Gtrr => self.perform_gtrr(input),
-            OpCode::Eqir => self.perform_eqir(input),
-            OpCode::Eqri => self.perform_eqri(input),
-            OpCode::Eqrr => self.perform_eqrr(input),
+            OpCode::Addr => return self._perform_addr(input),
+            OpCode::Addi => return self._perform_addi(input),
+            OpCode::Mulr => return self._perform_mulr(input),
+            OpCode::Muli => return self._perform_muli(input),
+            OpCode::Banr => return self._perform_banr(input),
+            OpCode::Bani => return self._perform_bani(input),
+            OpCode::Borr => return self._perform_borr(input),
+            OpCode::Bori => return self._perform_bori(input),
+            OpCode::Setr => return self._perform_setr(input),
+            OpCode::Seti => return self._perform_seti(input),
+            OpCode::Gtir => return self._perform_gtir(input),
+            OpCode::Gtri => return self._perform_gtri(input),
+            OpCode::Gtrr => return self._perform_gtrr(input),
+            OpCode::Eqir => return self._perform_eqir(input),
+            OpCode::Eqri => return self._perform_eqri(input),
+            OpCode::Eqrr => return self._perform_eqrr(input),
         }
     }
 
-    fn perform_addr(&self, reg: &mut Registers) {
+    fn _perform_addr(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = reg.get(self.b);
 
-        reg.set(self.c, v1 + v2);
+        ret.set(self.c, v1 + v2);
+
+        return ret;
     }
 
-    fn perform_addi(&self, reg: &mut Registers) {
+    fn _perform_addi(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = self.b;
 
-        reg.set(self.c, v1 + v2);
+        ret.set(self.c, v1 + v2);
+
+        return ret;
     }
 
-    fn perform_mulr(&self, reg: &mut Registers) {
+    fn _perform_mulr(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = reg.get(self.b);
 
-        reg.set(self.c, v1 * v2);
+        ret.set(self.c, v1 * v2);
+
+        return ret;
     }
 
-    fn perform_muli(&self, reg: &mut Registers) {
+    fn _perform_muli(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = self.b;
 
-        reg.set(self.c, v1 * v2);
+        ret.set(self.c, v1 * v2);
+
+        return ret;
     }
 
-    fn perform_banr(&self, reg: &mut Registers) {
+    fn _perform_banr(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = reg.get(self.b);
 
-        reg.set(self.c, v1 & v2);
+        ret.set(self.c, v1 & v2);
+
+        return ret;
     }
 
-    fn perform_bani(&self, reg: &mut Registers) {
+    fn _perform_bani(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = self.b;
 
-        reg.set(self.c, v1 & v2);
+        ret.set(self.c, v1 & v2);
+
+        return ret;
     }
 
-    fn perform_borr(&self, reg: &mut Registers) {
+    fn _perform_borr(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = reg.get(self.b);
 
-        reg.set(self.c, v1 | v2);
+        ret.set(self.c, v1 | v2);
+
+        return ret;
     }
 
-    fn perform_bori(&self, reg: &mut Registers) {
+    fn _perform_bori(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = self.b;
 
-        reg.set(self.c, v1 | v2);
+        ret.set(self.c, v1 | v2);
+
+        return ret;
     }
 
-    fn perform_setr(&self, reg: &mut Registers) {
+    fn _perform_setr(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
 
-        reg.set(self.c, v1);
+        ret.set(self.c, v1);
+
+        return ret;
     }
 
-    fn perform_seti(&self, reg: &mut Registers) {
+    fn _perform_seti(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = self.a;
 
-        reg.set(self.c, v1);
+        ret.set(self.c, v1);
+
+        return ret;
     }
 
-    fn perform_gtir(&self, reg: &mut Registers) {
+    fn _perform_gtir(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = self.a;
         let v2 = reg.get(self.b);
 
@@ -316,10 +393,14 @@ impl Instruction {
         if v1 > v2 {
             result = 1;
         }
-        reg.set(self.c, result);
+        ret.set(self.c, result);
+
+        return ret;
     }
 
-    fn perform_gtri(&self, reg: &mut Registers) {
+    fn _perform_gtri(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = self.b;
 
@@ -328,10 +409,14 @@ impl Instruction {
             result = 1;
         }
 
-        reg.set(self.c, result);
+        ret.set(self.c, result);
+
+        return ret;
     }
 
-    fn perform_gtrr(&self, reg: &mut Registers) {
+    fn _perform_gtrr(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = reg.get(self.b);
 
@@ -339,10 +424,14 @@ impl Instruction {
         if v1 > v2 {
             result = 1;
         }
-        reg.set(self.c, result);
+        ret.set(self.c, result);
+
+        return ret;
     }
 
-    fn perform_eqir(&self, reg: &mut Registers) {
+    fn _perform_eqir(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = self.a;
         let v2 = reg.get(self.b);
 
@@ -350,10 +439,14 @@ impl Instruction {
         if v1 == v2 {
             result = 1;
         }
-        reg.set(self.c, result);
+        ret.set(self.c, result);
+
+        return ret;
     }
 
-    fn perform_eqri(&self, reg: &mut Registers) {
+    fn _perform_eqri(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = self.b;
 
@@ -362,10 +455,14 @@ impl Instruction {
             result = 1;
         }
 
-        reg.set(self.c, result);
+        ret.set(self.c, result);
+
+        return ret;
     }
 
-    fn perform_eqrr(&self, reg: &mut Registers) {
+    fn _perform_eqrr(&self, reg: &Registers) -> Registers {
+        let mut ret = reg.clone();
+
         let v1 = reg.get(self.a);
         let v2 = reg.get(self.b);
 
@@ -373,12 +470,14 @@ impl Instruction {
         if v1 == v2 {
             result = 1;
         }
-        reg.set(self.c, result);
+        ret.set(self.c, result);
+
+        return ret;
     }
 }
 
 impl fmt::Debug for Instruction {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        return write!(f, "{:?} {} {} {}", self.op_code, self.a, self.b, self.c);
+        return write!(f, "{:?} {:2} {:2} {:2}", self.op_code, self.a, self.b, self.c);
     }
 }

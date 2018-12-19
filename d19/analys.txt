@@ -1,0 +1,48 @@
+#ip 3
+0    addi 3 16 3    // JMP Hoppa över 16st, dvs gå till 17
+1    seti 1 2 5         r5 = r1 + 2
+2    seti 1 3 2         r2 = r1 + 3
+
+3    mulr 5 2 1         r1 = r5 * r2
+
+4    eqrr 1 4 1         if r1 == r4   r1 = 1  else r1 = 0       if r1 == r4  r0 = r0 + r5
+5    addr 1 3 3 // JMP  Hoppa över r1 steg
+6    addi 3 1 3 // JMP  Hoppa över 1 steg       goto 8
+7    addr 5 0 0         r0 = r0 + r5
+
+8    addi 2 1 2         r2 = r2 + 1
+
+9    gtrr 2 4 1         if r2 > r4   r1 = 1  else r1 = 0        if r2 <= r4   goto 3
+10   addr 3 1 3 // JMP  Hoppa över r1 steg
+11   seti 2 5 3 // JMP  goto 3
+
+
+
+12   addi 5 1 5         r5 = r5 + 1
+
+
+13   gtrr 5 4 1         if r5 > r4   r1 = 1  else r1 = 0        if r5 > r4 exit  else goto 2
+14   addr 1 3 3 // JMP  Hoppa över r1 steg
+15   seti 1 2 3 // JMP  goto 2
+16   mulr 3 3 3 // JMP  goto 16*16 + 1  -> exit
+
+
+17   addi 4 2 4         r4 = r4 + 2
+18   mulr 4 4 4         r4 = r4 * 4
+19   mulr 3 4 4         r4 = r3 * r4
+20   muli 4 11 4        r4 = r4 * 11
+21   addi 1 6 1         r1 = r1 + 6
+22   mulr 1 3 1         r1 = r1 * r3
+23   addi 1 21 1        r1 = r1 + 21
+24   addr 4 1 4         r4 = r4 + r1
+25   addr 3 0 3 // JMP  Hoppa över r0 steg   r0 är 0, åtminstone första gången
+26   seti 0 3 3 // JMP  Gå till steg 1
+27   setr 3 4 1
+28   mulr 1 3 1
+29   addr 3 1 1
+30   mulr 3 1 1
+31   muli 1 14 1
+32   mulr 1 3 1
+33   addr 4 1 4
+34   seti 0 3 0
+35   seti 0 7 3 // JMP
