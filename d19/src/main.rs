@@ -1,4 +1,5 @@
 extern crate regex;
+extern crate primes;
 
 use std::fs;
 use regex::Regex;
@@ -6,6 +7,115 @@ use std::cell::Cell;
 use std::fmt;
 
 fn main() {
+    //run_old_version();
+    //assembly();
+
+    analyzed(989);
+    analyzed(10551389);
+}
+
+fn analyzed(input: u64) {
+    let mut sum: u64 = 0;
+    for factor in primes::factors(input) {
+        sum += factor;
+    }
+
+    sum += 1;
+    sum += input;
+
+    println!("Sum of factors is {} for input {}", sum, input);
+}
+
+fn assembly() {
+    let mut sum:isize = 1;
+    let mut r1:isize = 0;
+    let mut first_factor:isize = 0;
+    //    #ip 3
+//    let mut r3 = 0;
+    let mut target:isize = 0;
+    let mut second_factor:isize = 0;
+
+    //    0    addi 3 16 3    // JMP Hoppa över 16st, dvs gå till 17
+
+    target = target + 2;    //    17   addi 4 2 4         target = target + 2
+    target = target * target;               //    18   mulr 4 4 4         target = target * target
+    target = 19 * target;                    //    19   mulr 3 4 4         target = 19 * target
+    target = target * 11;                    //    20   muli 4 11 4        target = target * 11
+    r1 = r1 + 6;                    //    21   addi 1 6 1         r1 = r1 + 6
+    r1 = r1 * 22;                    //    22   mulr 1 3 1         r1 = r1 * 22
+    r1 = r1 + 21;                    //    23   addi 1 21 1        r1 = r1 + 21
+    target = target + r1;                    //    24   addr 4 1 4         target = target + r1
+
+    // expect: [         0,        153,          0,          0,        989,          0]
+
+    if sum == 1 {    //    25   addr 3 0 3 // JMP  Hoppa över sum steg
+                    //    26   seti 0 3 3 // JMP  Gå till steg 1
+
+        r1 = 27;            //    27   setr 3 4 1
+        r1 = 28 * r1;       //    28   mulr 1 3 1
+        r1 = 29 + r1;       //    29   addr 3 1 1
+        r1 = 30 * r1;       //    30   mulr 3 1 1
+        r1 = r1 * 14;       //    31   muli 1 14 1
+        r1 = r1 * 32;       //    32   mulr 1 3 1
+        target = target + r1;       //    33   addr 4 1 4
+        sum = 0;             //    34   seti 0 3 0
+        //    35   seti 0 7 3 // JMP      goto 1
+
+    }
+
+    // expect: [         0,   10550400,          0,          0,   10551389,          0]
+
+    second_factor = 1;                    //    1    seti 1 2 5         second_factor = 1
+
+    loop {
+
+        first_factor = 1;                    //    2    seti 1 3 2         first_factor = 1
+
+        loop {
+            r1 = first_factor * second_factor;         //    3    mulr 5 2 1         r1 = second_factor * first_factor
+
+            if r1 == target {                           //    4    eqrr 1 4 1         if r1 == target   r1 = 1  else r1 = 0       if r1 == target  sum = sum + second_factor
+                                                    //    5    addr 1 3 3 // JMP  Hoppa över r1 steg
+                                                    //    6    addi 3 1 3 // JMP  Hoppa över 1 steg       goto 8
+                sum = sum + second_factor;                                          //    7    addr 5 0 0         sum = sum + second_factor
+
+            }
+
+            first_factor = first_factor + 1;                    //    8    addi 2 1 2         first_factor = first_factor + 1
+
+            if first_factor > target {                    //    9    gtrr 2 4 1         if first_factor > target   r1 = 1  else r1 = 0        if first_factor <= target   goto 3
+                                            //    10   addr 3 1 3 // JMP  Hoppa över r1 steg
+                                            //    11   seti 2 5 3 // JMP  goto 3
+
+                break;
+            }
+
+        }
+
+        second_factor = second_factor + 1;    //    12   addi 5 1 5         second_factor = second_factor + 1
+
+        // expect, första gången [         1,          x,        990,         jmp,        989,          2]
+
+
+        if second_factor > target {                        //    13   gtrr 5 4 1         if second_factor > target   r1 = 1  else r1 = 0        if second_factor > target exit  else goto 2
+                                            //    14   addr 1 3 3 // JMP  Hoppa över r1 steg
+                                            //    15   seti 1 2 3 // JMP  goto 2
+                                            //    16   mulr 3 3 3 // JMP  goto 16*16 + 1  -> exit
+
+            break;
+        } else {
+            println!("{}  target {}", second_factor, target);
+        }
+    }
+
+    println!("{}\t{}\t{}\t{}\t{}\t{}", sum, r1, first_factor, "ip", target, second_factor);
+
+    // program is calculating sum of all prime factors, including 1 and the number itself
+
+
+}
+
+fn run_old_version() {
     let small_input = false;
     let filename;
 
@@ -15,7 +125,7 @@ fn main() {
         filename = "input.txt";
     }
 
-    let mut program = read_inputs(filename);
+    let mut program = read_inputs(filename, 0);
     println!("{:?}", program);
 
     while program.should_continue() {
@@ -28,8 +138,7 @@ fn main() {
 }
 
 
-
-fn read_inputs(filename: &str) -> Program {
+fn read_inputs(filename: &str, r0: isize) -> Program {
     let mut instructions = Vec::new();
 
     let file_contents = fs::read_to_string(filename).expect("Error in reading file");
@@ -52,7 +161,7 @@ fn read_inputs(filename: &str) -> Program {
         current_line += 1;
     }
 
-    return Program::new(instructions, ip_reg_num);
+    return Program::new(instructions, ip_reg_num, r0);
 }
 
 struct Program {
@@ -63,8 +172,8 @@ struct Program {
 }
 
 impl Program {
-    fn new(instructions: Vec<Instruction>, ip_reg_num: isize) -> Program {
-        let registers = Registers::new();
+    fn new(instructions: Vec<Instruction>, ip_reg_num: isize, r0: isize) -> Program {
+        let registers = Registers::new(r0);
         return Program{instructions, registers: Cell::new(registers), ip_reg_num, ip: Cell::new(0)};
     }
 
@@ -136,8 +245,8 @@ struct Registers {
 }
 
 impl Registers {
-    fn new() -> Registers {
-        return Registers{r0: 0, r1: 0, r2: 0, r3: 0, r4: 0, r5: 0};
+    fn new(r0: isize) -> Registers {
+        return Registers{r0, r1: 0, r2: 0, r3: 0, r4: 0, r5: 0};
     }
 
     fn set(&mut self, idx: isize, value: isize) {

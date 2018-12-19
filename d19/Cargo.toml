@@ -5,3 +5,4 @@ authors = ["fredrik@fermitet.se"]
 
 [dependencies]
 regex="1"
+primes="0.2.3"
