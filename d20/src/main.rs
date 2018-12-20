@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use std::fmt;
 
 fn main() {
-    let small_input = true;
+    let small_input = false;
     let filename;
 
     if small_input {
@@ -42,10 +42,10 @@ fn read_inputs<'a>(filename: &str, contents: &'a mut HashMap<Coord, Contents>) -
 }
 
 fn add_contents<'a>(world: &'a mut World, input: &str, starting_point: &Coord) -> Coord {
-    println!("Input: {}", input);
+    //println!("Input: {}", input);
 
     let paren_idx_opt = input.find("(");
-    let split_idx_opt = input.find("|");
+    let mut split_idx_opt = input.find("|");
 
     if paren_idx_opt.is_none() && split_idx_opt.is_none() {
         return add_contents_in_line(world, input, starting_point);
@@ -54,13 +54,29 @@ fn add_contents<'a>(world: &'a mut World, input: &str, starting_point: &Coord) -
     } else if paren_idx_opt.is_none() && split_idx_opt.is_some() {
         return add_contents_from_split(world, input, starting_point, split_idx_opt.unwrap());
     } else {
-        let paren_idx = paren_idx_opt.unwrap();
-        let split_idx = split_idx_opt.unwrap();
+        let mut idx = 0;
+        let mut paren_level = 0;
 
-        if paren_idx < split_idx {
-            return add_contents_from_paren(world, input, starting_point, paren_idx_opt.unwrap());
-        } else {
+        split_idx_opt = None;
+        while idx < input.len() {
+            let c = &input[idx..idx+1];
+
+            if c == ")" {
+                paren_level -= 1;
+            }
+            if c == "(" {
+                paren_level += 1;
+            }
+            if c == "|" && paren_level == 0 {
+                split_idx_opt = Some(idx);
+            }
+            idx += 1;
+        }
+
+        if split_idx_opt.is_some() {
             return add_contents_from_split(world, input, starting_point, split_idx_opt.unwrap());
+        } else {
+            return add_contents_from_paren(world, input, starting_point, paren_idx_opt.unwrap());
         }
     }
 }

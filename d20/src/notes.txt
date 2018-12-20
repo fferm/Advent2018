@@ -1,0 +1,5 @@
+statement :== simple_statement | or_statement | paren_statement
+
+simple_statement :==   'sequence of NESW'
+
+or_statement = statement | statement
