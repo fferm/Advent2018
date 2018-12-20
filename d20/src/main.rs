@@ -21,15 +21,20 @@ fn main() {
 
     let mut furthest_distance = 0;
     let mut furthest_point = world.starting_point;
+    let mut num_thousand_distance = 0;
     for (p, dist) in shortest_paths {
         if dist > furthest_distance {
             furthest_distance = dist;
             furthest_point = p;
         }
+        if dist >= 1000 {
+            num_thousand_distance += 1;
+        }
     }
 
 
     println!("Furthest point is {:?} with a distance of {}", furthest_point, furthest_distance);
+    println!("There are {} rooms with at least 1000 distance", num_thousand_distance);
 }
 
 fn read_inputs<'a>(filename: &str, contents: &'a mut HashMap<Coord, Contents>) -> World<'a> {
