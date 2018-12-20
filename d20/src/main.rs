@@ -1,9 +1,6 @@
 
 use std::fs;
 use std::collections::HashMap;
-use std::collections::HashSet;
-//use regex::Regex;
-use std::cell::Cell;
 use std::fmt;
 
 fn main() {
@@ -17,8 +14,22 @@ fn main() {
     }
 
     let mut contents = HashMap::new();
-    let mut world = read_inputs(filename, &mut contents);
+    let world = read_inputs(filename, &mut contents);
     println!("{:?}", world);
+
+    let shortest_paths = world.find_shortest_paths();
+
+    let mut furthest_distance = 0;
+    let mut furthest_point = world.starting_point;
+    for (p, dist) in shortest_paths {
+        if dist > furthest_distance {
+            furthest_distance = dist;
+            furthest_point = p;
+        }
+    }
+
+
+    println!("Furthest point is {:?} with a distance of {}", furthest_point, furthest_distance);
 }
 
 fn read_inputs<'a>(filename: &str, contents: &'a mut HashMap<Coord, Contents>) -> World<'a> {
@@ -31,7 +42,7 @@ fn read_inputs<'a>(filename: &str, contents: &'a mut HashMap<Coord, Contents>) -
 }
 
 fn add_contents<'a>(world: &'a mut World, input: &str, starting_point: &Coord) -> Coord {
-    println!("Input: {}   start: {:?}", input, starting_point);
+    println!("Input: {}", input);
 
     let paren_idx_opt = input.find("(");
     let split_idx_opt = input.find("|");
@@ -52,15 +63,33 @@ fn add_contents<'a>(world: &'a mut World, input: &str, starting_point: &Coord) -
             return add_contents_from_split(world, input, starting_point, split_idx_opt.unwrap());
         }
     }
-
 }
 
 fn add_contents_from_paren<'a>(world: &'a mut World, input: &str, starting_point: &Coord, paren_idx: usize) -> Coord {   // returns end point
     let before_str = &input[0..paren_idx];
-    let after_str = &input[paren_idx + 1 .. input.len() - 1];
 
-    let midpoint = add_contents(world, before_str, starting_point);
-    let endpoint = add_contents(world, after_str, &midpoint);
+    let mut idx = paren_idx;
+    let mut paren_level = 1;
+
+    while paren_level != 0 {
+        idx += 1;
+        let c = input.get(idx .. idx + 1).unwrap();
+
+        if c == ")" {
+            paren_level -= 1;
+        }
+        if c == "(" {
+            paren_level += 1;
+        }
+    }
+
+    let mid_str = &input[paren_idx + 1 .. idx];
+
+    let after_str = &input[idx + 1 .. input.len()];
+
+    let midpoint1 = add_contents(world, before_str, starting_point);
+    let midpoint2 = add_contents(world, mid_str, &midpoint1);
+    let endpoint = add_contents(world, after_str, &midpoint2);
 
     return endpoint;
 }
@@ -69,8 +98,8 @@ fn add_contents_from_split<'a>(world: &'a mut World, input: &str, starting_point
     let before_str = &input[0..split_idx];
     let after_str = &input[split_idx + 1 .. input.len()];
 
-    let midpoint = add_contents(world, before_str, starting_point);
-    let endpoint = add_contents(world, after_str, starting_point);
+    add_contents(world, before_str, starting_point);
+    add_contents(world, after_str, starting_point);
 
     return starting_point.clone();
 }
@@ -137,6 +166,46 @@ impl<'a> World<'a> {
             self.y_max = coord.y;
         }
     }
+
+    fn find_shortest_paths(&self) -> HashMap<Coord, usize> {
+        let mut vec = Vec::new();
+        let mut distances = HashMap::new();
+
+        vec.push(self.starting_point);
+        distances.insert(self.starting_point, 0);
+
+        while vec.len() != 0 {
+            let current = vec.pop().unwrap();
+            let current_distance = *distances.get(&current).unwrap();
+
+            let navigable_points = self.get_navigable_points_from(&current);
+
+            for nav_point in navigable_points {
+                let nav_distance = current_distance + 1;
+                if !distances.contains_key(&nav_point) || *distances.get(&nav_point).unwrap() > nav_distance {
+                    distances.insert(nav_point, nav_distance);
+                    vec.push(nav_point);
+                }
+            }
+        }
+
+        return distances;
+    }
+
+    fn get_navigable_points_from(&self, start: &Coord) -> Vec<Coord> {
+        let mut ret = Vec::new();
+
+        let directions = vec![Direction::North, Direction::West, Direction::East, Direction::South];
+        for dir in directions.iter() {
+            let door_coord = start.mv(*dir);
+            let door_opt = self.contents.get(&door_coord);
+            if door_opt.is_some() && *door_opt.unwrap() == Contents::Door {
+                let room_coord = door_coord.mv(*dir);
+                ret.push(room_coord);
+            }
+        }
+        return ret;
+    }
 }
 
 impl<'a> fmt::Debug for World<'a> {
@@ -172,7 +241,7 @@ enum Contents {
 
 impl fmt::Debug for Contents {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let mut letter = " ";
+        let letter;
 
         match self {
             Contents::Door => letter = "+",
@@ -236,7 +305,7 @@ impl Direction {
 
 impl fmt::Debug for Direction {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let mut letter = " ";
+        let letter ;
 
         match self {
             Direction::North => letter = "N",
