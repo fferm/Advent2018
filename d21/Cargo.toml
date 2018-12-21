@@ -1,0 +1,6 @@
+[package]
+name = "d21"
+version = "0.1.0"
+authors = ["fredrik@fermitet.se"]
+
+[dependencies]

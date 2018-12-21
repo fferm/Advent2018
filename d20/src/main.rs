@@ -265,8 +265,8 @@ impl fmt::Debug for Contents {
         let letter;
 
         match self {
-            Contents::Door => letter = "+",
-            Contents::Room => letter = ".",
+            Contents::Door => letter = " ",
+            Contents::Room => letter = " ",
             Contents::Wall => letter = "#",
             Contents::Start => letter = "X"
         }
