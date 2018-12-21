@@ -83,11 +83,13 @@ impl<'a> Sim {
     }
 
     fn run_round_for_player(&self, player: &mut Player) {
-        let old_pos = player.pos;
-        let new_pos = Coord{x: old_pos.x + 1, y: old_pos.y};
-        player.pos = new_pos;
+        // Move
+        let move_pos = self.position_to_move_to(player);
+        if move_pos.is_some() {
+            player.pos = move_pos.unwrap();
+        }
 
-        println!("Player at: {}, {}", player.pos.x, player.pos.y);
+        // Attack
 
     }
 //    fn run_round(&mut self) {
@@ -132,12 +134,12 @@ impl<'a> Sim {
 //
 //    }
 
-//    fn position_to_move_to(&self, player: &Player) -> Option<Coord> {
-//        if self.player_in_range_of_enemy(player) {
-//            return None;
-//        }
-//
-//        let mut routes = Routes::create();
+    fn position_to_move_to(&self, player: &Player) -> Option<Coord> {
+        if self.player_in_range_of_enemy(player) {
+            return None;
+        }
+
+        //        let mut routes = Routes::create();
 //        routes.add_route(Route::create_initial(player.pos.get()));
 ////        routes.insert(player.pos.get(), Route::create_initial(player.pos.get()));
 //
@@ -187,25 +189,29 @@ impl<'a> Sim {
 //        println!("shortest_path_length: {}    {:?}", shortest_path_length, routes);
 //
 //        return Some(player.pos.get().mv(Direction::Right));
-//    }
 
-//    fn player_in_range_of_enemy(&self, player: &Player) -> bool {
-//        return self.position_in_range_of_enemy(player.pos.get(), &player.player_type);
-//    }
+        return None;
+    }
 
-//    fn position_in_range_of_enemy(&self, pos: Coord, friendly_player_type: &PlayerType) -> bool {
-//        for enemy in &self.players {
-//            if enemy.player_type == *friendly_player_type {
-//                continue;
-//            }
-//
-//            if pos.manhattan_distance_from(enemy.pos.get()) == 1 {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
+    fn player_in_range_of_enemy(&self, player: &Player) -> bool {
+        return self.position_in_range_of_enemy(player.pos, &player.player_type);
+    }
+
+    fn position_in_range_of_enemy(&self, pos: Coord, friendly_player_type: &PlayerType) -> bool {
+        let p = Rc::clone(*self.players);
+
+        for enemy in p.borrow().iter() {
+            if enemy.player_type == *friendly_player_type {
+                continue;
+            }
+
+            if pos.manhattan_distance_from(enemy.pos) == 1 {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     fn get_player_at(&self, pos: &Coord) -> Option<Player> {
         for player in self.players.borrow().iter() {
@@ -288,21 +294,21 @@ impl Coord {
 //        ];
 //    }
 
-//    fn mv(&self, dir: Direction) -> Coord {
-//        match dir {
-//            Direction::Left => Coord{x: self.x - 1, y: self.y},
-//            Direction::Right => Coord{x: self.x + 1, y: self.y},
-//            Direction::Up => Coord{x: self.x, y: self.y - 1},
-//            Direction::Down => Coord{x: self.x, y: self.y + 1}
-//        }
-//    }
+    fn mv(&self, dir: Direction) -> Coord {
+        match dir {
+            Direction::Left => Coord{x: self.x - 1, y: self.y},
+            Direction::Right => Coord{x: self.x + 1, y: self.y},
+            Direction::Up => Coord{x: self.x, y: self.y - 1},
+            Direction::Down => Coord{x: self.x, y: self.y + 1}
+        }
+    }
 
-//    fn manhattan_distance_from(&self, other: Coord) -> isize {
-//        let x_dist = (self.x - other.x).abs();
-//        let y_dist = (self.y - other.y).abs();
-//
-//        return x_dist + y_dist;
-//    }
+    fn manhattan_distance_from(&self, other: Coord) -> isize {
+        let x_dist = (self.x - other.x).abs();
+        let y_dist = (self.y - other.y).abs();
+
+        return x_dist + y_dist;
+    }
 }
 
 //#[derive(Debug)]
