@@ -1,5 +1,5 @@
 fn main() {
-    let mut r0: isize = 13443200;
+    let mut r0: isize = 0;
     let mut r1: isize = 0;
     let mut r2: isize = 0;
     let mut r3: isize = 0;
@@ -11,7 +11,6 @@ fn main() {
     loop {
         r4 = 123;            //  0   seti 123 0 4
         r4 = r4 & 456;            //  1   bani 4 456 4
-
         if r4 == 72 {                     //  2   eqri 4 72 4
             break;                      //  3   addr 4 2 2  // JMP
         }                                       //  4   seti 0 0 2  // JMP
@@ -55,7 +54,7 @@ fn main() {
             r3 = r1;        //  26  setr 1 4 3
         }//  27  seti 7 6 2  // JMP
 
-        println!("r4 before break: {}", r4);
+        println!("{}", r4);
         if r4 == r0 {    //  28  eqrr 4 0 1
             break;              //  29  addr 1 2 2  // JMP
         }
