@@ -17,20 +17,21 @@ fn main() {
         filename = "input.txt";
     }
 
-    let mut players_vec = Vec::new();
-    let mut sim = read_inputs(filename, &mut players_vec);
+    let mut sim = read_inputs(filename);
     println!("{:?}", sim);
 
-//    sim.run_round();
-//    println!("{:?}", sim);
+    sim.run_round();
+    println!("{:?}", sim);
 }
 
 
 
-fn read_inputs<'a> (filename: &str, players_vec: &'a mut Vec<Player>) -> Sim<'a> {
+fn read_inputs<'a> (filename: &str) -> Sim {
     let mut walls = HashSet::new();
     let mut x_size = 0;
     let mut y_size = 0;
+
+    let mut players_vec = Vec::new();
 
     let file_contents = fs::read_to_string(filename).expect("Error in reading file");
 
@@ -62,18 +63,33 @@ fn read_inputs<'a> (filename: &str, players_vec: &'a mut Vec<Player>) -> Sim<'a>
 
     }
 
-    return Sim{walls, players: players_vec, x_size, y_size};
+    return Sim{walls, players: Rc::new(RefCell::new(players_vec)), x_size, y_size};
 }
 
-//#[derive(Debug)]
-struct Sim<'a> {
-    players: &'a Vec<Player>,
+struct Sim {
+    players: Rc<RefCell<Vec<Player>>>,
     walls: HashSet<Coord>,
     x_size: usize,
     y_size: usize
 }
 
-impl<'a> Sim<'a> {
+impl<'a> Sim {
+    fn run_round(&self) {
+        self.players.borrow_mut().sort();
+
+        for player in self.players.borrow_mut().iter_mut() {
+            self.run_round_for_player(player)
+        }
+    }
+
+    fn run_round_for_player(&self, player: &mut Player) {
+        let old_pos = player.pos;
+        let new_pos = Coord{x: old_pos.x + 1, y: old_pos.y};
+        player.pos = new_pos;
+
+        println!("Player at: {}, {}", player.pos.x, player.pos.y);
+
+    }
 //    fn run_round(&mut self) {
 //        // Sort players
 //        self.players.sort();
@@ -191,10 +207,10 @@ impl<'a> Sim<'a> {
 //        return false;
 //    }
 
-    fn get_player_at(&self, pos: &Coord) -> Option<&Player> {
-        for player in self.players {
-            if player.pos.get() == *pos {
-                return Some(player);
+    fn get_player_at(&self, pos: &Coord) -> Option<Player> {
+        for player in self.players.borrow().iter() {
+            if player.pos == *pos {
+                return Some(*player);
             }
         }
         return None;
@@ -202,7 +218,7 @@ impl<'a> Sim<'a> {
 
 }
 
-impl<'a> fmt::Debug for Sim<'a> {
+impl<'a> fmt::Debug for Sim {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let mut ret = "".to_owned();
 
@@ -233,24 +249,24 @@ impl<'a> fmt::Debug for Sim<'a> {
 }
 
 
-#[derive(Debug, Ord, PartialOrd, Eq, PartialEq)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Copy, Clone)]
 struct Player {
-    pos: Cell<Coord>,           // position must be first so that players are sorted in reading order
+    pos: Coord,           // position must be first so that players are sorted in reading order
     player_type: PlayerType,
-    hit_points: Cell<isize>,
+    hit_points: isize,
     attack_power: isize
 }
 
 impl Player {
     fn create_elf(pos: Coord) -> Player {
-        return Player{player_type: PlayerType::Elf, pos: Cell::new(pos), hit_points: Cell::new(200), attack_power: 3};
+        return Player{player_type: PlayerType::Elf, pos, hit_points: 200, attack_power: 3};
     }
     fn create_goblin(pos: Coord) -> Player {
-        return Player{player_type: PlayerType::Goblin, pos: Cell::new(pos), hit_points: Cell::new(200), attack_power: 3};
+        return Player{player_type: PlayerType::Goblin, pos, hit_points: 200, attack_power: 3};
     }
 }
 
-#[derive(Debug, Ord, PartialOrd, Eq, PartialEq)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Copy, Clone)]
 enum PlayerType {
     Elf,
     Goblin
