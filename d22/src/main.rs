@@ -1,10 +1,12 @@
 
 use std::collections::HashMap;
 use std::fmt;
+use std::cell::RefCell;
+use std::rc::Rc;
 
 
 fn main() {
-    let small_input = false;
+    let small_input = true;
 
     let depth: isize;
     let target: Coord;
@@ -19,30 +21,53 @@ fn main() {
 
     let mut world = World::new(target, depth);
 
-//    if small_input {
-//        println!("{:?}", world);
-//    }
-
+    if small_input {
+        println!("{:?}", world);
+    }
     println!("Risk level is {}", world.get_risk_level());
+
+
+    let fastest_time = find_fastest_time(world);
+    println!("Target can be reached in {} minutes", fastest_time);
 }
 
+fn find_fastest_time(world: World) -> isize {
+    let start_status = (Coord::new(0, 0), Equip::Torch);
+    let target_status = (world.target, Equip::Torch);
+
+    let best_times_for_status: HashMap<(Coord, Equip), isize> = HashMap::new();
+    let prio_queue = 
+}
+
+
+
+
+
 struct World {
-    geologic_indices: HashMap<Coord, isize>,
+    geologic_indices: RefCell<HashMap<Coord, isize>>,
     target: Coord,
     depth: isize
 }
 
 impl World {
     fn new(target: Coord, depth: isize) -> World {
-        let geologic_indices = HashMap::new();
+        let geologic_indices = RefCell::new(HashMap::new());
+
         return World{target, depth, geologic_indices};
     }
 
-    fn get_geologic_index(&mut self, coord: &Coord) -> isize {
-        if self.geologic_indices.contains_key(coord) {
-            return *self.geologic_indices.get(coord).unwrap();
+    fn get_geologic_index(&self, coord: &Coord) -> isize {
+        if self.geologic_indices.borrow().contains_key(coord) {
+            return *self.geologic_indices.borrow().get(coord).unwrap();
         }
 
+        let value = self.calculate_geologic_index(coord);
+
+        self.geologic_indices.borrow_mut().insert(coord.clone(), value);
+        return value;
+    }
+
+    fn calculate_geologic_index(&self, coord: &Coord) -> isize {
         let mut result = 0;
         if *coord == Coord::new(0, 0) {
             result = 0;
@@ -59,16 +84,14 @@ impl World {
             result = self.get_erosion_level(&new_coord1) * self.get_erosion_level(&new_coord2);
         }
 
-        self.geologic_indices.insert(coord.clone(), result);
-
         return result;
     }
 
-    fn get_erosion_level(&mut self, coord: &Coord) -> isize {
+    fn get_erosion_level(&self, coord: &Coord) -> isize {
         return (self.get_geologic_index(coord) + self.depth) % 20183;
     }
 
-    fn get_type(&mut self, coord: &Coord) -> Type {
+    fn get_type(&self, coord: &Coord) -> Type {
         let erosion_level = self.get_erosion_level(coord);
         let modulo = erosion_level % 3;
 
@@ -99,32 +122,32 @@ impl World {
     }
 }
 
-//impl fmt::Debug for World {
-//    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//        let mut ret = "".to_owned();
-//
-//        for y in 0 .. self.target.y + 1 {
-//            for x in 0 .. self.target.x + 1 {
-//                let coord = Coord::new(x, y);
-//
-//                if x == 0 && y == 0 {
-//                    ret.push_str("M");
-//                } else if coord == self.target {
-//                    ret.push_str("T");
-//                } else {
-//                    let typ = self.get_type(&coord);
-//                    ret.push_str(&format!("{:?}", typ)[..]);
-//                }
-//
-//            }
-//            ret.push_str(&"\n");
-//        }
-//
-//        ret.push_str(&"\n");
-//
-//        return write!(f, "{}", ret);
-//    }
-//}
+impl fmt::Debug for World {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let mut ret = "".to_owned();
+
+        for y in 0 .. self.target.y + 1 {
+            for x in 0 .. self.target.x + 1 {
+                let coord = Coord::new(x, y);
+
+                if x == 0 && y == 0 {
+                    ret.push_str("M");
+                } else if coord == self.target {
+                    ret.push_str("T");
+                } else {
+                    let typ = self.get_type(&coord);
+                    ret.push_str(&format!("{:?}", typ)[..]);
+                }
+
+            }
+            ret.push_str(&"\n");
+        }
+
+        ret.push_str(&"\n");
+
+        return write!(f, "{}", ret);
+    }
+}
 
 
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
@@ -132,6 +155,16 @@ enum Type {
     Rocky,
     Narrow,
     Wet
+}
+
+impl Type {
+    fn can_use_equip(&self, equip: &Equip) -> bool {
+        match self {
+            Type::Rocky => return *equip == Equip::Climbing || *equip == Equip::Torch,
+            Type::Narrow => return *equip == Equip::Neither || *equip == Equip::Torch,
+            Type::Wet => return *equip == Equip::Climbing || *equip == Equip::Neither,
+        }
+    }
 }
 
 impl fmt::Debug for Type {
@@ -159,6 +192,16 @@ impl Coord {
     fn new(x: isize, y:isize) -> Coord{
         return Coord{x, y};
     }
+
+    fn mv(&self, dir: Direction) -> Coord {
+        match dir {
+            Direction::Left => Coord { x: self.x - 1, y: self.y },
+            Direction::Right => Coord { x: self.x + 1, y: self.y },
+            Direction::Up => Coord { x: self.x, y: self.y - 1 },
+            Direction::Down => Coord { x: self.x, y: self.y + 1 }
+        }
+    }
+
 }
 
 impl fmt::Debug for Coord {
@@ -166,4 +209,25 @@ impl fmt::Debug for Coord {
         return write!(f, "({},{})", self.x, self.y);
     }
 }
+
+#[derive(Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Hash)]
+enum Direction {
+    Up,
+    Right,
+    Left,
+    Down,
+}
+
+
+#[derive(Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Hash)]
+enum Equip {
+    Torch,
+    Climbing,
+    Neither
+}
+
+
+
+
+
 
