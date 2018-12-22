@@ -1,4 +1,6 @@
+extern crate priority_queue;
 
+use priority_queue::PriorityQueue;
 use std::collections::HashMap;
 use std::fmt;
 use std::cell::RefCell;
@@ -35,8 +37,39 @@ fn find_fastest_time(world: World) -> isize {
     let start_status = (Coord::new(0, 0), Equip::Torch);
     let target_status = (world.target, Equip::Torch);
 
-    let best_times_for_status: HashMap<(Coord, Equip), isize> = HashMap::new();
-    let prio_queue = 
+    let mut best_times_for_status: HashMap<(Coord, Equip), isize> = HashMap::new();
+    let mut prio_queue = PriorityQueue::new();
+
+    best_times_for_status.insert(start_status, 0);
+    prio_queue.push(start_status, 0);
+
+    let mut cont = true;
+    while cont {
+        let current_status = prio_queue.pop().unwrap();
+
+        // TODO: Continue search
+
+    }
+
+    return 0;
+}
+
+fn find_related_statuses(world: World, status: (Coord, Equip, isize)) -> Vec<(Coord, Equip, isize)> {
+    let mut ret = Vec::new();
+
+    ret.push((status.0.mv(Direction::Up), status.1, status.2 + 1));
+    ret.push((status.0.mv(Direction::Left), status.1, status.2 + 1));
+    ret.push((status.0.mv(Direction::Right), status.1, status.2 + 1));
+    ret.push((status.0.mv(Direction::Down), status.1, status.2 + 1));
+
+    ret.push((status.0, Equip::Torch, status.2 + 7));
+    ret.push((status.0, Equip::Climbing, status.2 + 7));
+    ret.push((status.0, Equip::Neither, status.2 + 7));
+
+    // TODO: Check if new position and equip are legal combos in world
+
+
+    return ret;
 }
 
 

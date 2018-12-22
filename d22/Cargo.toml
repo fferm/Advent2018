@@ -4,3 +4,4 @@ version = "0.1.0"
 authors = ["Fredrik Ferm <fredrik@fermitet.se>"]
 
 [dependencies]
+priority-queue="0.5.2"
