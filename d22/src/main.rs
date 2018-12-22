@@ -4,11 +4,10 @@ use priority_queue::PriorityQueue;
 use std::collections::HashMap;
 use std::fmt;
 use std::cell::RefCell;
-use std::rc::Rc;
 
 
 fn main() {
-    let small_input = true;
+    let small_input = false;
 
     let depth: isize;
     let target: Coord;
@@ -29,13 +28,12 @@ fn main() {
     println!("Risk level is {}", world.get_risk_level());
 
 
-    let fastest_time = find_fastest_time(world);
-    println!("Target can be reached in {} minutes", fastest_time);
+    find_fastest_time(world);
 }
 
-fn find_fastest_time(world: World) -> isize {
+fn find_fastest_time(world: World) {
     let start_status = (Coord::new(0, 0), Equip::Torch);
-    let target_status = (world.target, Equip::Torch);
+    let target_status = (world.target.clone(), Equip::Torch);
 
     let mut best_times_for_status: HashMap<(Coord, Equip), isize> = HashMap::new();
     let mut prio_queue = PriorityQueue::new();
@@ -43,30 +41,63 @@ fn find_fastest_time(world: World) -> isize {
     best_times_for_status.insert(start_status, 0);
     prio_queue.push(start_status, 0);
 
-    let mut cont = true;
-    while cont {
-        let current_status = prio_queue.pop().unwrap();
+    loop {
+        let current_status_and_time = prio_queue.pop().unwrap();
+        let _coord = (current_status_and_time.0).0;
+        let _equip = (current_status_and_time.0).1;
+        let time = current_status_and_time.1;
 
-        // TODO: Continue search
+//        println!("Coord: {:?}     equip: {:?}    time: {}      material: {:?}", _coord, _equip, time, world.get_type(&coord));
+
+        if current_status_and_time.0 == target_status {
+            println!("Solution found.  Time: {}", 0 - time);
+            break;
+        }
+
+        for other_status in transmogrify(current_status_and_time) {
+            let new_coord = (other_status.0).0;
+            let new_equip = (other_status.0).1;
+            let new_time = other_status.1;
+
+//            print!("Transmogrified:  Coord: {:?}     equip: {:?}    time: {}    ", new_coord, new_equip, new_time);
+
+            if new_coord.x < 0 || new_coord.y < 0 {
+//                println!("Outside");
+                continue;
+            }
+            if !world.get_type(&new_coord).can_use_equip(&new_equip) {
+//                println!("Illegal in {:?}", world.get_type(&new_coord));
+                continue;
+            }
+
+            let best_times_for_status_key = (new_coord, new_equip);
+            if best_times_for_status.contains_key(&best_times_for_status_key) && *best_times_for_status.get(&best_times_for_status_key).unwrap() > new_time {
+//                println!("Better time before which was {}", *best_times_for_status.get(&best_times_for_status_key).unwrap());
+                continue;
+            }
+
+            best_times_for_status.insert(best_times_for_status_key, new_time);
+            prio_queue.push(best_times_for_status_key, new_time);
+//            println!("OK");
+
+        }
 
     }
-
-    return 0;
 }
 
-fn find_related_statuses(world: World, status: (Coord, Equip, isize)) -> Vec<(Coord, Equip, isize)> {
+fn transmogrify(status: ((Coord, Equip), isize)) -> Vec<((Coord, Equip), isize)> {
     let mut ret = Vec::new();
 
-    ret.push((status.0.mv(Direction::Up), status.1, status.2 + 1));
-    ret.push((status.0.mv(Direction::Left), status.1, status.2 + 1));
-    ret.push((status.0.mv(Direction::Right), status.1, status.2 + 1));
-    ret.push((status.0.mv(Direction::Down), status.1, status.2 + 1));
+    let c = (status.0).0;
 
-    ret.push((status.0, Equip::Torch, status.2 + 7));
-    ret.push((status.0, Equip::Climbing, status.2 + 7));
-    ret.push((status.0, Equip::Neither, status.2 + 7));
+    ret.push(((c.mv(Direction::Up), (status.0).1), status.1 - 1));
+    ret.push(((c.mv(Direction::Left), (status.0).1), status.1 - 1));
+    ret.push(((c.mv(Direction::Right), (status.0).1), status.1 - 1));
+    ret.push(((c.mv(Direction::Down), (status.0).1), status.1 - 1));
 
-    // TODO: Check if new position and equip are legal combos in world
+    ret.push(((c, Equip::Torch), status.1 - 7));
+    ret.push(((c, Equip::Climbing), status.1 - 7));
+    ret.push(((c, Equip::Neither), status.1 - 7));
 
 
     return ret;
@@ -101,7 +132,7 @@ impl World {
     }
 
     fn calculate_geologic_index(&self, coord: &Coord) -> isize {
-        let mut result = 0;
+        let result ;
         if *coord == Coord::new(0, 0) {
             result = 0;
         } else if *coord == self.target {
@@ -202,7 +233,7 @@ impl Type {
 
 impl fmt::Debug for Type {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let mut ch = ' ';
+        let ch: char;
 
         match self {
             Type::Rocky => ch = '.',
@@ -252,7 +283,7 @@ enum Direction {
 }
 
 
-#[derive(Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Hash)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Hash)]
 enum Equip {
     Torch,
     Climbing,
