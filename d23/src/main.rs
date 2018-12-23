@@ -17,24 +17,18 @@ fn main() {
     }
 
     let nanobots = read_inputs(filename);
-//    let num_bots_in_range = HashMap::new();
 
-//    for bot in nanobots.clone() {
-//
-//    }
+    let mut num_bots_in_range = HashMap::new();
+    for bot in nanobots.clone() {
+        println!("Analyzing bot at: {:?} with range: {}", bot.pos, bot.range);
 
+        for point in bot.pos.points_within_distance(bot.range) {
+            let mut entry = num_bots_in_range.entry(point).or_insert(0);
+            *entry += 1;
+        }
+    }
 
-    let orig = Coord::new(0, 0, 0);
-
-    let distance = 0;
-    println!("points at distance {}:   {:?}", distance, orig.points_at_distance(distance));
-
-    let distance = 1;
-    println!("points at distance {}:   {:?}", distance, orig.points_at_distance(distance));
-
-    let distance = 2;
-    println!("points at distance {}:   {:?}", distance, orig.points_at_distance(distance));
-
+    println!("{:?}", num_bots_in_range);
 
 
 }
@@ -126,50 +120,23 @@ impl Coord {
 
     }
 
-    fn points_at_distance(&self, dist: isize) -> Vec<Coord> {
-        let mut ret = Vec::new();
+    fn points_at_distance(&self, dist: isize) -> HashSet<Coord> {
+        let mut ret = HashSet::new();
 
         for dx in -dist..dist+1 {
-            if dx < 0 {
-                for dy in -dist - dx..dist + dx {
-                    if dy < 0 {
-                        let dz1 = dist + dy;
-                        let dz2 = -dist - dy;
+            let y_dist = dist - dx.abs();
 
-                        ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz1));
-                        if dz1 != dz2 {
-                            ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz2));
-                        }
-                    } else {
-                        let dz1 = dist - dy;
-                        let dz2 = -dist + dy;
+            for dy in -y_dist .. y_dist + 1 {
+                let dz = y_dist - dy.abs();
 
-                        ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz1));
-                        if dz1 != dz2 {
-                            ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz2));
-                        }
-                    }
-                }
-            } else {
-                for dy in -dist + dx..dist - dx {
-                    if dy < 0 {
-                        let dz1 = dist + dy;
-                        let dz2 = -dist - dy;
-
-                        ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz1));
-                        if dz1 != dz2 {
-                            ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz2));
-                        }
-                    } else {
-                        let dz1 = dist - dy;
-                        let dz2 = -dist + dy;
-
-                        ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz1));
-                        if dz1 != dz2 {
-                            ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz2));
-                        }
-                    }
-                }
+                ret.insert(Coord::new(self.x + dx, self.y + dy, self.z + dz));
+                ret.insert(Coord::new(self.x + dx, self.y + dy, self.z - dz));
+                ret.insert(Coord::new(self.x + dx, self.y - dy, self.z + dz));
+                ret.insert(Coord::new(self.x + dx, self.y - dy, self.z - dz));
+                ret.insert(Coord::new(self.x - dx, self.y + dy, self.z + dz));
+                ret.insert(Coord::new(self.x - dx, self.y + dy, self.z - dz));
+                ret.insert(Coord::new(self.x - dx, self.y - dy, self.z + dz));
+                ret.insert(Coord::new(self.x - dx, self.y - dy, self.z - dz));
             }
         }
         return ret;
