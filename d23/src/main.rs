@@ -1,11 +1,13 @@
 extern crate regex;
 
 use std::fs;
+use std::fmt;
 use regex::Regex;
 use std::collections::HashSet;
+use std::collections::HashMap;
 
 fn main() {
-    let small_input = false;
+    let small_input = true;
     let filename;
 
     if small_input {
@@ -15,26 +17,26 @@ fn main() {
     }
 
     let nanobots = read_inputs(filename);
+//    let num_bots_in_range = HashMap::new();
 
-    let mut largest_range = 0;
-    let mut largest_bot: Nanobot = Nanobot{pos: Coord::new(0, 0, 0), range: 0};
-    for bot in nanobots.clone() {
-        if bot.range > largest_range {
-            largest_range = bot.range;
-            largest_bot = bot.clone();
-        }
-    }
+//    for bot in nanobots.clone() {
+//
+//    }
 
-    println!("Largest range is from bot: {:?}", largest_bot);
 
-    let mut count = 0;
-    for bot in nanobots {
-        if largest_bot.other_is_in_range_of(&bot) {
-            count += 1;
-        }
-    }
+    let orig = Coord::new(0, 0, 0);
 
-    println!("{} bots are in range", count);
+    let distance = 0;
+    println!("points at distance {}:   {:?}", distance, orig.points_at_distance(distance));
+
+    let distance = 1;
+    println!("points at distance {}:   {:?}", distance, orig.points_at_distance(distance));
+
+    let distance = 2;
+    println!("points at distance {}:   {:?}", distance, orig.points_at_distance(distance));
+
+
+
 }
 
 fn read_inputs<'a>(filename: &str) -> HashSet<Nanobot> {
@@ -69,7 +71,7 @@ impl Nanobot {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Hash, Copy, Clone, Ord, PartialOrd)]
+#[derive(Eq, PartialEq, Hash, Copy, Clone, Ord, PartialOrd)]
 struct Coord {
     x: isize,
     y: isize,
@@ -106,5 +108,80 @@ impl Coord {
 
         return x_dist + y_dist + z_dist;
     }
+
+    fn points_within_distance(&self, distance: isize) -> Vec<Coord> {
+        let mut ret = Vec::new();
+
+        ret.push(self.clone());
+
+        for current_distance in 0 .. distance + 1 {
+            let points_at_distance = self.points_at_distance(current_distance);
+
+            for p in points_at_distance {
+                ret.push(p);
+            }
+        }
+
+        return ret;
+
+    }
+
+    fn points_at_distance(&self, dist: isize) -> Vec<Coord> {
+        let mut ret = Vec::new();
+
+        for dx in -dist..dist+1 {
+            if dx < 0 {
+                for dy in -dist - dx..dist + dx {
+                    if dy < 0 {
+                        let dz1 = dist + dy;
+                        let dz2 = -dist - dy;
+
+                        ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz1));
+                        if dz1 != dz2 {
+                            ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz2));
+                        }
+                    } else {
+                        let dz1 = dist - dy;
+                        let dz2 = -dist + dy;
+
+                        ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz1));
+                        if dz1 != dz2 {
+                            ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz2));
+                        }
+                    }
+                }
+            } else {
+                for dy in -dist + dx..dist - dx {
+                    if dy < 0 {
+                        let dz1 = dist + dy;
+                        let dz2 = -dist - dy;
+
+                        ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz1));
+                        if dz1 != dz2 {
+                            ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz2));
+                        }
+                    } else {
+                        let dz1 = dist - dy;
+                        let dz2 = -dist + dy;
+
+                        ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz1));
+                        if dz1 != dz2 {
+                            ret.push(Coord::new(self.x + dx, self.y + dy, self.z + dz2));
+                        }
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
+
 }
+
+impl fmt::Debug for Coord {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        return write!(f, "({},{},{})", self.x, self.y, self.z);
+    }
+}
+
 
