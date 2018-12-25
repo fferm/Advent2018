@@ -5,3 +5,4 @@ authors = ["Fredrik Ferm <fredrik@fermitet.se>"]
 
 [dependencies]
 regex="1"
+priority-queue="0.5.2"
