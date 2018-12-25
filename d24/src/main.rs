@@ -6,8 +6,8 @@ use std::cell::Cell;
 fn main() {
     let small_input = true;
 
-    let immune_system: Army;
-    let infection : Army;
+    let mut immune_system: Army;
+    let mut infection : Army;
 
     if small_input {
         immune_system = read_immune_small();
@@ -21,10 +21,13 @@ fn main() {
     let mut round = 1;
     while cont {
         println!("Round {}", round);
-        print_army("Immune System", &immune_system);
-        print_army("Infection", &infection);
+        print_army(&immune_system);
+        print_army(&infection);
+        println!();
 
         // Target selection
+        infection.select_targets(&immune_system);
+        immune_system.select_targets(&infection);
 
         // Attack
 
@@ -36,18 +39,17 @@ fn main() {
 
 fn read_immune_small() -> Army {
 //    17 units each with 5390 hit points (weak to radiation, bludgeoning) with an attack that does 4507 fire damage at initiative 2
-//    989 units each with 1274 hit points (immune to fire; weak to bludgeoning, slashing) with an attack that does 25 slashing damage at initiative 3
-
     let mut g1 = Group::new(1, 17, 5390, 4507, Attack::Fire, 2);
     g1.add_weakness(Attack::Radiation);
     g1.add_weakness(Attack::Bludgeoning);
 
+//    989 units each with 1274 hit points (immune to fire; weak to bludgeoning, slashing) with an attack that does 25 slashing damage at initiative 3
     let mut g2 = Group::new(2, 989, 1274, 25, Attack::Slashing, 3);
     g2.add_immune(Attack::Fire);
     g2.add_weakness(Attack::Bludgeoning);
     g2.add_weakness(Attack::Slashing);
 
-    let mut immune = Army{groups: Vec::new()};
+    let mut immune = Army{groups: Vec::new(), name: "Immune".to_owned()};
     immune.groups.push(g1);
     immune.groups.push(g2);
 
@@ -100,7 +102,7 @@ fn read_immune_large() -> Army {
     g10.add_weakness(Attack::Bludgeoning);
     g10.add_immune(Attack::Radiation);
 
-    let mut immune = Army{groups: Vec::new()};
+    let mut immune = Army{groups: Vec::new(), name: "Immune".to_owned()};
     immune.groups.push(g1);
     immune.groups.push(g2);
     immune.groups.push(g3);
@@ -117,15 +119,16 @@ fn read_immune_large() -> Army {
 
 fn read_infection_small() -> Army {
 //    801 units each with 4706 hit points (weak to radiation) with an attack that does 116 bludgeoning damage at initiative 1
-//    4485 units each with 2961 hit points (immune to radiation; weak to fire, cold) with an attack that does 12 slashing damage at initiative 4
-
     let mut g1 = Group::new(1, 801, 4706, 116, Attack::Bludgeoning, 1);
     g1.add_weakness(Attack::Radiation);
 
+//    4485 units each with 2961 hit points (immune to radiation; weak to fire, cold) with an attack that does 12 slashing damage at initiative 4
     let mut g2 = Group::new(2, 4485, 2961, 12, Attack::Slashing, 4);
     g2.add_immune(Attack::Radiation);
+    g2.add_weakness(Attack::Fire);
+    g2.add_weakness(Attack::Cold);
 
-    let mut infection = Army{groups: Vec::new()};
+    let mut infection = Army{groups: Vec::new(), name: "Infection".to_owned()};
     infection.groups.push(g1);
     infection.groups.push(g2);
 
@@ -176,7 +179,7 @@ fn read_infection_large() -> Army {
     let mut g10 = Group::new(10, 4090, 23075, 10, Attack::Bludgeoning, 9);
     g10.add_immune(Attack::Radiation);
 
-    let mut infection = Army{groups: Vec::new()};
+    let mut infection = Army{groups: Vec::new(), name: "Infection".to_owned()};
     infection.groups.push(g1);
     infection.groups.push(g2);
     infection.groups.push(g3);
@@ -191,8 +194,8 @@ fn read_infection_large() -> Army {
     return infection;
 }
 
-fn print_army(name: &str, army: &Army) {
-    println!("{}", name);
+fn print_army(army: &Army) {
+    println!("{}", army.name);
 
     for group in &army.groups {
         println!("Group {} contains {} units", group.id, group.num_units.get());
@@ -201,7 +204,96 @@ fn print_army(name: &str, army: &Army) {
 
 #[derive(Eq, PartialEq, Clone, Ord, PartialOrd)]
 struct Army {
+    name: String,
     groups: Vec<Group>
+}
+
+impl Army {
+    fn select_targets(&mut self, other: &Army) {
+        self.sort_groups();
+
+        let mut taken_targets = Vec::new();
+
+        for group in self.groups.iter() {
+            let mut max_damage = 0;
+            let mut max_enemys = Vec::new();
+
+            for enemy_group in other.groups.iter() {
+                if taken_targets.contains(&enemy_group.id) {
+                    continue;
+                }
+
+                let potential_damage =  group.attack_damage_to(enemy_group);
+                println!("{} group {} would deal defending group {} {} damage", self.name, group.id, enemy_group.id, potential_damage);
+
+                if potential_damage > max_damage {
+                    max_enemys.clear();
+                    max_damage = potential_damage;
+                    max_enemys.push(enemy_group);
+                } else if potential_damage == max_damage {
+                    max_enemys.push(enemy_group);
+                }
+            }
+
+            if max_enemys.len() == 0 {
+                // If you cannot deal any damage, don't
+                group.selected_enemy_idx.set(None);
+            } else {
+                //If an attacking group is considering two defending groups to which it would deal equal damage,
+                // it chooses to target the defending group with the largest effective power;
+                // if there is still a tie, it chooses the defending group with the highest initiative
+
+                // I can assume that we go through the full set of checks.  If there is only one left at some earlier
+                // stage, there will only be one entry to compare to itself for max...
+
+                let mut max_power = 0;
+                let mut max_power_enemys = Vec::new();
+
+                let effective_powers: Vec<isize> = max_enemys.iter().map(|&g| g.get_effective_power()).collect();
+                for i in 0 .. effective_powers.len() {
+                    let power = effective_powers[i];
+                    if power > max_power {
+                        max_power_enemys.clear();
+                        max_power = power;
+                        max_power_enemys.push(max_enemys[i]);
+                    } else if power == max_power {
+                        max_power_enemys.push(max_enemys[i]);
+                    }
+                }
+
+
+                let mut max_initiative = 0;
+                let mut max_initiative_enemy = None;
+
+                let initiatives: Vec<isize> = max_power_enemys.iter().map(|&g| g.initiative).collect();
+                for i in 0 .. initiatives.len() {
+                    let initiative = initiatives[i];
+                    if initiative > max_initiative {
+                        max_initiative = initiative;
+                        max_initiative_enemy = Some(max_power_enemys[i]);
+                    }
+                }
+
+                let selected_enemy_id = max_initiative_enemy.unwrap().id;
+                group.selected_enemy_idx.set(Some(selected_enemy_id));
+                taken_targets.push(selected_enemy_id);
+            }
+//            println!("{} group {}  selects enemy {:?}", self.name, group.id, group.selected_enemy_idx.get());
+        }
+    }
+
+
+    fn sort_groups(&mut self) {
+        self.groups.sort_by(|a, b| {
+            let a_power = a.get_effective_power();
+            let b_power = b.get_effective_power();
+            if a_power == b_power {
+                return b.initiative.cmp(&a.initiative);
+            } else {
+                return b_power.cmp(&a_power);
+            }
+        });
+    }
 }
 
 #[derive(Eq, PartialEq, Clone, Ord, PartialOrd)]
@@ -215,7 +307,7 @@ struct Group {
     immunes: Vec<Attack>,
     weaknesses: Vec<Attack>,
     alive: Cell<bool>,
-    selected_enemy_idx: Cell<Option<usize>>
+    selected_enemy_idx: Cell<Option<isize>>
 }
 
 impl Group {
@@ -231,6 +323,22 @@ impl Group {
 
     fn get_effective_power(&self) -> isize {
         return self.num_units.get() * self.attack_damage_per_unit;
+    }
+
+    fn attack_damage_to(&self, enemy: &Group) -> isize {
+        let mut damage = self.get_effective_power();
+
+        let attack_type = self.attack_type;
+
+        if enemy.immunes.contains(&attack_type) {
+            damage = 0;
+        }
+
+        if enemy.weaknesses.contains(&attack_type) {
+            damage *= 2;
+        }
+
+        return damage;
     }
 }
 
