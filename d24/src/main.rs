@@ -28,12 +28,18 @@ fn main() {
 
         round += 1;
         cont = sim.immune.has_alive() && sim.infection.has_alive();
+
+        if round > 3500 {
+            cont  = false;
+        }
     }
 
-    if sim.immune.has_alive() {
+    if sim.immune.has_alive() && !sim.infection.has_alive(){
         println!("Immune system wins with {} units alive", sim.immune.num_alive());
-    } else {
+    } else if sim.infection.has_alive() && !sim.immune.has_alive() {
         println!("Infection wins with {} units alive", sim.infection.num_alive());
+    } else {
+        println!("Noone has won yet.  Immune: {}    Infection: {}", sim.immune.num_alive(), sim.infection.num_alive());
     }
     println!();
     println!();
@@ -94,7 +100,7 @@ fn read_large() -> Sim {
 }
 
 fn read_immune_large() -> Army {
-    let army = "Infection".to_owned();
+    let army = "Immune   ".to_owned();
 
 //    9936 units each with 1739 hit points (weak to slashing, fire) with an attack that does 1 slashing damage at initiative 11
     let mut g1 = Group::new(army.clone(), 1, 9936, 1739, 1, Attack::Slashing, 11);
@@ -320,6 +326,10 @@ impl Army {
                 let potential_damage =  group.attack_damage_to(enemy_group);
                 println!("{} group {} would deal defending group {} {} damage", self.name, group.id, enemy_group.id, potential_damage);
 
+                if potential_damage == 0 {
+                    continue;
+                }
+
                 if potential_damage > max_damage {
                     max_enemys.clear();
                     max_damage = potential_damage;
@@ -480,7 +490,7 @@ impl Group {
 
 impl fmt::Debug for Group {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        return write!(f, "{} group {} contains {} units and has {} hit-points per unit.   Initiative: {}", self.army, self.id, self.num_units.get(), self.hit_points_per_unit, self.initiative);
+        return write!(f, "{} group {}. {} units.  {} hit-points per unit.   Initiative: {}    Effective power: {}   Damage: {}", self.army, self.id, self.num_units.get(), self.hit_points_per_unit, self.initiative, self.get_effective_power(), self.attack_damage_per_unit);
     }
 }
 
