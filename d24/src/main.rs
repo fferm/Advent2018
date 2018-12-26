@@ -6,19 +6,21 @@ fn main() {
     let debug = true;
 
     let mut boost = 0;
-    let mut immune_won: Option<isize> = None;
-    while immune_won.is_none() {
-        println!("boost: {}", boost);
-        immune_won = run_simulation(small_input, boost, boost >= 15);
 
+    loop {
+        print!("boost: {}\t", boost);
+        let mut result = run_simulation(small_input, boost, false);
+
+        if result.0 != 0 && result.1 == 0 {
+            println!("immune_won: {:?}", result.0);
+            break;
+        }
         boost += 1;
     }
 
-    println!("immune_won: {:?}", immune_won);
-
 }
 
-fn run_simulation(small_input: bool, boost: isize, debug: bool) -> Option<isize> {     // filled with num immune left if immune won
+fn run_simulation(small_input: bool, boost: isize, debug: bool) -> (isize, isize) {     // (immune left, infection left)
     let mut sim: Sim;
 
     if small_input {
@@ -27,10 +29,10 @@ fn run_simulation(small_input: bool, boost: isize, debug: bool) -> Option<isize>
         sim = read_large(boost);
     }
 
-    let mut cont = true;
     let mut round = 1;
-    while cont {
-        if debug{
+    let mut prev_result = None;
+    loop {
+        if debug {
             println!("Round {}", round);
             println!("{:?}", &sim);
             println!();
@@ -47,20 +49,29 @@ fn run_simulation(small_input: bool, boost: isize, debug: bool) -> Option<isize>
             println!();
         }
 
-        round += 1;
-        cont = sim.immune.has_alive() && sim.infection.has_alive();
-    }
 
-    if sim.immune.has_alive() && !sim.infection.has_alive(){
-        if small_input {
-            println!("Immune system wins with {} units alive", sim.immune.num_alive());
+
+        let current_result = (sim.immune.num_alive(), sim.infection.num_alive());
+
+        if current_result.0 != 0 && current_result.1 == 0 {
+//            if debug {
+                println!("Immune system wins with {} units alive", sim.immune.num_alive());
+//            }
+            return current_result;
+        } else if current_result.1 != 0 && current_result.0 == 0 {
+//            if debug {
+                println!("Infection wins with {} units alive", sim.infection.num_alive());
+//            }
+            return current_result;
+        } else if prev_result.is_some() && prev_result.unwrap() == current_result {
+//            if debug {
+                println!("Draw");
+//            }
+            return current_result;
         }
-        return Some(sim.immune.num_alive());
-    } else {
-        if small_input {
-            println!("Infection wins with {} units alive", sim.infection.num_alive());
-        }
-        return None;
+
+        prev_result = Some(current_result);
+        round += 1;
     }
 }
 
