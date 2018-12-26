@@ -3,64 +3,83 @@ use std::cell::Cell;
 
 fn main() {
     let small_input = false;
+    let debug = true;
 
+    let mut boost = 0;
+    let mut immune_won: Option<isize> = None;
+    while immune_won.is_none() {
+        println!("boost: {}", boost);
+        immune_won = run_simulation(small_input, boost, boost >= 15);
+
+        boost += 1;
+    }
+
+    println!("immune_won: {:?}", immune_won);
+
+}
+
+fn run_simulation(small_input: bool, boost: isize, debug: bool) -> Option<isize> {     // filled with num immune left if immune won
     let mut sim: Sim;
 
     if small_input {
-        sim = read_small();
+        sim = read_small(boost);
     } else {
-        sim = read_large();
+        sim = read_large(boost);
     }
 
     let mut cont = true;
     let mut round = 1;
     while cont {
-        println!("Round {}", round);
-        println!("{:?}", &sim);
-        println!();
+        if debug{
+            println!("Round {}", round);
+            println!("{:?}", &sim);
+            println!();
+        }
 
-        sim.select_targets();
-        println!();
+        sim.select_targets(debug);
+        if debug {
+            println!();
+        }
 
-        sim.attack();
-        println!();
-        println!();
+        sim.attack(debug);
+        if debug {
+            println!();
+            println!();
+        }
 
         round += 1;
         cont = sim.immune.has_alive() && sim.infection.has_alive();
-
-        if round > 3500 {
-            cont  = false;
-        }
     }
 
     if sim.immune.has_alive() && !sim.infection.has_alive(){
-        println!("Immune system wins with {} units alive", sim.immune.num_alive());
-    } else if sim.infection.has_alive() && !sim.immune.has_alive() {
-        println!("Infection wins with {} units alive", sim.infection.num_alive());
+        if small_input {
+            println!("Immune system wins with {} units alive", sim.immune.num_alive());
+        }
+        return Some(sim.immune.num_alive());
     } else {
-        println!("Noone has won yet.  Immune: {}    Infection: {}", sim.immune.num_alive(), sim.infection.num_alive());
+        if small_input {
+            println!("Infection wins with {} units alive", sim.infection.num_alive());
+        }
+        return None;
     }
-    println!();
-    println!();
 }
 
-fn read_small() -> Sim {
-    let immune = read_immune_small();
+fn read_small(boost: isize) -> Sim {
+    let immune = read_immune_small(boost);
     let infection = read_infection_small();
 
     return Sim{immune, infection};
 }
-fn read_immune_small() -> Army {
+fn read_immune_small(boost: isize) -> Army {
     let army = "Immune   ".to_owned();
 
 //    17 units each with 5390 hit points (weak to radiation, bludgeoning) with an attack that does 4507 fire damage at initiative 2
-    let mut g1 = Group::new(army.clone(), 1, 17, 5390, 4507, Attack::Fire, 2);
+    let mut g1 = Group::new(army.clone(), 1, 17, 5390, 4507 + boost, Attack::Fire, 2);
     g1.add_weakness(Attack::Radiation);
     g1.add_weakness(Attack::Bludgeoning);
 
 //    989 units each with 1274 hit points (immune to fire; weak to bludgeoning, slashing) with an attack that does 25 slashing damage at initiative 3
-    let mut g2 = Group::new(army.clone(), 2, 989, 1274, 25, Attack::Slashing, 3);
+    let mut g2 = Group::new(army.clone(), 2, 989, 1274, 25 + boost, Attack::Slashing, 3);
     g2.add_immune(Attack::Fire);
     g2.add_weakness(Attack::Bludgeoning);
     g2.add_weakness(Attack::Slashing);
@@ -92,58 +111,58 @@ fn read_infection_small() -> Army {
     return infection;
 }
 
-fn read_large() -> Sim {
-    let immune = read_immune_large();
+fn read_large(boost: isize) -> Sim {
+    let immune = read_immune_large(boost);
     let infection = read_infection_large();
 
     return Sim{immune, infection};
 }
 
-fn read_immune_large() -> Army {
+fn read_immune_large(boost: isize) -> Army {
     let army = "Immune   ".to_owned();
 
 //    9936 units each with 1739 hit points (weak to slashing, fire) with an attack that does 1 slashing damage at initiative 11
-    let mut g1 = Group::new(army.clone(), 1, 9936, 1739, 1, Attack::Slashing, 11);
+    let mut g1 = Group::new(army.clone(), 1, 9936, 1739, 1 + boost, Attack::Slashing, 11);
     g1.add_weakness(Attack::Slashing);
     g1.add_weakness(Attack::Fire);
 
 //    2990 units each with 9609 hit points (weak to radiation; immune to fire, cold) with an attack that does 31 cold damage at initiative 1
-    let mut g2 = Group::new(army.clone(), 2, 2990, 9609, 31, Attack::Cold, 1);
+    let mut g2 = Group::new(army.clone(), 2, 2990, 9609, 31 + boost, Attack::Cold, 1);
     g2.add_weakness(Attack::Radiation);
     g2.add_immune(Attack::Fire);
     g2.add_immune(Attack::Cold);
 
     //    2637 units each with 9485 hit points (immune to cold, slashing; weak to bludgeoning) with an attack that does 26 radiation damage at initiative 13
-    let mut g3 = Group::new(army.clone(), 3, 2637, 9485, 26, Attack::Radiation, 13);
+    let mut g3 = Group::new(army.clone(), 3, 2637, 9485, 26 + boost, Attack::Radiation, 13);
     g3.add_immune(Attack::Cold);
     g3.add_immune(Attack::Slashing);
     g3.add_weakness(Attack::Bludgeoning);
 
 //    1793 units each with 2680 hit points (weak to bludgeoning; immune to cold) with an attack that does 13 bludgeoning damage at initiative 10
-    let mut g4 = Group::new(army.clone(), 4, 1793, 2680, 13, Attack::Bludgeoning, 10);
+    let mut g4 = Group::new(army.clone(), 4, 1793, 2680, 13 + boost, Attack::Bludgeoning, 10);
     g4.add_weakness(Attack::Bludgeoning);
     g4.add_immune(Attack::Cold);
 
 //    8222 units each with 6619 hit points (immune to fire, slashing) with an attack that does 6 bludgeoning damage at initiative 12
-    let mut g5 = Group::new(army.clone(), 5, 8222, 6619, 6, Attack::Bludgeoning, 12);
+    let mut g5 = Group::new(army.clone(), 5, 8222, 6619, 6 + boost, Attack::Bludgeoning, 12);
     g5.add_immune(Attack::Fire);
     g5.add_immune(Attack::Slashing);
 
 //    550 units each with 5068 hit points with an attack that does 87 radiation damage at initiative 19
-    let g6 = Group::new(army.clone(), 6, 550, 5068, 87, Attack::Radiation, 19);
+    let g6 = Group::new(army.clone(), 6, 550, 5068, 87 + boost, Attack::Radiation, 19);
 
 //    950 units each with 8681 hit points (weak to radiation) with an attack that does 73 slashing damage at initiative 17
-    let mut g7 = Group::new(army.clone(), 7,950, 8681, 73, Attack::Slashing, 17);
+    let mut g7 = Group::new(army.clone(), 7,950, 8681, 73 + boost, Attack::Slashing, 17);
     g7.add_weakness(Attack::Radiation);
 
 //    28 units each with 9835 hit points with an attack that does 2979 bludgeoning damage at initiative 3
-    let g8 = Group::new(army.clone(), 8, 28, 9835, 2979, Attack::Bludgeoning, 3);
+    let g8 = Group::new(army.clone(), 8, 28, 9835, 2979 + boost, Attack::Bludgeoning, 3);
 
 //    3799 units each with 2933 hit points with an attack that does 7 slashing damage at initiative 16
-    let g9 = Group::new(army.clone(), 9, 3799, 2933, 7, Attack::Slashing, 16);
+    let g9 = Group::new(army.clone(), 9, 3799, 2933, 7 + boost, Attack::Slashing, 16);
 
 //    35 units each with 8999 hit points (weak to bludgeoning; immune to radiation) with an attack that does 2505 cold damage at initiative 6
-    let mut g10 = Group::new(army.clone(), 10, 35, 8999, 2505, Attack::Cold, 6);
+    let mut g10 = Group::new(army.clone(), 10, 35, 8999, 2505 + boost, Attack::Cold, 6);
     g10.add_weakness(Attack::Bludgeoning);
     g10.add_immune(Attack::Radiation);
 
@@ -228,12 +247,12 @@ struct Sim {
 }
 
 impl Sim {
-    fn select_targets(&mut self) {
-        self.infection.select_targets(&self.immune);
-        self.immune.select_targets(&self.infection);
+    fn select_targets(&mut self, debug: bool) {
+        self.infection.select_targets(&self.immune, debug);
+        self.immune.select_targets(&self.infection, debug);
     }
 
-    fn attack(&mut self) {
+    fn attack(&mut self, debug: bool) {
         let mut prio_queue = Vec::new();
         for group in self.infection.groups.iter() {
             prio_queue.push(group);
@@ -246,7 +265,9 @@ impl Sim {
 
         for group in prio_queue {
             if group.selected_enemy_id.get().is_none() {
-                println!("{} group {} cannot attack anybody", group.army, group.id);
+                if debug {
+                    println!("{} group {} cannot attack anybody", group.army, group.id);
+                }
                 continue;
             }
             if !group.alive.get() {
@@ -274,11 +295,14 @@ impl Sim {
                 enemy_group.num_units.set(enemy_group.num_units.get() - num_units_reduce);
             }
 
-            println!("{} group {} attacks defending group {}, killing {} units.  Target is alive: {}", group.army, group.id, enemy_group.id, num_units_reduce, enemy_group.alive.get());
+            if debug {
+                println!("{} group {} attacks defending group {}, killing {} units.  Target is alive: {}", group.army, group.id, enemy_group.id, num_units_reduce, enemy_group.alive.get());
+            }
         }
 
-        println!();
-
+        if debug {
+            println!();
+        }
     }
 }
 
@@ -302,7 +326,7 @@ struct Army {
 }
 
 impl Army {
-    fn select_targets(&mut self, other: &Army) {
+    fn select_targets(&mut self, other: &Army, debug: bool) {
         self.sort_groups();
 
         let mut taken_targets = Vec::new();
@@ -324,7 +348,9 @@ impl Army {
                 }
 
                 let potential_damage =  group.attack_damage_to(enemy_group);
-                println!("{} group {} would deal defending group {} {} damage", self.name, group.id, enemy_group.id, potential_damage);
+                if debug {
+                    println!("{} group {} would deal defending group {} {} damage", self.name, group.id, enemy_group.id, potential_damage);
+                }
 
                 if potential_damage == 0 {
                     continue;
@@ -382,7 +408,6 @@ impl Army {
                 group.selected_enemy_id.set(Some(selected_enemy_id));
                 taken_targets.push(selected_enemy_id);
             }
-//            println!("{} group {}  selects enemy {:?}", self.name, group.id, group.selected_enemy_idx.get());
         }
     }
 
