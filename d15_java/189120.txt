@@ -1,0 +1,3931 @@
+/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/bin/java "-javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=62534:/Applications/IntelliJ IDEA.app/Contents/bin" -Dfile.encoding=UTF-8 -classpath /Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/cldrdata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/jaccess.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/nashorn.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/jfxswt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/lib/dt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/lib/javafx-mx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/lib/jconsole.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/lib/packager.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/lib/sa-jdi.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/lib/tools.jar:/Users/fredrikferm/git/rust/Advent2018/d15_java/out/production/d15_java se.fermitet.Main
+objc[35517]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/bin/java (0x10ef7c4c0) and /Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/jre/lib/libinstrument.dylib (0x10ff934e0). One of the two will be used. Which one is undefined.
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#G.#########G..####
+#########G........#######....###
+#########...G.......G##........#
+#######G.................E...###
+#######.####...####..G..#...####
+######...#.........G..###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.G..G.G..#G#########...G.....##
+#.###.......#########........###
+#...G.......#########..E.E..####
+#..G........#########......#####
+#....G...E.E#########......#####
+#........E...#######....########
+#......#...G..#####...E....#####
+#.........G................#####
+#..........G....####....########
+#................###....########
+#..........G......######.#######
+#.............###.##.....#######
+##......#....####E...E.....#####
+##......##...###.E.#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (14,6) with hit points 200
+GOBLIN at (25,6) with hit points 200
+GOBLIN at (9,7) with hit points 200
+GOBLIN at (12,8) with hit points 200
+GOBLIN at (20,8) with hit points 200
+GOBLIN at (7,9) with hit points 200
+ELF at (25,9) with hit points 200
+GOBLIN at (21,10) with hit points 200
+GOBLIN at (19,11) with hit points 200
+GOBLIN at (2,14) with hit points 200
+GOBLIN at (5,14) with hit points 200
+GOBLIN at (7,14) with hit points 200
+GOBLIN at (11,14) with hit points 200
+GOBLIN at (24,14) with hit points 200
+GOBLIN at (4,16) with hit points 200
+ELF at (23,16) with hit points 200
+ELF at (25,16) with hit points 200
+GOBLIN at (3,17) with hit points 200
+GOBLIN at (5,18) with hit points 200
+ELF at (9,18) with hit points 200
+ELF at (11,18) with hit points 200
+ELF at (9,19) with hit points 200
+GOBLIN at (11,20) with hit points 200
+ELF at (22,20) with hit points 200
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (11,24) with hit points 200
+ELF at (17,26) with hit points 200
+ELF at (21,26) with hit points 200
+ELF at (17,27) with hit points 200
+
+
+After 1 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.....G...#######G...###
+#########G...........##..E.....#
+#######.....G.......G........###
+#######G####...####...G.#...####
+######...#..........G.###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#..G......#.#########.........##
+#.###G.G...G#########..EGE...###
+#...........#########.......####
+#...G.......#########......#####
+#..G..G.E...#########......#####
+#..........E.#######....########
+#......#.EGG..#####....E...#####
+#..........................#####
+#.........G.....####....########
+#................###....########
+#.........G.......######.#######
+#.............###E##.....#######
+##......#....####....E.....#####
+##......##...###.E.#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (14,7) with hit points 200
+GOBLIN at (25,7) with hit points 197
+GOBLIN at (9,8) with hit points 200
+GOBLIN at (12,9) with hit points 200
+GOBLIN at (20,9) with hit points 200
+GOBLIN at (7,10) with hit points 200
+ELF at (25,8) with hit points 200
+GOBLIN at (22,10) with hit points 200
+GOBLIN at (20,11) with hit points 200
+GOBLIN at (3,14) with hit points 200
+GOBLIN at (5,15) with hit points 200
+GOBLIN at (7,15) with hit points 200
+GOBLIN at (11,15) with hit points 200
+GOBLIN at (24,15) with hit points 194
+GOBLIN at (4,17) with hit points 200
+ELF at (23,15) with hit points 200
+ELF at (25,15) with hit points 200
+GOBLIN at (3,18) with hit points 200
+GOBLIN at (6,18) with hit points 200
+ELF at (8,18) with hit points 200
+ELF at (11,19) with hit points 197
+ELF at (9,20) with hit points 197
+GOBLIN at (11,20) with hit points 197
+ELF at (23,20) with hit points 200
+GOBLIN at (10,20) with hit points 200
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (10,24) with hit points 200
+ELF at (17,25) with hit points 200
+ELF at (21,26) with hit points 200
+ELF at (17,27) with hit points 200
+
+
+After 2 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########.G...G......##..E.....#
+#######..............G.......###
+#######.####G..####....G#...####
+######.G.#............###....###
+#####....#....#####.G.####...###
+####.........#######.....#....##
+#...G.....#.#########.........##
+#.###.......#########..EGE...###
+#....G.G...G#########.......####
+#....G......#########......#####
+#......GE...#########......#####
+#..G.......E.#######...E########
+#......#.EGG..#####........#####
+#..........................#####
+#........G......####....########
+#.........G......###....########
+#................E######.#######
+#.............###.##.....#######
+##......#....####....E.....#####
+##......##...###.E.#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (14,8) with hit points 200
+GOBLIN at (25,7) with hit points 194
+GOBLIN at (10,8) with hit points 200
+ELF at (25,8) with hit points 197
+GOBLIN at (12,10) with hit points 200
+GOBLIN at (21,9) with hit points 200
+GOBLIN at (7,11) with hit points 200
+GOBLIN at (23,10) with hit points 200
+GOBLIN at (20,12) with hit points 200
+GOBLIN at (4,14) with hit points 200
+GOBLIN at (5,16) with hit points 200
+GOBLIN at (7,16) with hit points 200
+GOBLIN at (11,16) with hit points 200
+ELF at (23,15) with hit points 197
+GOBLIN at (24,15) with hit points 188
+ELF at (25,15) with hit points 200
+GOBLIN at (5,17) with hit points 200
+GOBLIN at (3,19) with hit points 200
+GOBLIN at (7,18) with hit points 197
+ELF at (8,18) with hit points 197
+ELF at (11,19) with hit points 194
+ELF at (9,20) with hit points 194
+GOBLIN at (10,20) with hit points 197
+GOBLIN at (11,20) with hit points 194
+ELF at (23,19) with hit points 200
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (10,23) with hit points 200
+ELF at (17,24) with hit points 200
+ELF at (21,26) with hit points 200
+ELF at (17,27) with hit points 200
+
+
+After 3 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##..E.....#
+#######...G...G.......GG.....###
+#######.####...####.....#...####
+######...#..G.........###....###
+#####..G.#....#####...####...###
+####.........#######G....#....##
+#....G....#.#########.........##
+#.###.......#########..EGE...###
+#.....G.....#########.......####
+#......G...G#########......#####
+#....G.GE...#########..E...#####
+#...G......E.#######....########
+#......#.EGG..#####........#####
+#........G.................#####
+#...............####....########
+#........G.......###....########
+#...............E.######.#######
+#.............###.##.....#######
+##......#....####....E.....#####
+##......##...###.E.#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 191
+GOBLIN at (10,9) with hit points 200
+GOBLIN at (14,9) with hit points 200
+ELF at (25,8) with hit points 194
+GOBLIN at (22,9) with hit points 200
+GOBLIN at (12,11) with hit points 200
+GOBLIN at (23,9) with hit points 200
+GOBLIN at (7,12) with hit points 200
+GOBLIN at (20,13) with hit points 200
+GOBLIN at (5,14) with hit points 200
+ELF at (23,15) with hit points 194
+GOBLIN at (24,15) with hit points 182
+ELF at (25,15) with hit points 200
+GOBLIN at (6,16) with hit points 200
+GOBLIN at (7,17) with hit points 200
+GOBLIN at (11,17) with hit points 200
+GOBLIN at (5,18) with hit points 200
+GOBLIN at (7,18) with hit points 194
+ELF at (8,18) with hit points 194
+GOBLIN at (4,19) with hit points 200
+ELF at (11,19) with hit points 191
+ELF at (23,18) with hit points 200
+ELF at (9,20) with hit points 188
+GOBLIN at (10,20) with hit points 194
+GOBLIN at (11,20) with hit points 191
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (9,23) with hit points 200
+ELF at (16,24) with hit points 200
+ELF at (21,26) with hit points 200
+ELF at (17,27) with hit points 200
+
+
+After 4 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##..E.....#
+#######..G..............G....###
+#######.####..G####...G.#...####
+######...#............###....###
+#####....#..G.#####...####...###
+####...G.....#######.G...#....##
+#.........#.#########.........##
+#.###G......#########..EGE...###
+#......G....#########.......####
+#.......G...#########......#####
+#......GE..G#########...E..#####
+#....G.....E.#######....########
+#...G..#.EGG..#####........#####
+#........G.................#####
+#...............####....########
+#.......G........###....########
+#..............E..######.#######
+#.............###.##.....#######
+##......#....####E..E......#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 188
+ELF at (25,8) with hit points 191
+GOBLIN at (9,9) with hit points 200
+GOBLIN at (14,10) with hit points 200
+GOBLIN at (22,10) with hit points 200
+GOBLIN at (24,9) with hit points 200
+GOBLIN at (12,12) with hit points 200
+GOBLIN at (7,13) with hit points 200
+GOBLIN at (21,13) with hit points 200
+GOBLIN at (5,15) with hit points 200
+ELF at (23,15) with hit points 191
+GOBLIN at (24,15) with hit points 176
+ELF at (25,15) with hit points 200
+GOBLIN at (7,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (5,19) with hit points 200
+GOBLIN at (7,18) with hit points 191
+ELF at (8,18) with hit points 188
+ELF at (24,18) with hit points 200
+GOBLIN at (4,20) with hit points 200
+ELF at (11,19) with hit points 185
+ELF at (9,20) with hit points 182
+GOBLIN at (10,20) with hit points 191
+GOBLIN at (11,20) with hit points 188
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (8,23) with hit points 200
+ELF at (15,24) with hit points 200
+ELF at (20,26) with hit points 200
+ELF at (17,26) with hit points 200
+
+
+After 5 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######.G.....G..............###
+#######.####...####....G#...####
+######...#............###....###
+#####....#....#####...####...###
+####........G#######.....#....##
+#......G..#.#########G........##
+#.###.G.....#########..EGE...###
+#.......G...#########.......####
+#.......G...#########...E..#####
+#......GE..G#########......#####
+#.....G....E.#######....########
+#......#.EGG..#####........#####
+#...G....G.................#####
+#.......G.......####....########
+#................###....########
+#.............E...######.#######
+#.............###E##.....#######
+##......#....####...E......#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 185
+ELF at (25,8) with hit points 185
+GOBLIN at (8,9) with hit points 200
+GOBLIN at (24,8) with hit points 200
+GOBLIN at (14,9) with hit points 200
+GOBLIN at (23,10) with hit points 200
+GOBLIN at (12,13) with hit points 200
+GOBLIN at (7,14) with hit points 200
+GOBLIN at (21,14) with hit points 200
+GOBLIN at (6,15) with hit points 200
+ELF at (23,15) with hit points 188
+GOBLIN at (24,15) with hit points 170
+ELF at (25,15) with hit points 200
+GOBLIN at (8,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 188
+ELF at (8,18) with hit points 182
+GOBLIN at (11,18) with hit points 200
+ELF at (24,17) with hit points 200
+GOBLIN at (6,19) with hit points 200
+ELF at (11,19) with hit points 179
+GOBLIN at (4,21) with hit points 200
+ELF at (9,20) with hit points 176
+GOBLIN at (10,20) with hit points 188
+GOBLIN at (11,20) with hit points 185
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (8,22) with hit points 200
+ELF at (14,24) with hit points 200
+ELF at (17,25) with hit points 200
+ELF at (20,26) with hit points 200
+
+
+After 6 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######G.......G.......G.....###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.......G.#######.....#....##
+#.....G...#.#########.G.......##
+#.###..G....#########..EGE...###
+#........G..#########...E...####
+#.......G...#########......#####
+#......GE..G#########......#####
+#......G...E.#######....########
+#......#.EGG..#####........#####
+#....G..GG.................#####
+#...............####....########
+#................###....########
+#............E...E######.#######
+#.............###.##.....#######
+##......#....####...E......#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 182
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 179
+GOBLIN at (7,9) with hit points 200
+GOBLIN at (15,9) with hit points 200
+GOBLIN at (23,9) with hit points 200
+GOBLIN at (11,13) with hit points 200
+GOBLIN at (7,15) with hit points 200
+GOBLIN at (22,14) with hit points 200
+GOBLIN at (6,14) with hit points 200
+ELF at (23,15) with hit points 185
+GOBLIN at (24,15) with hit points 161
+ELF at (25,15) with hit points 200
+GOBLIN at (9,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (7,18) with hit points 185
+ELF at (8,18) with hit points 176
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (7,19) with hit points 200
+ELF at (11,19) with hit points 173
+ELF at (9,20) with hit points 170
+GOBLIN at (10,20) with hit points 185
+GOBLIN at (11,20) with hit points 182
+GOBLIN at (5,21) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (8,21) with hit points 200
+ELF at (13,24) with hit points 200
+ELF at (17,24) with hit points 200
+ELF at (20,26) with hit points 200
+
+
+After 7 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######.........G.......G....###
+#######G####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#......G..#G#########..G......##
+#.###...G...#########..EGE...###
+#...........#########...E...####
+#.......GG..#########......#####
+#......GE..G#########......#####
+#.......G..E.#######....########
+#......#GEGG..#####........#####
+#........G.................#####
+#....G..........####....########
+#................###....########
+#...........E...E.######.#######
+#.............###.##.....#######
+##......#....####...E......#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 179
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 173
+GOBLIN at (7,10) with hit points 200
+GOBLIN at (16,9) with hit points 200
+GOBLIN at (24,9) with hit points 200
+GOBLIN at (11,14) with hit points 200
+GOBLIN at (7,14) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (8,15) with hit points 200
+ELF at (23,15) with hit points 179
+GOBLIN at (24,15) with hit points 152
+ELF at (25,15) with hit points 200
+GOBLIN at (9,17) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 182
+ELF at (8,18) with hit points 167
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+ELF at (11,19) with hit points 167
+ELF at (9,20) with hit points 161
+GOBLIN at (10,20) with hit points 182
+GOBLIN at (11,20) with hit points 179
+GOBLIN at (5,22) with hit points 200
+GOBLIN at (8,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+ELF at (12,24) with hit points 200
+ELF at (16,24) with hit points 200
+ELF at (20,26) with hit points 200
+
+
+After 8 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..........G.......G...###
+#######.####...####.....#...####
+######.G.#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###..G...G#########..EGE...###
+#.......G...#########...E...####
+#.......G...#########......#####
+#......GEG.G#########......#####
+#.......G..E.#######....########
+#......#GEGG..#####........#####
+#........G.................#####
+#...............####....########
+#....G......E....###....########
+#..............E..######.#######
+#.............###.##.....#######
+##......#....####..E.......#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 176
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 164
+GOBLIN at (17,9) with hit points 200
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (7,11) with hit points 200
+GOBLIN at (7,15) with hit points 200
+GOBLIN at (11,15) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (8,16) with hit points 200
+ELF at (23,15) with hit points 173
+GOBLIN at (24,15) with hit points 143
+ELF at (25,15) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (7,18) with hit points 179
+ELF at (8,18) with hit points 155
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+ELF at (11,19) with hit points 161
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 152
+GOBLIN at (10,20) with hit points 179
+GOBLIN at (11,20) with hit points 176
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (5,23) with hit points 200
+ELF at (12,23) with hit points 200
+ELF at (15,24) with hit points 200
+ELF at (19,26) with hit points 200
+
+
+After 9 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######...........G......G...###
+#######.####...####.....#...####
+######...#............###....###
+#####..G.#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###...G...#########..EGE...###
+#........G.G#########...E...####
+#.......G...#########......#####
+#......GEG.G#########......#####
+#.......G..E.#######....########
+#......#GEGG..#####........#####
+#........G.................#####
+#...........E...####....########
+#.....G..........###....########
+#.............E...######.#######
+#.............###.##.....#######
+##......#....####.E........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 173
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 155
+GOBLIN at (18,9) with hit points 200
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (7,12) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (8,15) with hit points 200
+GOBLIN at (11,16) with hit points 200
+ELF at (23,15) with hit points 167
+GOBLIN at (24,15) with hit points 134
+ELF at (25,15) with hit points 200
+GOBLIN at (9,16) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 176
+ELF at (8,18) with hit points 143
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+ELF at (11,19) with hit points 155
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 143
+GOBLIN at (10,20) with hit points 176
+GOBLIN at (11,20) with hit points 173
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (6,23) with hit points 200
+ELF at (12,22) with hit points 200
+ELF at (14,24) with hit points 200
+ELF at (18,26) with hit points 200
+
+
+After 10 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######............G.....G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####...G.....#######.....#....##
+#.........#.#########..G......##
+#.###....G..#########..EGE...###
+#...........#########...E...####
+#.......GG.G#########......#####
+#......GEG.G#########......#####
+#.......G..E.#######....########
+#......#GEGG..#####........#####
+#........G..E..............#####
+#...............####....########
+#......G.........###....########
+#............E....######.#######
+#.............###.##.....#######
+##......#....####E.........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 170
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 146
+GOBLIN at (19,9) with hit points 200
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (7,13) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (9,15) with hit points 200
+ELF at (23,15) with hit points 161
+GOBLIN at (24,15) with hit points 125
+ELF at (25,15) with hit points 200
+GOBLIN at (9,17) with hit points 200
+GOBLIN at (11,17) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 173
+ELF at (8,18) with hit points 131
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+ELF at (11,19) with hit points 149
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 134
+GOBLIN at (10,20) with hit points 173
+GOBLIN at (11,20) with hit points 170
+GOBLIN at (9,21) with hit points 200
+ELF at (12,21) with hit points 200
+GOBLIN at (7,23) with hit points 200
+ELF at (13,24) with hit points 200
+ELF at (17,26) with hit points 200
+
+
+After 11 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####G....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#......G..#.#########..G......##
+#.###.......#########..EGE...###
+#........G.G#########...E...####
+#.......G.G.#########......#####
+#......GEG.G#########......#####
+#.......G..E.#######....########
+#......#GEGGE.#####........#####
+#........G.................#####
+#...............####....########
+#.......G........###....########
+#...........E.....######.#######
+#.............###E##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 167
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 137
+GOBLIN at (19,10) with hit points 200
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (7,14) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (9,16) with hit points 200
+ELF at (23,15) with hit points 155
+GOBLIN at (24,15) with hit points 116
+ELF at (25,15) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (10,17) with hit points 200
+GOBLIN at (11,16) with hit points 200
+GOBLIN at (7,18) with hit points 170
+ELF at (8,18) with hit points 119
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+ELF at (11,19) with hit points 143
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 125
+GOBLIN at (10,20) with hit points 170
+GOBLIN at (11,20) with hit points 164
+GOBLIN at (9,21) with hit points 200
+ELF at (12,20) with hit points 200
+GOBLIN at (8,23) with hit points 200
+ELF at (12,24) with hit points 200
+ELF at (17,25) with hit points 200
+
+
+After 12 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#.........G..###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###..G....#########..EGE...###
+#.......G.G.#########...E...####
+#.......G...#########......#####
+#......GEGGG#########......#####
+#.......G..E.#######....########
+#......#GEGGE.#####........#####
+#........G.................#####
+#...............####....########
+#........G.......###....########
+#..........E.....E######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 164
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 128
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (19,11) with hit points 200
+GOBLIN at (7,15) with hit points 200
+GOBLIN at (23,14) with hit points 200
+ELF at (23,15) with hit points 149
+GOBLIN at (24,15) with hit points 107
+ELF at (25,15) with hit points 200
+GOBLIN at (8,16) with hit points 200
+GOBLIN at (10,16) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (10,18) with hit points 200
+GOBLIN at (7,18) with hit points 167
+ELF at (8,18) with hit points 107
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+ELF at (11,19) with hit points 137
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 116
+GOBLIN at (10,20) with hit points 167
+GOBLIN at (11,20) with hit points 158
+ELF at (12,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (9,23) with hit points 200
+ELF at (11,24) with hit points 200
+ELF at (17,24) with hit points 200
+
+
+After 13 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####G..####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###...G...#########..EGE...###
+#......G.G..#########...E...####
+#.......G...#########......#####
+#......GEG.G#########......#####
+#.......G.GE.#######....########
+#......#GEGGE.#####........#####
+#........G.................#####
+#...............####....########
+#.........GE.....###....########
+#...............E.######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 161
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 119
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (19,12) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (7,16) with hit points 200
+ELF at (23,15) with hit points 143
+GOBLIN at (24,15) with hit points 98
+ELF at (25,15) with hit points 200
+GOBLIN at (8,15) with hit points 200
+GOBLIN at (9,16) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 164
+ELF at (8,18) with hit points 95
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (10,19) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+ELF at (11,19) with hit points 128
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 107
+GOBLIN at (10,20) with hit points 164
+GOBLIN at (11,20) with hit points 152
+ELF at (12,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,23) with hit points 197
+ELF at (11,23) with hit points 200
+ELF at (16,24) with hit points 200
+
+
+After 14 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####.G.####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###..G....#########..EGE...###
+#.......G...#########...E...####
+#......GG...#########......#####
+#......GEG.G#########......#####
+#.......G.GE.#######....########
+#......#GEGGE.#####........#####
+#........G.................#####
+#...............####....########
+#.........GE.....###....########
+#..............E..######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 158
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 110
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (20,12) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (7,15) with hit points 200
+ELF at (23,15) with hit points 137
+GOBLIN at (24,15) with hit points 89
+ELF at (25,15) with hit points 200
+GOBLIN at (7,17) with hit points 200
+GOBLIN at (8,16) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 161
+ELF at (8,18) with hit points 83
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 119
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 98
+GOBLIN at (10,20) with hit points 161
+GOBLIN at (11,20) with hit points 146
+ELF at (12,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,23) with hit points 194
+ELF at (11,23) with hit points 197
+ELF at (15,24) with hit points 200
+
+
+After 15 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######G....#....##
+#.........#.#########..G......##
+#.###...G...#########..EGE...###
+#......G....#########...E...####
+#.....G.G...#########......#####
+#......GEG.G#########......#####
+#.......G.GE.#######....########
+#......#GEGGE.#####........#####
+#........G.................#####
+#...............####....########
+#.........GE.....###....########
+#.............E...######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 155
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 101
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (20,13) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (7,16) with hit points 200
+ELF at (23,15) with hit points 131
+GOBLIN at (24,15) with hit points 80
+ELF at (25,15) with hit points 200
+GOBLIN at (8,15) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (6,17) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 158
+ELF at (8,18) with hit points 71
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 110
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 89
+GOBLIN at (10,20) with hit points 158
+GOBLIN at (11,20) with hit points 140
+ELF at (12,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,23) with hit points 191
+ELF at (11,23) with hit points 194
+ELF at (14,24) with hit points 200
+
+
+After 16 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.G...#....##
+#.........#.#########..G......##
+#.###..G....#########..EGE...###
+#.....G.....#########...E...####
+#.......G...#########......#####
+#.....GGEG.G#########......#####
+#.......G.GE.#######....########
+#......#GEGGE.#####........#####
+#........G.................#####
+#...............####....########
+#.........GE.....###....########
+#............E....######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 152
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 92
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (21,13) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (7,15) with hit points 200
+ELF at (23,15) with hit points 125
+GOBLIN at (24,15) with hit points 71
+ELF at (25,15) with hit points 200
+GOBLIN at (6,16) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (6,18) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 155
+ELF at (8,18) with hit points 59
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 101
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 80
+GOBLIN at (10,20) with hit points 155
+GOBLIN at (11,20) with hit points 134
+ELF at (12,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,23) with hit points 188
+ELF at (11,23) with hit points 191
+ELF at (13,24) with hit points 200
+
+
+After 17 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########G.G......##
+#.###.......#########..EGE...###
+#......G....#########...E...####
+#.....G.G...#########......#####
+#......GEG.G#########......#####
+#.....G.G.GE.#######....########
+#......#GEGGE.#####........#####
+#........G.................#####
+#...............####....########
+#.........GE.....###....########
+#...........E.....######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 149
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 83
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (21,14) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (7,16) with hit points 200
+ELF at (23,15) with hit points 119
+GOBLIN at (24,15) with hit points 62
+ELF at (25,15) with hit points 200
+GOBLIN at (6,17) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (6,19) with hit points 200
+GOBLIN at (7,18) with hit points 152
+ELF at (8,18) with hit points 47
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 92
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 71
+GOBLIN at (10,20) with hit points 152
+GOBLIN at (11,20) with hit points 128
+ELF at (12,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,23) with hit points 185
+ELF at (11,23) with hit points 188
+ELF at (12,24) with hit points 200
+
+
+After 18 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###.......#########G.EGE...###
+#.....G.....#########...E...####
+#.......G...#########......#####
+#.....GGEG.G#########......#####
+#.......G.GE.#######....########
+#.....G#GEGGE.#####........#####
+#........G.................#####
+#...............####....########
+#.........GE.....###....########
+#..........E......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 146
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 74
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (21,15) with hit points 200
+GOBLIN at (23,14) with hit points 200
+ELF at (23,15) with hit points 113
+GOBLIN at (24,15) with hit points 53
+ELF at (25,15) with hit points 200
+GOBLIN at (6,16) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (6,18) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 149
+ELF at (8,18) with hit points 35
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (6,20) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 83
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 62
+GOBLIN at (10,20) with hit points 149
+GOBLIN at (11,20) with hit points 122
+ELF at (12,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,23) with hit points 182
+ELF at (11,23) with hit points 185
+ELF at (11,24) with hit points 200
+
+
+After 19 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###.......#########.GEGE...###
+#...........#########...E...####
+#.....G.G...#########......#####
+#......GEG.G#########......#####
+#.....G.G.GE.#######....########
+#......#GEGGE.#####........#####
+#.....G..G.................#####
+#...............####....########
+#.........GE.....###....########
+#.........E.......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 143
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 65
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 200
+ELF at (23,15) with hit points 104
+GOBLIN at (24,15) with hit points 44
+ELF at (25,15) with hit points 200
+GOBLIN at (6,17) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (6,19) with hit points 200
+GOBLIN at (7,18) with hit points 146
+ELF at (8,18) with hit points 23
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 74
+GOBLIN at (6,21) with hit points 200
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 53
+GOBLIN at (10,20) with hit points 146
+GOBLIN at (11,20) with hit points 116
+ELF at (12,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,23) with hit points 176
+ELF at (11,23) with hit points 182
+ELF at (10,24) with hit points 200
+
+
+After 20 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###.......#########.GEGE...###
+#...........#########...E...####
+#.......G...#########......#####
+#.....GGEG.G#########......#####
+#.......G.GE.#######....########
+#.....G#GEGGE.#####........#####
+#........G.................#####
+#.....G.........####....########
+#.........GE.....###....########
+#.........E.......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 140
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 56
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 200
+ELF at (23,15) with hit points 95
+GOBLIN at (24,15) with hit points 35
+ELF at (25,15) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (6,18) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (7,18) with hit points 143
+ELF at (8,18) with hit points 11
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (6,20) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 65
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 44
+GOBLIN at (10,20) with hit points 143
+GOBLIN at (11,20) with hit points 110
+ELF at (12,20) with hit points 200
+GOBLIN at (6,22) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,23) with hit points 170
+ELF at (11,23) with hit points 179
+ELF at (10,24) with hit points 200
+
+
+After 21 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###.......#########.GEGE...###
+#...........#########...E...####
+#.......G...#########......#####
+#......G.G.G#########......#####
+#.....G.G.GE.#######....########
+#......#GEGGE.#####........#####
+#.....G..G.................#####
+#......G........####....########
+#.........GE.....###....########
+#.........E.......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 137
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 47
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 200
+ELF at (23,15) with hit points 86
+GOBLIN at (24,15) with hit points 26
+ELF at (25,15) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (8,17) with hit points 200
+GOBLIN at (6,19) with hit points 200
+GOBLIN at (7,18) with hit points 140
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 56
+GOBLIN at (6,21) with hit points 200
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 35
+GOBLIN at (10,20) with hit points 140
+GOBLIN at (11,20) with hit points 104
+ELF at (12,20) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (7,22) with hit points 200
+GOBLIN at (10,23) with hit points 164
+ELF at (11,23) with hit points 176
+ELF at (10,24) with hit points 200
+
+
+After 22 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###.......#########.GEGE...###
+#...........#########...E...####
+#......G....#########......#####
+#.....G....G#########......#####
+#......G.GGE.#######....########
+#.....G#GEGGE.#####........#####
+#......G.G.................#####
+#.......G.......####....########
+#.........GE.....###....########
+#.........E.......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 134
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 38
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 200
+ELF at (23,15) with hit points 77
+GOBLIN at (24,15) with hit points 17
+ELF at (25,15) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (7,17) with hit points 200
+GOBLIN at (6,18) with hit points 140
+GOBLIN at (9,19) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (6,20) with hit points 200
+GOBLIN at (7,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 47
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 23
+GOBLIN at (10,20) with hit points 137
+GOBLIN at (11,20) with hit points 98
+ELF at (12,20) with hit points 200
+GOBLIN at (7,21) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (10,23) with hit points 158
+ELF at (11,23) with hit points 173
+ELF at (10,24) with hit points 200
+
+
+After 23 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###.......#########.GEGE...###
+#...........#########...E...####
+#.....G.....#########......#####
+#......G...G#########......#####
+#.....G..GGE.#######....########
+#......#GEGGE.#####........#####
+#.....G..G.................#####
+#......G.G......####....########
+#.........GE.....###....########
+#.........E.......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 131
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 29
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 200
+ELF at (23,15) with hit points 68
+GOBLIN at (24,15) with hit points 8
+ELF at (25,15) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (6,17) with hit points 200
+GOBLIN at (6,19) with hit points 140
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (7,18) with hit points 200
+GOBLIN at (9,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 38
+GOBLIN at (6,21) with hit points 200
+GOBLIN at (8,20) with hit points 200
+ELF at (9,20) with hit points 11
+GOBLIN at (10,20) with hit points 134
+GOBLIN at (11,20) with hit points 92
+ELF at (12,20) with hit points 200
+GOBLIN at (7,22) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (10,23) with hit points 152
+ELF at (11,23) with hit points 170
+ELF at (10,24) with hit points 200
+
+
+After 24 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###.......#########.GE.E...###
+#...........#########...E...####
+#......G....#########......#####
+#.....G....G#########......#####
+#........GGE.#######....########
+#.....G#G.GGE.#####........#####
+#........G.................#####
+#.....G...G.....####....########
+#......G..GE.....###....########
+#.........E.......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 128
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 20
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 200
+ELF at (23,15) with hit points 59
+ELF at (25,15) with hit points 200
+ELF at (24,16) with hit points 200
+GOBLIN at (6,18) with hit points 200
+GOBLIN at (7,17) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (6,20) with hit points 140
+GOBLIN at (9,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 29
+GOBLIN at (8,20) with hit points 200
+GOBLIN at (10,20) with hit points 131
+GOBLIN at (11,20) with hit points 86
+ELF at (12,20) with hit points 200
+GOBLIN at (6,22) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (7,23) with hit points 200
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (10,23) with hit points 146
+ELF at (11,23) with hit points 167
+ELF at (10,24) with hit points 200
+
+
+After 25 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..G......##
+#.###.......#########.GEE....###
+#...........#########..E....####
+#...........#########......#####
+#......G...G#########......#####
+#.....G.G.GE.#######....########
+#......#...GE.#####........#####
+#.....G.G.G................#####
+#........G.G....####....########
+#.....G...GE.....###....########
+#......G..E.......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 125
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 11
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (23,14) with hit points 197
+GOBLIN at (22,15) with hit points 200
+ELF at (23,15) with hit points 53
+ELF at (24,15) with hit points 200
+ELF at (23,16) with hit points 200
+GOBLIN at (7,18) with hit points 200
+GOBLIN at (6,19) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 20
+GOBLIN at (6,21) with hit points 140
+GOBLIN at (8,21) with hit points 200
+GOBLIN at (10,21) with hit points 131
+GOBLIN at (11,20) with hit points 80
+ELF at (12,20) with hit points 200
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (6,23) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (7,24) with hit points 200
+GOBLIN at (10,23) with hit points 140
+ELF at (11,23) with hit points 161
+ELF at (10,24) with hit points 200
+
+
+After 26 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##.GE.....#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GE.....##
+#.###.......#########.GE.....###
+#...........#########.E.....####
+#...........#########......#####
+#.....G....G#########......#####
+#......G..GE.#######....########
+#.....G#...GE.#####........#####
+#..........G...............#####
+#.....G.G..G....####....########
+#......G.GGE.....###....########
+#.......G.E.......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 122
+GOBLIN at (24,8) with hit points 200
+ELF at (25,8) with hit points 2
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (23,14) with hit points 191
+GOBLIN at (22,15) with hit points 197
+ELF at (23,15) with hit points 47
+ELF at (24,14) with hit points 200
+ELF at (22,16) with hit points 200
+GOBLIN at (6,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (6,20) with hit points 200
+GOBLIN at (7,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 11
+GOBLIN at (11,20) with hit points 74
+ELF at (12,20) with hit points 200
+GOBLIN at (6,22) with hit points 140
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (11,21) with hit points 131
+GOBLIN at (9,23) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (7,23) with hit points 200
+GOBLIN at (10,23) with hit points 134
+ELF at (11,23) with hit points 155
+GOBLIN at (8,24) with hit points 200
+ELF at (10,24) with hit points 200
+
+
+After 27 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######G...###
+#########............##..G.....#
+#######......................###
+#######.####...####.....#G..####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GE.....##
+#.###.......#########.GE.....###
+#...........#########.E.....####
+#...........#########......#####
+#..........G#########......#####
+#.....G.G.GE.#######....########
+#......#...GE.#####........#####
+#.....G.....G..............#####
+#......G...G....####....########
+#.....G...GE.....###....########
+#......G.GE.......######.#######
+#.......G.....###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (25,7) with hit points 122
+GOBLIN at (25,8) with hit points 200
+GOBLIN at (25,10) with hit points 200
+GOBLIN at (23,14) with hit points 185
+ELF at (24,14) with hit points 200
+GOBLIN at (22,15) with hit points 194
+ELF at (23,15) with hit points 41
+ELF at (22,16) with hit points 200
+GOBLIN at (6,19) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+ELF at (11,19) with hit points 2
+GOBLIN at (6,21) with hit points 200
+GOBLIN at (11,20) with hit points 68
+ELF at (12,20) with hit points 197
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (6,23) with hit points 140
+GOBLIN at (7,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (7,24) with hit points 200
+GOBLIN at (9,24) with hit points 200
+GOBLIN at (10,23) with hit points 128
+ELF at (11,23) with hit points 149
+GOBLIN at (8,25) with hit points 200
+ELF at (10,24) with hit points 197
+
+
+After 28 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######.G..###
+#########............##........#
+#######..................G...###
+#######.####...####.....#...####
+######...#............###G...###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GE.....##
+#.###.......#########.GE.....###
+#...........#########.E.....####
+#...........#########......#####
+#..........G#########......#####
+#......G.G.G.#######....########
+#......#...GE.#####........#####
+#......G....G..............#####
+#.......G..G....####....########
+#......G..GE.....###....########
+#.......GGE.......######.#######
+#........G....###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (26,7) with hit points 122
+GOBLIN at (25,9) with hit points 200
+GOBLIN at (25,11) with hit points 200
+GOBLIN at (23,14) with hit points 179
+ELF at (24,14) with hit points 200
+GOBLIN at (22,15) with hit points 191
+ELF at (23,15) with hit points 35
+ELF at (22,16) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (7,19) with hit points 200
+GOBLIN at (9,19) with hit points 200
+GOBLIN at (11,19) with hit points 200
+GOBLIN at (11,20) with hit points 65
+ELF at (12,20) with hit points 191
+GOBLIN at (7,21) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (7,23) with hit points 140
+GOBLIN at (10,23) with hit points 122
+ELF at (11,23) with hit points 143
+GOBLIN at (8,24) with hit points 200
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 194
+GOBLIN at (9,25) with hit points 200
+
+
+After 29 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##...G....#
+#######......................###
+#######.####...####.....#G..####
+######...#............###.G..###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GE.....##
+#.###.......#########.GE.....###
+#...........#########.E.....####
+#..........G#########......#####
+#...........#########......#####
+#.......G.G.G#######....########
+#......#...GE.#####........#####
+#.......G...G..............#####
+#........G.G....####....########
+#.....G...GE.....###....########
+#......G.GE.......######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (26,8) with hit points 122
+GOBLIN at (25,10) with hit points 200
+GOBLIN at (26,11) with hit points 200
+GOBLIN at (23,14) with hit points 173
+ELF at (24,14) with hit points 200
+GOBLIN at (22,15) with hit points 188
+ELF at (23,15) with hit points 29
+ELF at (22,16) with hit points 200
+GOBLIN at (11,17) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 62
+ELF at (12,20) with hit points 182
+GOBLIN at (8,21) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (6,23) with hit points 140
+GOBLIN at (10,23) with hit points 116
+ELF at (11,23) with hit points 137
+GOBLIN at (7,24) with hit points 200
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 188
+GOBLIN at (10,25) with hit points 200
+
+
+After 30 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######...................G..###
+#######.####...####.....#.G.####
+######...#............###....###
+#####....#....#####...####G..###
+####.........#######.....#....##
+#.........#.#########..GE.....##
+#.###.......#########.GE.....###
+#..........G#########.E.....####
+#...........#########......#####
+#...........#########......#####
+#......G.G..G#######....########
+#......#...GE.#####........#####
+#...........G..............#####
+#.......G..G....####....########
+#........GGE.....###....########
+#.....G..GE.......######.#######
+#......G..G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (26,9) with hit points 122
+GOBLIN at (26,10) with hit points 200
+GOBLIN at (26,12) with hit points 200
+GOBLIN at (23,14) with hit points 167
+ELF at (24,14) with hit points 200
+GOBLIN at (22,15) with hit points 185
+ELF at (23,15) with hit points 23
+ELF at (22,16) with hit points 200
+GOBLIN at (11,16) with hit points 200
+GOBLIN at (7,19) with hit points 200
+GOBLIN at (9,19) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 59
+ELF at (12,20) with hit points 173
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (9,23) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (6,24) with hit points 140
+GOBLIN at (10,23) with hit points 110
+ELF at (11,23) with hit points 131
+GOBLIN at (7,25) with hit points 200
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 182
+GOBLIN at (10,25) with hit points 200
+
+
+After 31 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######....................G.###
+#######.####...####.....#...####
+######...#............###.G..###
+#####....#....#####...####...###
+####.........#######.....#G...##
+#.........#.#########..GE.....##
+#.###......G#########.GE.....###
+#...........#########.E.....####
+#...........#########......#####
+#...........#########......#####
+#.......G...G#######....########
+#......#.G.GE.#####........#####
+#...........G..............#####
+#........G.G....####....########
+#.......G.GE.....###....########
+#......G.GE.......######.#######
+#.......G.G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (27,9) with hit points 122
+GOBLIN at (26,11) with hit points 200
+GOBLIN at (26,13) with hit points 200
+GOBLIN at (23,14) with hit points 161
+ELF at (24,14) with hit points 200
+GOBLIN at (22,15) with hit points 182
+ELF at (23,15) with hit points 17
+GOBLIN at (11,15) with hit points 200
+ELF at (22,16) with hit points 200
+GOBLIN at (8,19) with hit points 200
+GOBLIN at (9,20) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 56
+ELF at (12,20) with hit points 164
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (8,23) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (10,23) with hit points 104
+ELF at (11,23) with hit points 125
+GOBLIN at (7,24) with hit points 140
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 176
+GOBLIN at (8,25) with hit points 200
+GOBLIN at (10,25) with hit points 200
+
+
+After 32 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#..G####
+######...#............###....###
+#####....#....#####...####G..###
+####.........#######.....#....##
+#.........#G#########..GE.G...##
+#.###.......#########.GE.....###
+#...........#########.E.....####
+#...........#########......#####
+#...........#########......#####
+#........G..G#######....########
+#......#..GGE.#####........#####
+#...........G..............#####
+#.......G..G....####....########
+#......G.GGE.....###....########
+#........GE.......######.#######
+#........GG...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (27,10) with hit points 122
+GOBLIN at (26,12) with hit points 200
+GOBLIN at (26,14) with hit points 200
+GOBLIN at (23,14) with hit points 155
+ELF at (24,14) with hit points 200
+GOBLIN at (11,14) with hit points 200
+GOBLIN at (22,15) with hit points 179
+ELF at (23,15) with hit points 11
+ELF at (22,16) with hit points 200
+GOBLIN at (9,19) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (10,20) with hit points 200
+GOBLIN at (11,20) with hit points 53
+ELF at (12,20) with hit points 155
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (9,23) with hit points 200
+GOBLIN at (10,23) with hit points 98
+ELF at (11,23) with hit points 119
+GOBLIN at (7,23) with hit points 140
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 170
+GOBLIN at (9,25) with hit points 200
+GOBLIN at (10,25) with hit points 200
+
+
+After 33 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###..G.###
+#####....#....#####...####...###
+####.......G.#######.....#G...##
+#.........#.#########..GEG....##
+#.###.......#########.GE.....###
+#...........#########.E.....####
+#...........#########......#####
+#........G..#########......#####
+#.........G.G#######....########
+#......#...GE.#####........#####
+#.......G...G..............#####
+#........G.G....####....########
+#.......G.GE.....###....########
+#........GE.......######.#######
+#.........G...###.##.....#######
+##......#G...####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (27,11) with hit points 122
+GOBLIN at (26,13) with hit points 200
+GOBLIN at (11,13) with hit points 200
+GOBLIN at (23,14) with hit points 149
+ELF at (24,14) with hit points 197
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 176
+ELF at (23,15) with hit points 5
+ELF at (22,16) with hit points 200
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+GOBLIN at (11,20) with hit points 50
+ELF at (12,20) with hit points 146
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (8,21) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (8,23) with hit points 140
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (10,23) with hit points 92
+ELF at (11,23) with hit points 113
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 164
+GOBLIN at (9,26) with hit points 200
+GOBLIN at (10,25) with hit points 200
+
+
+After 34 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####.G.###
+####........G#######.....#....##
+#.........#.#########..GEGG...##
+#.###.......#########.G......###
+#...........#########.E.....####
+#...........#########......#####
+#.........G.#########......#####
+#..........GG#######....########
+#......#...GE.#####........#####
+#........G..G..............#####
+#.......G.GG....####....########
+#.........GE.....###....########
+#........GE.......######.#######
+#.........G...###.##.....#######
+##......#.G..####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (27,12) with hit points 122
+GOBLIN at (12,13) with hit points 200
+GOBLIN at (26,14) with hit points 200
+GOBLIN at (23,14) with hit points 146
+ELF at (24,14) with hit points 194
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 173
+ELF at (22,16) with hit points 200
+GOBLIN at (10,18) with hit points 200
+GOBLIN at (11,19) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 47
+ELF at (12,20) with hit points 137
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (8,22) with hit points 140
+GOBLIN at (10,23) with hit points 86
+ELF at (11,23) with hit points 107
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 158
+GOBLIN at (10,25) with hit points 200
+GOBLIN at (10,26) with hit points 200
+
+
+After 35 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#..G.#####...####...###
+####.........#######.....#.G..##
+#.........#.#########..GEG....##
+#.###.......#########.G...G..###
+#...........#########.E.....####
+#...........#########......#####
+#..........G#########......#####
+#.........G.G#######....########
+#......#.G.GE.#####........#####
+#.......G...G..............#####
+#........G.G....####....########
+#.........GE.....###....########
+#........GE.......######.#######
+#.........G...###.##.....#######
+##......#..G.####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (27,13) with hit points 122
+GOBLIN at (12,12) with hit points 200
+GOBLIN at (23,14) with hit points 143
+ELF at (24,14) with hit points 188
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (26,15) with hit points 200
+GOBLIN at (22,15) with hit points 170
+ELF at (22,16) with hit points 197
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (10,19) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 44
+ELF at (12,20) with hit points 128
+GOBLIN at (9,20) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (8,21) with hit points 140
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (10,23) with hit points 80
+ELF at (11,23) with hit points 101
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 152
+GOBLIN at (10,25) with hit points 200
+GOBLIN at (11,26) with hit points 200
+
+
+After 36 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#...G#####...####...###
+####.........#######.....#....##
+#.........#.#########..GEG.G..##
+#.###.......#########.G..G...###
+#...........#########.E.....####
+#..........G#########......#####
+#...........#########......#####
+#........G..G#######....########
+#......#G..GE.#####........#####
+#...........G..............#####
+#.......G..G....####....########
+#........GGE.....###....########
+#........GE.......######.#######
+#.........GG..###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (13,12) with hit points 200
+GOBLIN at (27,14) with hit points 122
+GOBLIN at (23,14) with hit points 140
+ELF at (24,14) with hit points 182
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 167
+GOBLIN at (25,15) with hit points 200
+ELF at (22,16) with hit points 194
+GOBLIN at (11,17) with hit points 200
+GOBLIN at (9,19) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (8,20) with hit points 200
+GOBLIN at (11,20) with hit points 41
+ELF at (12,20) with hit points 119
+GOBLIN at (8,22) with hit points 140
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (9,23) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (10,23) with hit points 74
+ELF at (11,23) with hit points 95
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 146
+GOBLIN at (10,25) with hit points 200
+GOBLIN at (11,25) with hit points 200
+
+
+After 37 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#...G........###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G..G.###
+#...........#########.E.....####
+#...........#########......#####
+#..........G#########......#####
+#...........G#######....########
+#......#.G.GE.#####........#####
+#.......G...G..............#####
+#........G.G....####....########
+#.......G.GE.....###....########
+#........GEG......######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (13,11) with hit points 200
+GOBLIN at (23,14) with hit points 137
+ELF at (24,14) with hit points 173
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (27,15) with hit points 122
+GOBLIN at (22,15) with hit points 164
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 191
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (9,20) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (8,21) with hit points 200
+GOBLIN at (11,20) with hit points 38
+ELF at (12,20) with hit points 110
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (8,23) with hit points 140
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (10,23) with hit points 68
+ELF at (11,23) with hit points 86
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 140
+GOBLIN at (10,25) with hit points 200
+GOBLIN at (11,24) with hit points 200
+
+
+After 38 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#....G.......###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.E....G####
+#...........#########......#####
+#...........#########......#####
+#..........GG#######....########
+#......#G..GE.#####........#####
+#........G..G..............#####
+#.......G..G....####....########
+#.........GE.....###....########
+#.......GGEG......######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (14,11) with hit points 200
+GOBLIN at (23,14) with hit points 134
+ELF at (24,14) with hit points 164
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 161
+GOBLIN at (24,15) with hit points 200
+GOBLIN at (27,16) with hit points 122
+ELF at (22,16) with hit points 188
+GOBLIN at (11,19) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (8,20) with hit points 200
+GOBLIN at (11,20) with hit points 35
+ELF at (12,20) with hit points 101
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (8,24) with hit points 140
+GOBLIN at (10,23) with hit points 62
+ELF at (11,23) with hit points 77
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 134
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+
+
+After 39 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#.....G......###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.E...G.####
+#...........#########......#####
+#...........#########......#####
+#.........G.G#######....########
+#......#...GE.#####........#####
+#.......G...G..............#####
+#........G.G....####....########
+#.......G.GE.....###....########
+#........GEG......######.#######
+#.......G.G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (15,11) with hit points 200
+GOBLIN at (23,14) with hit points 131
+ELF at (24,14) with hit points 155
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 158
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 185
+GOBLIN at (26,16) with hit points 122
+GOBLIN at (10,19) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (8,21) with hit points 200
+GOBLIN at (11,20) with hit points 32
+ELF at (12,20) with hit points 92
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (8,23) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (10,23) with hit points 56
+ELF at (11,23) with hit points 68
+GOBLIN at (8,25) with hit points 140
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 128
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+
+
+After 40 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#......G.....###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.E..G..####
+#...........#########......#####
+#...........#########......#####
+#..........GG#######....########
+#......#...GE.#####........#####
+#........G..G..............#####
+#.......G.GG....####....########
+#.........GE.....###....########
+#........GEG......######.#######
+#........GG...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (16,11) with hit points 200
+GOBLIN at (23,14) with hit points 128
+ELF at (24,14) with hit points 146
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 155
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 182
+GOBLIN at (25,16) with hit points 122
+GOBLIN at (11,19) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 29
+ELF at (12,20) with hit points 83
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (10,23) with hit points 50
+ELF at (11,23) with hit points 59
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 122
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (9,25) with hit points 140
+GOBLIN at (10,25) with hit points 200
+
+
+After 41 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#.......G....###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.E.G...####
+#...........#########......#####
+#..........G#########......#####
+#...........G#######....########
+#......#...GE.#####........#####
+#.........G.G..............#####
+#........GGG....####....########
+#.........GE.....###....########
+#........GEG......######.#######
+#.........G...###.##.....#######
+##......#G...####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (17,11) with hit points 200
+GOBLIN at (23,14) with hit points 125
+ELF at (24,14) with hit points 137
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 152
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 179
+GOBLIN at (24,16) with hit points 122
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 26
+ELF at (12,20) with hit points 74
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (10,23) with hit points 44
+ELF at (11,23) with hit points 50
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 116
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (9,26) with hit points 140
+GOBLIN at (10,25) with hit points 200
+
+
+After 42 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#........G...###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#..........G#########......#####
+#...........#########......#####
+#...........G#######....########
+#......#..GGE.#####........#####
+#........G..G..............#####
+#........G.G....####....########
+#.........GE.....###....########
+#........GEG......######.#######
+#.........G...###.##.....#######
+##......#.G..####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (18,11) with hit points 200
+GOBLIN at (23,14) with hit points 122
+ELF at (24,14) with hit points 128
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 173
+GOBLIN at (23,16) with hit points 122
+GOBLIN at (11,17) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 23
+ELF at (12,20) with hit points 65
+GOBLIN at (10,20) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (10,23) with hit points 38
+ELF at (11,23) with hit points 41
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 110
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+GOBLIN at (10,26) with hit points 140
+
+
+After 43 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#.........G..###....###
+#####....#....#####...####...###
+####.........#######.....#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#..........G#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#.........G.G#######....########
+#......#.G.GE.#####........#####
+#...........G..............#####
+#.......G..G....####....########
+#.........GE.....###....########
+#........GEG......######.#######
+#.........G...###.##.....#######
+##......#..G.####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (19,11) with hit points 200
+GOBLIN at (23,14) with hit points 119
+ELF at (24,14) with hit points 119
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 167
+GOBLIN at (23,16) with hit points 119
+GOBLIN at (11,16) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+GOBLIN at (11,20) with hit points 20
+ELF at (12,20) with hit points 56
+GOBLIN at (9,20) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (10,23) with hit points 32
+ELF at (11,23) with hit points 32
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 104
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+GOBLIN at (11,26) with hit points 140
+
+
+After 44 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####G..####...###
+####.........#######.....#....##
+#.........#.#########..GEG....##
+#.###......G#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#...........G#######....########
+#......#..GGE.#####........#####
+#........G..G..............#####
+#..........G....####....########
+#.......G.GE.....###....########
+#........GEG......######.#######
+#.........G...###.##.....#######
+##......#...G####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (19,12) with hit points 200
+GOBLIN at (23,14) with hit points 116
+ELF at (24,14) with hit points 110
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+GOBLIN at (11,15) with hit points 200
+ELF at (22,16) with hit points 161
+GOBLIN at (23,16) with hit points 116
+GOBLIN at (10,20) with hit points 200
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (11,20) with hit points 17
+ELF at (12,20) with hit points 47
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (8,23) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (10,23) with hit points 26
+ELF at (11,23) with hit points 23
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 98
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+GOBLIN at (12,26) with hit points 140
+
+
+After 45 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####.G.####...###
+####.........#######.....#....##
+#.........#G#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#...........G#######....########
+#......#...GE.#####........#####
+#.........G.G..............#####
+#........G.G....####....########
+#.........GE.....###....########
+#.......GGEG......######.#######
+#.........G.G.###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (20,12) with hit points 200
+GOBLIN at (23,14) with hit points 113
+ELF at (24,14) with hit points 101
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (11,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 155
+GOBLIN at (23,16) with hit points 113
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,20) with hit points 14
+ELF at (12,20) with hit points 38
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (8,24) with hit points 200
+GOBLIN at (10,23) with hit points 20
+ELF at (11,23) with hit points 14
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 92
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+GOBLIN at (12,25) with hit points 140
+
+
+After 46 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.......G.#######G....#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#...........G#######....########
+#......#...GE.#####........#####
+#........G..G..............#####
+#.........GG....####....########
+#.......G.GE.....###....########
+#........GEGG.....######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (20,13) with hit points 200
+GOBLIN at (11,13) with hit points 200
+GOBLIN at (23,14) with hit points 110
+ELF at (24,14) with hit points 92
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 149
+GOBLIN at (23,16) with hit points 110
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 11
+ELF at (12,20) with hit points 29
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (10,23) with hit points 14
+ELF at (11,23) with hit points 5
+GOBLIN at (8,23) with hit points 200
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 86
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+GOBLIN at (12,24) with hit points 140
+
+
+After 47 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####........G#######.G...#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#...........G#######....########
+#......#...GE.#####........#####
+#.........G.G..............#####
+#........G.G....####....########
+#.........G......###....########
+#.......GGEG.G....######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (12,13) with hit points 200
+GOBLIN at (21,13) with hit points 200
+GOBLIN at (23,14) with hit points 107
+ELF at (24,14) with hit points 83
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 143
+GOBLIN at (23,16) with hit points 107
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 8
+ELF at (12,20) with hit points 20
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (8,24) with hit points 200
+GOBLIN at (10,23) with hit points 11
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 77
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (13,24) with hit points 140
+GOBLIN at (10,25) with hit points 200
+
+
+After 48 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#..G.#####...####...###
+####.........#######..G..#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#...........G#######....########
+#......#...GE.#####........#####
+#........G..G..............#####
+#...........G...####....########
+#.......GGG..G...###....########
+#........GEG......######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (12,12) with hit points 200
+GOBLIN at (22,13) with hit points 200
+GOBLIN at (23,14) with hit points 104
+ELF at (24,14) with hit points 74
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 137
+GOBLIN at (23,16) with hit points 104
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 5
+ELF at (12,20) with hit points 11
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (9,23) with hit points 200
+GOBLIN at (12,22) with hit points 200
+GOBLIN at (10,23) with hit points 8
+GOBLIN at (8,23) with hit points 200
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 65
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (13,23) with hit points 140
+GOBLIN at (10,25) with hit points 200
+
+
+After 49 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#...G#####...####...###
+####.........#######...G.#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#...........G#######....########
+#......#...GE.#####........#####
+#...........G..............#####
+#........G...G..####....########
+#.......G.G...G..###....########
+#.......GGEG......######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (13,12) with hit points 200
+GOBLIN at (23,13) with hit points 200
+GOBLIN at (23,14) with hit points 101
+ELF at (24,14) with hit points 65
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 131
+GOBLIN at (23,16) with hit points 101
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,20) with hit points 2
+ELF at (12,20) with hit points 2
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (12,21) with hit points 131
+GOBLIN at (13,22) with hit points 200
+GOBLIN at (8,24) with hit points 200
+GOBLIN at (8,23) with hit points 200
+GOBLIN at (10,23) with hit points 5
+GOBLIN at (14,23) with hit points 140
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 53
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+
+
+After 50 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#...G........###....###
+#####....#....#####...####...###
+####.........#######....G#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#...........G#######....########
+#......#....G.#####........#####
+#............G.............#####
+#.........G...G.####....########
+#.......GGG....G.###....########
+#........GEG......######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (13,11) with hit points 200
+GOBLIN at (24,13) with hit points 200
+GOBLIN at (23,14) with hit points 98
+ELF at (24,14) with hit points 53
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 125
+GOBLIN at (23,16) with hit points 98
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (12,20) with hit points 2
+GOBLIN at (13,21) with hit points 131
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (14,22) with hit points 200
+GOBLIN at (9,23) with hit points 200
+GOBLIN at (10,23) with hit points 2
+GOBLIN at (15,23) with hit points 140
+GOBLIN at (8,23) with hit points 200
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 41
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+
+
+After 51 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#....G.......###....###
+#####....#....#####...####...###
+####.........#######....G#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#..........G.#######....########
+#......#...G..#####........#####
+#.........G...G............#####
+#.......GG.....G####....########
+#................###....########
+#........GEG...G..######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (14,11) with hit points 200
+GOBLIN at (24,13) with hit points 200
+GOBLIN at (23,14) with hit points 95
+ELF at (24,14) with hit points 41
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 119
+GOBLIN at (23,16) with hit points 95
+GOBLIN at (11,19) with hit points 200
+GOBLIN at (11,20) with hit points 2
+GOBLIN at (14,21) with hit points 131
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (15,22) with hit points 200
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (15,24) with hit points 140
+GOBLIN at (9,24) with hit points 200
+ELF at (10,24) with hit points 29
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (10,25) with hit points 200
+
+
+After 52 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#.....G......###....###
+#####....#....#####...####...###
+####.........#######....G#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#...........G#######....########
+#......#......#####........#####
+#..........G...............#####
+#.........G...G.####....########
+#.......GG.....G.###....########
+#........GEG..G...######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (15,11) with hit points 200
+GOBLIN at (24,13) with hit points 200
+GOBLIN at (23,14) with hit points 92
+ELF at (24,14) with hit points 29
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 113
+GOBLIN at (23,16) with hit points 92
+GOBLIN at (12,19) with hit points 200
+GOBLIN at (11,21) with hit points 2
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (14,22) with hit points 131
+GOBLIN at (8,23) with hit points 200
+GOBLIN at (9,23) with hit points 200
+GOBLIN at (15,23) with hit points 200
+GOBLIN at (9,24) with hit points 197
+ELF at (10,24) with hit points 20
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (14,24) with hit points 140
+GOBLIN at (10,25) with hit points 200
+
+
+After 53 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#......G.....###....###
+#####....#....#####...####...###
+####.........#######....G#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#............#######....########
+#......#....G.#####........#####
+#..........................#####
+#.......GG.G...G####....########
+#.........G...G..###....########
+#........GEG.G....######.#######
+#.........G...###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (16,11) with hit points 200
+GOBLIN at (24,13) with hit points 200
+GOBLIN at (23,14) with hit points 89
+ELF at (24,14) with hit points 17
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 107
+GOBLIN at (23,16) with hit points 89
+GOBLIN at (12,20) with hit points 200
+GOBLIN at (11,22) with hit points 2
+GOBLIN at (10,23) with hit points 200
+GOBLIN at (15,22) with hit points 131
+GOBLIN at (8,22) with hit points 200
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (14,23) with hit points 200
+GOBLIN at (9,24) with hit points 194
+ELF at (10,24) with hit points 8
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (13,24) with hit points 140
+GOBLIN at (10,25) with hit points 200
+
+
+After 54 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#.......G....###....###
+#####....#....#####...####...###
+####.........#######....G#....##
+#.........#.#########..GEG....##
+#.###.......#########.G.G....###
+#...........#########.EG....####
+#...........#########......#####
+#...........#########......#####
+#............#######....########
+#......#......#####........#####
+#.......G...G..G...........#####
+#.........G.G...####....########
+#.........G..G...###....########
+#........G.GG.....######.#######
+#........G....###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (17,11) with hit points 200
+GOBLIN at (24,13) with hit points 200
+GOBLIN at (23,14) with hit points 86
+ELF at (24,14) with hit points 5
+GOBLIN at (25,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,15) with hit points 200
+ELF at (22,16) with hit points 101
+GOBLIN at (23,16) with hit points 86
+GOBLIN at (12,21) with hit points 200
+GOBLIN at (8,21) with hit points 200
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (12,22) with hit points 2
+GOBLIN at (15,21) with hit points 131
+GOBLIN at (10,23) with hit points 200
+GOBLIN at (13,23) with hit points 200
+GOBLIN at (9,24) with hit points 191
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (12,24) with hit points 140
+GOBLIN at (9,25) with hit points 200
+
+
+After 55 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#........G...###....###
+#####....#....#####...####...###
+####.........#######....G#....##
+#.........#.#########..G......##
+#.###.......#########.G..G...###
+#...........#########.EGG...####
+#...........#########......#####
+#...........#########......#####
+#............#######....########
+#......#......#####........#####
+#........GGGG...G..........#####
+#............G..####....########
+#..........G.....###....########
+#.......GGG..G....######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (18,11) with hit points 200
+GOBLIN at (24,13) with hit points 200
+GOBLIN at (23,14) with hit points 86
+GOBLIN at (25,15) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (24,16) with hit points 200
+ELF at (22,16) with hit points 95
+GOBLIN at (23,16) with hit points 83
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (11,21) with hit points 200
+GOBLIN at (16,21) with hit points 131
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (12,21) with hit points 2
+GOBLIN at (11,23) with hit points 200
+GOBLIN at (13,22) with hit points 200
+GOBLIN at (8,24) with hit points 191
+GOBLIN at (10,24) with hit points 200
+GOBLIN at (13,24) with hit points 140
+GOBLIN at (9,24) with hit points 200
+
+
+After 56 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#.........G..###....###
+#####....#....#####...####...###
+####.........#######...G.#....##
+#.........#.#########.G.......##
+#.###.......#########.G......###
+#...........#########.EG.G..####
+#...........#########...G..#####
+#...........#########......#####
+#............#######....########
+#......#.GGGG.#####........#####
+#................G.........#####
+#...........G...####....########
+#.......GGG......###....########
+#..........GG.....######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (19,11) with hit points 200
+GOBLIN at (23,13) with hit points 200
+GOBLIN at (22,14) with hit points 86
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (25,16) with hit points 200
+ELF at (22,16) with hit points 89
+GOBLIN at (23,16) with hit points 80
+GOBLIN at (24,17) with hit points 200
+GOBLIN at (9,20) with hit points 200
+GOBLIN at (10,20) with hit points 200
+GOBLIN at (11,20) with hit points 200
+GOBLIN at (12,20) with hit points 2
+GOBLIN at (17,21) with hit points 131
+GOBLIN at (12,22) with hit points 200
+GOBLIN at (10,23) with hit points 200
+GOBLIN at (8,23) with hit points 191
+GOBLIN at (9,23) with hit points 200
+GOBLIN at (11,24) with hit points 200
+GOBLIN at (12,24) with hit points 140
+
+
+After 57 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####G..####...###
+####.........#######..G..#....##
+#.........#.#########G........##
+#.###.......#########.G......###
+#...........#########.EG....####
+#...........#########..G.G.#####
+#...........#########......#####
+#........GGG.#######....########
+#......#...G..#####........#####
+#.................G........#####
+#.......GGGG....####....########
+#...........G....###....########
+#.........G.......######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (19,12) with hit points 200
+GOBLIN at (22,13) with hit points 200
+GOBLIN at (21,14) with hit points 86
+GOBLIN at (22,15) with hit points 149
+ELF at (22,16) with hit points 83
+GOBLIN at (23,16) with hit points 77
+GOBLIN at (25,17) with hit points 200
+GOBLIN at (23,17) with hit points 200
+GOBLIN at (9,19) with hit points 200
+GOBLIN at (10,19) with hit points 200
+GOBLIN at (11,19) with hit points 200
+GOBLIN at (11,20) with hit points 2
+GOBLIN at (18,21) with hit points 131
+GOBLIN at (11,22) with hit points 200
+GOBLIN at (8,22) with hit points 191
+GOBLIN at (9,22) with hit points 200
+GOBLIN at (10,22) with hit points 200
+GOBLIN at (10,24) with hit points 200
+GOBLIN at (12,23) with hit points 140
+
+
+After 58 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####.G.####...###
+####.........#######.....#....##
+#.........#.#########.G.......##
+#.###.......#########GG......###
+#...........#########.EG....####
+#...........#########.G....#####
+#........GGG#########....G.#####
+#............#######....########
+#......#..G...#####........#####
+#.......GGGG.......G.......#####
+#...........G...####....########
+#................###....########
+#........G........######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (20,12) with hit points 200
+GOBLIN at (22,14) with hit points 200
+GOBLIN at (21,15) with hit points 86
+GOBLIN at (22,15) with hit points 149
+ELF at (22,16) with hit points 74
+GOBLIN at (23,16) with hit points 74
+GOBLIN at (22,17) with hit points 200
+GOBLIN at (25,18) with hit points 200
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (10,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (10,20) with hit points 2
+GOBLIN at (19,21) with hit points 131
+GOBLIN at (8,21) with hit points 191
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,21) with hit points 200
+GOBLIN at (12,22) with hit points 140
+GOBLIN at (9,24) with hit points 200
+
+
+After 59 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######G....#....##
+#.........#.#########..G......##
+#.###.......#########.G......###
+#...........#########GEG....####
+#...........#########.G....#####
+#........GGG#########....G.#####
+#............#######....########
+#......#..G...#####........#####
+#.......GGGG.......G.......#####
+#...........G...####....########
+#................###....########
+#........G........######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (20,13) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (21,16) with hit points 86
+GOBLIN at (22,15) with hit points 149
+ELF at (22,16) with hit points 62
+GOBLIN at (23,16) with hit points 71
+GOBLIN at (22,17) with hit points 200
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (10,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (25,18) with hit points 200
+GOBLIN at (10,20) with hit points 2
+GOBLIN at (8,21) with hit points 191
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,21) with hit points 200
+GOBLIN at (19,21) with hit points 131
+GOBLIN at (12,22) with hit points 140
+GOBLIN at (9,24) with hit points 200
+
+
+After 60 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######G....#....##
+#.........#.#########..G......##
+#.###.......#########.G......###
+#...........#########GEG....####
+#...........#########.G....#####
+#........GGG#########....G.#####
+#............#######....########
+#......#..G...#####........#####
+#.......GGGG.......G.......#####
+#...........G...####....########
+#................###....########
+#........G........######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (20,13) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (21,16) with hit points 86
+ELF at (22,16) with hit points 50
+GOBLIN at (23,16) with hit points 68
+GOBLIN at (22,17) with hit points 200
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (10,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (25,18) with hit points 200
+GOBLIN at (10,20) with hit points 2
+GOBLIN at (8,21) with hit points 191
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,21) with hit points 200
+GOBLIN at (19,21) with hit points 131
+GOBLIN at (12,22) with hit points 140
+GOBLIN at (9,24) with hit points 200
+
+
+After 61 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######G....#....##
+#.........#.#########..G......##
+#.###.......#########.G......###
+#...........#########GEG....####
+#...........#########.G....#####
+#........GGG#########....G.#####
+#............#######....########
+#......#..G...#####........#####
+#.......GGGG.......G.......#####
+#...........G...####....########
+#................###....########
+#........G........######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (20,13) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (21,16) with hit points 86
+ELF at (22,16) with hit points 38
+GOBLIN at (23,16) with hit points 65
+GOBLIN at (22,17) with hit points 200
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (10,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (25,18) with hit points 200
+GOBLIN at (10,20) with hit points 2
+GOBLIN at (8,21) with hit points 191
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,21) with hit points 200
+GOBLIN at (19,21) with hit points 131
+GOBLIN at (12,22) with hit points 140
+GOBLIN at (9,24) with hit points 200
+
+
+After 62 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######G....#....##
+#.........#.#########..G......##
+#.###.......#########.G......###
+#...........#########GEG....####
+#...........#########.G....#####
+#........GGG#########....G.#####
+#............#######....########
+#......#..G...#####........#####
+#.......GGGG.......G.......#####
+#...........G...####....########
+#................###....########
+#........G........######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (20,13) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (21,16) with hit points 86
+ELF at (22,16) with hit points 26
+GOBLIN at (23,16) with hit points 62
+GOBLIN at (22,17) with hit points 200
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (10,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (25,18) with hit points 200
+GOBLIN at (10,20) with hit points 2
+GOBLIN at (8,21) with hit points 191
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,21) with hit points 200
+GOBLIN at (19,21) with hit points 131
+GOBLIN at (12,22) with hit points 140
+GOBLIN at (9,24) with hit points 200
+
+
+After 63 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######G....#....##
+#.........#.#########..G......##
+#.###.......#########.G......###
+#...........#########GEG....####
+#...........#########.G....#####
+#........GGG#########....G.#####
+#............#######....########
+#......#..G...#####........#####
+#.......GGGG.......G.......#####
+#...........G...####....########
+#................###....########
+#........G........######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (20,13) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (21,16) with hit points 86
+ELF at (22,16) with hit points 14
+GOBLIN at (23,16) with hit points 59
+GOBLIN at (22,17) with hit points 200
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (10,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (25,18) with hit points 200
+GOBLIN at (10,20) with hit points 2
+GOBLIN at (8,21) with hit points 191
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,21) with hit points 200
+GOBLIN at (19,21) with hit points 131
+GOBLIN at (12,22) with hit points 140
+GOBLIN at (9,24) with hit points 200
+
+
+After 64 rounds
+################################
+#############################..#
+#############################..#
+#############################..#
+###########################...##
+##########################..####
+###########..#..#########...####
+#########.........#######....###
+#########............##........#
+#######......................###
+#######.####...####.....#...####
+######...#............###....###
+#####....#....#####...####...###
+####.........#######G....#....##
+#.........#.#########..G......##
+#.###.......#########.G......###
+#...........#########GEG....####
+#...........#########.G....#####
+#........GGG#########....G.#####
+#............#######....########
+#......#..G...#####........#####
+#.......GGGG.......G.......#####
+#...........G...####....########
+#................###....########
+#........G........######.#######
+#.............###.##.....#######
+##......#....####..........#####
+##......##...###...#..##.#######
+##...####..#####....############
+###..###...#######..############
+###..###..######################
+################################
+GOBLIN at (20,13) with hit points 200
+GOBLIN at (23,14) with hit points 200
+GOBLIN at (22,15) with hit points 149
+GOBLIN at (21,16) with hit points 86
+ELF at (22,16) with hit points 2
+GOBLIN at (23,16) with hit points 56
+GOBLIN at (22,17) with hit points 200
+GOBLIN at (9,18) with hit points 200
+GOBLIN at (10,18) with hit points 200
+GOBLIN at (11,18) with hit points 200
+GOBLIN at (25,18) with hit points 200
+GOBLIN at (10,20) with hit points 2
+GOBLIN at (8,21) with hit points 191
+GOBLIN at (9,21) with hit points 200
+GOBLIN at (10,21) with hit points 200
+GOBLIN at (11,21) with hit points 200
+GOBLIN at (19,21) with hit points 131
+GOBLIN at (12,22) with hit points 140
+GOBLIN at (9,24) with hit points 200
+
+
+Combat ends after 64 full rounds
+GOBLIN wins with 2955 left
+Outcome: 64 * 2955 = 189120
+
+Process finished with exit code 0
