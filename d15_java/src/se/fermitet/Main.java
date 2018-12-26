@@ -13,7 +13,7 @@ public class Main {
     }
 
     private void run() throws Exception {
-        boolean smallInput = true;
+        boolean smallInput = false;
         String filename;
         if (smallInput) {
             filename = "input_small.txt";
@@ -25,10 +25,23 @@ public class Main {
 
         System.out.println(sim);
 
-        for (int i = 0; i < 3; i++) {
-            sim.runRound();
-            System.out.println(sim);
+        int i = 0;
+        while (!sim.didAnybodyWin().isPresent()) {
+            Optional<PlayerType> didAnybodyWin = sim.runRound();
+
+            if (!didAnybodyWin.isPresent()) {
+                i++;
+                System.out.println("After " + i + " rounds");
+                System.out.println(sim);
+            }
         }
+
+        PlayerType winner = sim.didAnybodyWin().get();
+        int totalHitPoints = sim.getTotalHitPoints(winner);
+
+        System.out.println("Combat ends after " + i + " full rounds");
+        System.out.println(winner + " wins with " + totalHitPoints + " left");
+        System.out.println("Outcome: " + i + " * " + totalHitPoints + " = " + (i * totalHitPoints));
     }
 
     private Sim readInput(String filename) throws Exception {
@@ -71,19 +84,32 @@ class Sim {
     Set<Coord> walls = new HashSet<Coord>();
     Coord size = new Coord(0, 0);
 
-    void runRound() {
+    Optional<PlayerType> runRound() {
         this.sortPlayers();
 
         for (Player player : players) {
-            this.runRoundForPlayer(player);
+            if (!player.alive) continue;
+
+            if (!didAnybodyWin().isPresent()) {
+                runRoundForPlayer(player);
+            } else {
+                return didAnybodyWin();
+            }
         }
+        return Optional.empty();
     }
 
     private void sortPlayers() {
-        this.players = this.players.stream().sorted().collect(Collectors.toList());
+        this.players = this.players.stream()
+                .filter(player -> player.alive)
+                .sorted()
+                .collect(Collectors.toList());
     }
 
-    void runRoundForPlayer(Player player) {
+    Optional<PlayerType> runRoundForPlayer(Player player) {
+        if (!player.alive) return Optional.empty();
+        if (didAnybodyWin().isPresent()) return didAnybodyWin();
+
         // Move
         Coord movePos = this.positionToMoveTo(player);
         if (movePos != null) {
@@ -91,9 +117,37 @@ class Sim {
         }
 
         // Attack
+        List<Player> allEnemiesInRange = this.allEnemiesInRangeOfPlayer(player, player.type);
+
+        Optional<Player> enemyToAttackOpt = allEnemiesInRange.stream()
+                .sorted((Player enemy1, Player enemy2) -> {
+                    int hp1 = enemy1.hitPoints;
+                    int hp2 = enemy2.hitPoints;
+
+                    if (hp1 == hp2) {
+                        Coord pos1 = enemy1.pos;
+                        Coord pos2 = enemy2.pos;
+                        return pos1.compareTo(pos2);
+                    } else {
+                        return hp1 - hp2;
+                    }
+                })
+                .findFirst();
+
+        if (enemyToAttackOpt.isPresent()) {
+            Player enemy = enemyToAttackOpt.get();
+            enemy.hitPoints -= player.attackPower;
+
+            if (enemy.hitPoints <= 0) {
+                enemy.alive = false;
+            }
+        }
+
+        return didAnybodyWin();
     }
 
     Coord positionToMoveTo(Player player) {
+        if (!player.alive) return null;
         if (this.playerInRangeOfEnemy(player)) {
             return null;
         }
@@ -171,15 +225,27 @@ class Sim {
 
     Optional<Player> positionInRangeOfEnemy(Coord pos, PlayerType friendlyPlayerType) {
         return this.players.stream()
+                .filter(p -> p.alive)
                 .filter(p -> p.type != friendlyPlayerType)
                 .filter(enemy -> pos.manhattanDistanceFrom(enemy.pos) <= 1)
                 .sorted()
                 .findFirst();
     }
 
+    List<Player> allEnemiesInRangeOfPlayer(Player player, PlayerType friendlyPlayerType) {
+        return this.players.stream()
+                .filter(p -> p.alive)
+                .filter(p -> p.type != friendlyPlayerType)
+                .filter(enemy -> player.pos.manhattanDistanceFrom(enemy.pos) <= 1)
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
 
     Player getPlayerAt(Coord c) {
         for (Player player : players) {
+            if (!player.alive) continue;
+
             if (player.pos.equals(c)) return player;
         }
         return null;
@@ -200,7 +266,7 @@ class Sim {
                 }
 
                 Player potentialPlayer = getPlayerAt(c);
-                if (potentialPlayer != null) {
+                if (potentialPlayer != null && potentialPlayer.alive) {
                     s = potentialPlayer.type == PlayerType.ELF ? "E" : "G";
                 }
 
@@ -208,9 +274,48 @@ class Sim {
             }
             buf.append("\n");
         }
+
+        for (Player p : this.players) {
+            if (!p.alive) continue;
+
+            buf.append(p.type.toString() + " at " + p.pos + " with hit points " + p.hitPoints);
+            buf.append("\n");
+        }
         buf.append("\n");
 
         return buf.toString();
+    }
+
+    Optional<PlayerType> didAnybodyWin() {
+        boolean goblinsLeft = this.players.stream()
+                .filter(p -> p.alive)
+                .filter(p -> p.type == PlayerType.GOBLIN)
+                .findFirst().isPresent();
+
+        boolean elvesLeft = this.players.stream()
+                .filter(p -> p.alive)
+                .filter(p -> p.type == PlayerType.ELF)
+                .findFirst().isPresent();
+
+        if (goblinsLeft && elvesLeft) {
+            return Optional.empty();
+        } else if (goblinsLeft) {
+            return Optional.of(PlayerType.GOBLIN);
+        } else {
+            return Optional.of(PlayerType.ELF);
+        }
+    }
+
+    public int getTotalHitPoints(PlayerType winnerType) {
+        int ret = 0;
+        for (Player p : this.players) {
+            if (!p.alive) continue;
+            if (p.type != winnerType) continue;
+
+            ret += p.hitPoints;
+        }
+
+        return ret;
     }
 }
 
@@ -219,6 +324,7 @@ class Player implements Comparable<Player>{
     PlayerType type;
     int hitPoints;
     int attackPower;
+    boolean alive = true;
 
     Player(Coord pos, PlayerType type) {
         super();
