@@ -5,11 +5,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Sim {
     List<Player> players = new ArrayList<Player>();
     Set<Coord> walls = new HashSet<Coord>();
     Coord size = new Coord(0, 0);
+
 
     class Result {
         PlayerType winner;
@@ -136,13 +138,32 @@ class Sim {
         return didAnybodyWin();
     }
 
+    public Stream<Coord> pointsInRangeOfEnemy(Player player) {
+        if (!player.alive) return null;
+        if (this.playerInRangeOfEnemy(player)) {
+            return null;
+        }
+
+        return this.players.stream()
+                .filter(p -> p.alive)
+                .filter(p -> p.type != player.type)
+                .flatMap(p -> p.pos.coordsInRange().stream())
+                .filter(c -> !this.walls.contains(c));
+    }
+
     Coord positionToMoveTo(Player player) {
         if (!player.alive) return null;
         if (this.playerInRangeOfEnemy(player)) {
             return null;
         }
 
-        Stack<Coord> positions = new Stack<>();
+
+        Stream<Coord> pointsInRange = this.pointsInRangeOfEnemy(player);
+        // TODO
+        return null;
+        
+
+/*        Stack<Coord> positions = new Stack<>();
         HashMap<Coord, Route> routes = new HashMap();
 
         positions.add(player.pos);
@@ -206,7 +227,7 @@ class Sim {
                 .sorted((Route r1, Route r2) -> r1.ownEndPosition.compareTo(r2.ownEndPosition))
                 .collect(Collectors.toList());
 
-        return routeList.get(0).steps.get(1);
+        return routeList.get(0).steps.get(1);*/
     }
 
     boolean playerInRangeOfEnemy(Player player) {

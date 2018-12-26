@@ -2,8 +2,12 @@ package se.fermitet;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.*;
+import static org.hamcrest.core.IsCollectionContaining.*;
 
 public class SimTest {
     @Test
@@ -64,5 +68,21 @@ public class SimTest {
         assertThat(result.winner, is(PlayerType.GOBLIN));
         assertThat(result.numRounds, is(20));
         assertThat(result.totalHitPoints, is(937));
+    }
+
+    @Test
+    public void pointsInRange() throws Exception {
+        Sim sim = Sim.fromFile("inputs/move.txt");
+        Player elf = sim.getPlayerAt(new Coord(1, 1));
+
+        List<Coord> pointsInRange = sim.pointsInRangeOfEnemy(elf).collect(Collectors.toList());
+
+        assertThat(pointsInRange.size(), is(6));
+        assertThat(pointsInRange, hasItem(new Coord(3, 1)));
+        assertThat(pointsInRange, hasItem(new Coord(5, 1)));
+        assertThat(pointsInRange, hasItem(new Coord(2, 2)));
+        assertThat(pointsInRange, hasItem(new Coord(5, 2)));
+        assertThat(pointsInRange, hasItem(new Coord(1, 3)));
+        assertThat(pointsInRange, hasItem(new Coord(3, 3)));
     }
 }
