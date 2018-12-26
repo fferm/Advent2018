@@ -143,7 +143,8 @@ impl<'a> Sim<'a> {
         }
 
         let mut routes = HashMap::new();
-        routes.insert(player.pos.get(), Route::create_initial(player.pos.get()));
+        let mut vec = Vec::new();
+        routes.insert(player.pos.get(), Route::create_initial(player.pos.get(), &mut vec));
 
         let mut positions = vec![player.pos.get()];
 
@@ -151,12 +152,11 @@ impl<'a> Sim<'a> {
 
         while positions.len() > 0 {
             let current_pos = positions.pop().unwrap();
-
             let current_route = routes.get(&current_pos).unwrap();
 
             let coords_in_range = current_pos.coords_in_range();
 
-            for potential_move in coords_in_range {
+            for potential_move in coords_in_range.iter() {
                 if self.walls.contains(&potential_move) {
                     continue;
                 }
@@ -165,7 +165,8 @@ impl<'a> Sim<'a> {
                     continue;
                 }
 
-                let mut route_to = current_route.create_from_and_add(potential_move);
+                let mut vec1 = Vec::new();
+                let mut route_to = current_route.create_from_and_add(*potential_move, &mut vec1);
 
                 if route_to.len() > shortest_path_length {
                     continue;
@@ -177,14 +178,14 @@ impl<'a> Sim<'a> {
                     continue;
                 }
 
-                if self.position_in_range_of_enemy(potential_move,  &player.player_type) {
+                if self.position_in_range_of_enemy(*potential_move,  &player.player_type) {
                     shortest_path_length = route_to.len();
                     // Välj rätt !!!
-                    return Some(*route_to.steps.get(0).unwrap());
+                    return Some(route_to.get_first_step());
                 }
 
-                routes.insert(potential_move, route_to);
-                positions.push(potential_move);
+                routes.insert(potential_move.clone(), route_to);
+                positions.push(potential_move.clone());
             }
         }
 
@@ -346,8 +347,8 @@ impl Coord {
 }
 
 #[derive(Debug)]
-struct Route {
-    steps: Vec<Coord>,
+struct Route<'a> {
+    steps: &'a Vec<Coord>,
     enemy_position: Option<Coord>,
     own_end_position: Option<Coord>
 }
@@ -365,20 +366,27 @@ impl Clone for Route {
     }
 }*/
 
-impl Route {
-    fn create_initial(starting_pos: Coord) -> Route {
-        return Route{steps: vec![starting_pos], enemy_position: None, own_end_position: None}
+impl<'a> Route<'a> {
+    fn create_initial(starting_pos: Coord, vec: &'a mut Vec<Coord>) -> Route<'a> {
+        vec.push(starting_pos);
+        return Route{steps: &vec, enemy_position: None, own_end_position: None}
     }
 
-    fn create_from_and_add(&self, pos: Coord) -> Route {
-        let mut steps = self.steps.clone();
-        steps.push(pos);
+    fn create_from_and_add(&mut self, pos: Coord, vec: &'a mut Vec<Coord>) -> Route<'a> {
+        for c in self.steps.iter() {
+            vec.push(*c);
+        }
+        vec.push(pos);
 
-        return Route{steps: steps, enemy_position: self.enemy_position.clone(), own_end_position: self.own_end_position.clone() };
+        return Route{steps: &vec, enemy_position: self.enemy_position.clone(), own_end_position: self.own_end_position.clone() };
     }
 
     fn len(&self) -> usize {
         return self.steps.len() - 1;
+    }
+
+    fn get_first_step(&self) -> Coord {
+        return self.steps.get(1).unwrap().clone();
     }
 
 //    fn get_end_pos(&self) -> Coord {

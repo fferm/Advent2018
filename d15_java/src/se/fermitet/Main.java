@@ -23,6 +23,9 @@ public class Main {
         Sim sim = readInput(filename);
 
         System.out.println(sim);
+
+        sim.runRound();
+        System.out.println(sim);
     }
 
     private Sim readInput(String filename) throws Exception {
@@ -58,48 +61,107 @@ public class Main {
 
         return sim;
     }
-
-//    let mut sim = Sim{walls: HashSet::new(), players: Vec::new(), x_size: 0, y_size: 0};
-//
-//    let file_contents = fs::read_to_string(filename).expect("Error in reading file");
-//
-//    let lines: Vec<&str> = file_contents.split("\n").collect();
-//
-//    let mut y = 0;
-//    for line in lines {
-//        for x in 0..line.len() {
-//            let coord = Coord{x: x as isize, y: y as isize};
-//
-//            let c = line.get(x..x+1).unwrap();
-//
-//            if c == "#" {
-//                sim.walls.insert(coord);
-//            } else if c == "E" {
-//                sim.players.push(Player::create_elf(coord));
-//            } else if c == "G" {
-//                sim.players.push(Player::create_goblin(coord));
-//            }
-//
-//            if x > sim.x_size {
-//                sim.x_size = x;
-//            }
-//            if y > sim.y_size {
-//                sim.y_size = y
-//            }
-//
-//        }
-//
-//        y += 1;
-//    }
-//
-//    return sim;
-
 }
 
 class Sim {
     List<Player> players = new ArrayList<Player>();
     Set<Coord> walls = new HashSet<Coord>();
     Coord size = new Coord(0, 0);
+
+    void runRound() {
+        // TODO: Sort
+
+        for (Player player : players) {
+            this.runRoundForPlayer(player);
+        }
+    }
+
+    void runRoundForPlayer(Player player) {
+        // Move
+        Coord movePos = this.positionToMoveTo(player);
+        if (movePos != null) {
+            player.moveTo(movePos);
+        }
+
+        // Attack
+    }
+
+    Coord positionToMoveTo(Player player) {
+//        if self.player_in_range_of_enemy(player) {
+//            return None;
+//        }
+
+        if (this.playerInRangeOfEnemy(player)) {
+            return null;
+        }
+
+//
+//        let mut routes = HashMap::new();
+//        let mut vec = Vec::new();
+//        routes.insert(player.pos.get(), Route::create_initial(player.pos.get(), &mut vec));
+//
+//        let mut positions = vec![player.pos.get()];
+//
+//        let mut shortest_path_length = std::usize::MAX;
+//
+//        while positions.len() > 0 {
+//            let current_pos = positions.pop().unwrap();
+//            let current_route = routes.get(&current_pos).unwrap();
+//
+//            let coords_in_range = current_pos.coords_in_range();
+//
+//            for potential_move in coords_in_range.iter() {
+//                if self.walls.contains(&potential_move) {
+//                    continue;
+//                }
+//
+//                if self.get_player_id_at(&potential_move).is_some() {
+//                    continue;
+//                }
+//
+//                let mut vec1 = Vec::new();
+//                let mut route_to = current_route.create_from_and_add(*potential_move, &mut vec1);
+//
+//                if route_to.len() > shortest_path_length {
+//                    continue;
+//                }
+//
+//                if routes.contains_key(&potential_move) && routes.get(&potential_move).unwrap().len() < route_to.len() {
+//                    // TODO: Välj rätt väg om det finns olika vägar till samma ställe
+//                    // Tror det är löst i och med reading order på coords_in_range
+//                    continue;
+//                }
+//
+//                if self.position_in_range_of_enemy(*potential_move,  &player.player_type) {
+//                    shortest_path_length = route_to.len();
+//                    // Välj rätt !!!
+//                    return Some(route_to.get_first_step());
+//                }
+//
+//                routes.insert(potential_move.clone(), route_to);
+//                positions.push(potential_move.clone());
+//            }
+//        }
+//
+//        println!("shortest_path_length: {}    {:?}", shortest_path_length, routes);
+//
+//        return None;
+
+        return null;
+
+    }
+
+    boolean playerInRangeOfEnemy(Player player) {
+        return this.positionInRangeOfEnemy(player.pos, player.type);
+    }
+
+    boolean positionInRangeOfEnemy(Coord pos, PlayerType friendlyPlayerType) {
+        return this.players.stream()
+                .filter(p -> p.type != friendlyPlayerType)
+                .filter(enemy -> pos.manhattanDistanceFrom(enemy.pos) <= 1)
+                .count() >= 1;
+    }
+
 
     Player getPlayerAt(Coord c) {
         for (Player player : players) {
@@ -150,6 +212,10 @@ class Player {
         this.hitPoints = 200;
         this.attackPower = 3;
     }
+
+    void moveTo(Coord pos) {
+        this.pos = pos;
+    }
 }
 
 enum PlayerType {
@@ -164,6 +230,13 @@ class Coord {
         super();
         this.x = x;
         this.y = y;
+    }
+
+    int manhattanDistanceFrom(Coord other) {
+        int x_dist = Math.abs(this.x - other.x);
+        int y_dist = Math.abs(this.y - other.y);
+
+        return x_dist + y_dist;
     }
 
     @Override
