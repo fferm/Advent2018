@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -24,8 +25,10 @@ public class Main {
 
         System.out.println(sim);
 
-        sim.runRound();
-        System.out.println(sim);
+        for (int i = 0; i < 3; i++) {
+            sim.runRound();
+            System.out.println(sim);
+        }
     }
 
     private Sim readInput(String filename) throws Exception {
@@ -69,11 +72,15 @@ class Sim {
     Coord size = new Coord(0, 0);
 
     void runRound() {
-        // TODO: Sort
+        this.sortPlayers();
 
         for (Player player : players) {
             this.runRoundForPlayer(player);
         }
+    }
+
+    private void sortPlayers() {
+        this.players = this.players.stream().sorted().collect(Collectors.toList());
     }
 
     void runRoundForPlayer(Player player) {
@@ -87,79 +94,87 @@ class Sim {
     }
 
     Coord positionToMoveTo(Player player) {
-//        if self.player_in_range_of_enemy(player) {
-//            return None;
-//        }
-
         if (this.playerInRangeOfEnemy(player)) {
             return null;
         }
 
-//
-//        let mut routes = HashMap::new();
-//        let mut vec = Vec::new();
-//        routes.insert(player.pos.get(), Route::create_initial(player.pos.get(), &mut vec));
-//
-//        let mut positions = vec![player.pos.get()];
-//
-//        let mut shortest_path_length = std::usize::MAX;
-//
-//        while positions.len() > 0 {
-//            let current_pos = positions.pop().unwrap();
-//            let current_route = routes.get(&current_pos).unwrap();
-//
-//            let coords_in_range = current_pos.coords_in_range();
-//
-//            for potential_move in coords_in_range.iter() {
-//                if self.walls.contains(&potential_move) {
-//                    continue;
-//                }
-//
-//                if self.get_player_id_at(&potential_move).is_some() {
-//                    continue;
-//                }
-//
-//                let mut vec1 = Vec::new();
-//                let mut route_to = current_route.create_from_and_add(*potential_move, &mut vec1);
-//
-//                if route_to.len() > shortest_path_length {
-//                    continue;
-//                }
-//
-//                if routes.contains_key(&potential_move) && routes.get(&potential_move).unwrap().len() < route_to.len() {
-//                    // TODO: Välj rätt väg om det finns olika vägar till samma ställe
-//                    // Tror det är löst i och med reading order på coords_in_range
-//                    continue;
-//                }
-//
-//                if self.position_in_range_of_enemy(*potential_move,  &player.player_type) {
-//                    shortest_path_length = route_to.len();
-//                    // Välj rätt !!!
-//                    return Some(route_to.get_first_step());
-//                }
-//
-//                routes.insert(potential_move.clone(), route_to);
-//                positions.push(potential_move.clone());
-//            }
-//        }
-//
-//        println!("shortest_path_length: {}    {:?}", shortest_path_length, routes);
-//
-//        return None;
+        Stack<Coord> positions = new Stack<>();
+        HashMap<Coord, Route> routes = new HashMap();
 
-        return null;
+        positions.add(player.pos);
+        routes.put(player.pos, new Route(player.pos));
 
+        int shortestPathLength = Integer.MAX_VALUE;
+
+        while (!positions.isEmpty()) {
+            Coord currentPos = positions.pop();
+            Route currentRoute = routes.get(currentPos);
+
+            for (Coord potentialMove : currentPos.coordsInRange()) {
+                if (this.walls.contains(potentialMove)) {
+                    continue;
+                }
+
+                if (this.getPlayerAt(potentialMove) != null) {
+                    continue;
+                }
+
+                Route routeTo = currentRoute.createFromAndAdd(potentialMove);
+
+                if (routeTo.length() > shortestPathLength) {
+                    continue;
+                }
+
+                if (routes.containsKey(potentialMove) && routes.get(potentialMove).length() < routeTo.length()) {
+                    continue;
+                }
+
+                Optional<Player> enemyOpt = this.positionInRangeOfEnemy(potentialMove, player.type);
+                if (enemyOpt.isPresent()) {
+                    shortestPathLength = routeTo.length();
+                    routeTo.enemyPosition = enemyOpt.get().pos;
+                    routeTo.ownEndPosition = potentialMove;
+                }
+
+                routes.put(potentialMove, routeTo);
+                positions.push(potentialMove);
+            }
+        }
+
+        if (shortestPathLength == Integer.MAX_VALUE) {
+            return null;
+        }
+
+
+        final int shortestPath = shortestPathLength;
+
+        List<Route> routeList = routes.entrySet().stream()
+                .map(entry -> entry.getValue())
+                .filter(route -> route.length() <= shortestPath)
+                .filter(route -> route.enemyPosition != null)
+                .sorted((Route r1, Route r2)-> r1.enemyPosition.compareTo(r2.enemyPosition))
+                .collect(Collectors.toList());
+
+        Coord enemyPosition = routeList.get(0).enemyPosition;
+
+        routeList = routeList.stream()
+                .filter(route -> route.enemyPosition.equals(enemyPosition))
+                .sorted((Route r1, Route r2) -> r1.ownEndPosition.compareTo(r2.ownEndPosition))
+                .collect(Collectors.toList());
+
+        return routeList.get(0).steps.get(1);
     }
 
     boolean playerInRangeOfEnemy(Player player) {
-        return this.positionInRangeOfEnemy(player.pos, player.type);
+        return this.positionInRangeOfEnemy(player.pos, player.type).isPresent();
     }
 
-    boolean positionInRangeOfEnemy(Coord pos, PlayerType friendlyPlayerType) {
+    Optional<Player> positionInRangeOfEnemy(Coord pos, PlayerType friendlyPlayerType) {
         return this.players.stream()
                 .filter(p -> p.type != friendlyPlayerType)
                 .filter(enemy -> pos.manhattanDistanceFrom(enemy.pos) <= 1)
-                .count() >= 1;
+                .sorted()
+                .findFirst();
     }
 
 
@@ -178,7 +193,7 @@ class Sim {
             for (int x = 0; x < this.size.x; x++) {
                 Coord c = new Coord(x, y);
 
-                String s = " ";
+                String s = ".";
 
                 if (walls.contains(c)) {
                     s = "#";
@@ -199,7 +214,7 @@ class Sim {
     }
 }
 
-class Player {
+class Player implements Comparable<Player>{
     Coord pos;
     PlayerType type;
     int hitPoints;
@@ -216,13 +231,18 @@ class Player {
     void moveTo(Coord pos) {
         this.pos = pos;
     }
+
+    @Override
+    public int compareTo(Player o) {
+        return this.pos.compareTo(o.pos);
+    }
 }
 
 enum PlayerType {
     ELF, GOBLIN
 }
 
-class Coord {
+class Coord implements Comparable<Coord> {
     int x;
     int y;
 
@@ -257,4 +277,78 @@ class Coord {
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
+    public List<Coord> coordsInRange() {
+        List<Coord> ret = new ArrayList<>();
+
+        ret.add(new Coord(this.x, this.y - 1));
+        ret.add(new Coord(this.x - 1, this.y));
+        ret.add(new Coord(this.x + 1, this.y));
+        ret.add(new Coord(this.x, this.y + 1));
+
+        return ret;
+    }
+
+    @Override
+    public int compareTo(Coord o) {
+        int yCmp = this.y - o.y;
+
+        if (yCmp != 0) {
+            return yCmp;
+        } else {
+            return this.x - o.x;
+        }
+    }
 }
+
+class Route {
+    List<Coord> steps = new ArrayList<>();
+    Coord enemyPosition;
+    Coord ownEndPosition;
+
+    private Route() {
+        super();
+    }
+
+    Route(Coord start) {
+        this();
+        this.addCoord(start);
+    }
+
+    Route createFromAndAdd(Coord potentialMove) {
+        Route ret = new Route();
+
+        for (Coord c : this.steps) {
+            ret.addCoord(c);
+        }
+        ret.addCoord(potentialMove);
+
+        return ret;
+    }
+
+    private void addCoord(Coord c) {
+        this.steps.add(c);
+    }
+
+    public int length() {
+        return steps.size() - 1;
+    }
+
+    @Override
+    public String toString() {
+        String ret = "[";
+
+        for (Coord c : this.steps) {
+            ret += c.toString() + ", ";
+        }
+
+        if (this.enemyPosition != null) {
+            ret += "ENEMY: " + enemyPosition;
+        }
+
+        ret += "]";
+
+        return ret;
+    }
+}
+
