@@ -36,6 +36,9 @@ class Route {
         return steps.size() - 1;
     }
 
+    Coord getLastStep() {
+        return this.steps.get(this.steps.size() - 1);
+    }
     @Override
     public String toString() {
         String ret = "[";

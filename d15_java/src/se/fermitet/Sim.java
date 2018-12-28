@@ -20,13 +20,26 @@ class Sim {
     }
 
     static Sim fromFile(String filename) throws Exception {
-        Sim sim = new Sim();
-
         BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
 
         String st;
+        String result = "";
         int line = 0;
         while ((st = br.readLine()) != null) {
+            result += st;
+            result += "\n";
+        }
+
+        return Sim.fromString(result);
+    }
+
+    static Sim fromString(String input) {
+        Sim sim = new Sim();
+
+        String[] split = input.split("\n");
+
+        for (int line = 0; line < split.length; line++) {
+            String st = split[line];
             for (int x = 0; x < st.length(); x++) {
                 Coord c = new Coord(x, line);
 
@@ -46,8 +59,6 @@ class Sim {
             if (line > sim.size.y - 1) {
                 sim.size = new Coord(sim.size.x, line + 1);
             }
-
-            line++;
         }
 
         return sim;
@@ -103,7 +114,7 @@ class Sim {
         if (didAnybodyWin().isPresent()) return didAnybodyWin();
 
         // Move
-        Coord movePos = this.positionToMoveTo(player);
+        Coord movePos = this.selectFirstStep(player);
         if (movePos != null) {
             player.moveTo(movePos);
         }
@@ -151,28 +162,18 @@ class Sim {
                 .filter(c -> !this.walls.contains(c));
     }
 
-    Coord positionToMoveTo(Player player) {
-        if (!player.alive) return null;
-        if (this.playerInRangeOfEnemy(player)) {
-            return null;
-        }
+    Map<Coord, Route> getMapFrom(Coord pos) {
+        Map<Coord, Route> routes = new HashMap<>();
 
+        Coord start = pos;
 
-        Stream<Coord> pointsInRange = this.pointsInRangeOfEnemy(player);
-        // TODO
-        return null;
-        
+        Deque<Coord> positions = new ArrayDeque<>();
+        positions.add(start);
 
-/*        Stack<Coord> positions = new Stack<>();
-        HashMap<Coord, Route> routes = new HashMap();
-
-        positions.add(player.pos);
-        routes.put(player.pos, new Route(player.pos));
-
-        int shortestPathLength = Integer.MAX_VALUE;
+        routes.put(start, new Route(start));
 
         while (!positions.isEmpty()) {
-            Coord currentPos = positions.pop();
+            Coord currentPos = positions.removeFirst();
             Route currentRoute = routes.get(currentPos);
 
             for (Coord potentialMove : currentPos.coordsInRange()) {
@@ -186,48 +187,86 @@ class Sim {
 
                 Route routeTo = currentRoute.createFromAndAdd(potentialMove);
 
-                if (routeTo.length() > shortestPathLength) {
-                    continue;
-                }
-
                 if (routes.containsKey(potentialMove) && routes.get(potentialMove).length() <= routeTo.length()) {
                     continue;
                 }
 
-                Optional<Player> enemyOpt = this.positionInRangeOfEnemy(potentialMove, player.type);
-                if (enemyOpt.isPresent()) {
-                    shortestPathLength = routeTo.length();
-                    routeTo.enemyPosition = enemyOpt.get().pos;
-                    routeTo.ownEndPosition = potentialMove;
-                }
-
                 routes.put(potentialMove, routeTo);
-                positions.push(potentialMove);
+                positions.addLast(potentialMove);
             }
+
         }
+        return routes;
+    }
 
-        if (shortestPathLength == Integer.MAX_VALUE) {
-            return null;
-        }
+    Coord selectTargetPoint(Player player, Map<Coord, Route> routeMap) {
+        if (!player.alive) return null;
+        if (this.playerInRangeOfEnemy(player)) return null;
 
+        List<Route> routesToTargets = this.pointsInRangeOfEnemy(player)
+                .map(c -> routeMap.get(c))
+                .filter(r -> r != null)
+                .sorted((r1, r2) -> {
+                    Integer l1 = r1.length();
+                    Integer l2 = r2.length();
 
-        final int shortestPath = shortestPathLength;
+                    if (l1 != l2) return l1.compareTo(l2);
+                    else {
+                        Coord c1 = r1.steps.get(1);
+                        Coord c2 = r2.steps.get(1);
 
-        List<Route> routeList = routes.entrySet().stream()
-                .map(entry -> entry.getValue())
-                .filter(route -> route.length() <= shortestPath)
-                .filter(route -> route.enemyPosition != null)
-                .sorted((Route r1, Route r2)-> r1.enemyPosition.compareTo(r2.enemyPosition))
+                        return c1.compareTo(c2);
+                    }
+                })
                 .collect(Collectors.toList());
 
-        Coord enemyPosition = routeList.get(0).enemyPosition;
+        if (routesToTargets.isEmpty()) return null;
+        else {
+            Route selectedRoute = routesToTargets.get(0);
+            return selectedRoute.steps.get(selectedRoute.steps.size() - 1);
+        }
+    }
 
-        routeList = routeList.stream()
-                .filter(route -> route.enemyPosition.equals(enemyPosition))
-                .sorted((Route r1, Route r2) -> r1.ownEndPosition.compareTo(r2.ownEndPosition))
-                .collect(Collectors.toList());
+    Coord selectFirstStep(Player player) {
+        if (!player.alive) return null;
+        if (this.playerInRangeOfEnemy(player)) return null;
 
-        return routeList.get(0).steps.get(1);*/
+        Map<Coord, Route> targetMap = this.getMapFrom(player.pos);
+        Coord target = this.selectTargetPoint(player, targetMap);
+
+        if (target == null) return null;
+        else {
+            Map<Coord, Route> mapBack = this.getMapFrom(target);
+
+            List<Coord> potentialMoves = player.pos.coordsInRange();
+
+            List<Route> routesBack = potentialMoves.stream()
+                    .filter(c -> this.walls.contains(c))
+                    .filter(c -> this.getPlayerAt(c) == null)
+                    .map(c -> mapBack.get(c))
+                    .filter(r -> r != null)
+                    .collect(Collectors.toList());
+
+            int minLength = Integer.MAX_VALUE;
+            HashSet<Route> shortestRoutes = new HashSet<Route>();
+
+            for (Route route : routesBack) {
+                if (route.length() < minLength) {
+                    shortestRoutes.clear();
+                    shortestRoutes.add(route);
+                } else if (route.length() == minLength) {
+                    shortestRoutes.add(route);
+                }
+            }
+
+            Optional<Coord> opt = shortestRoutes.stream()
+                    .map(r -> r.getLastStep())
+                    .sorted()
+                    .findFirst();
+
+            if (opt.isPresent()) return opt.get();
+            else return null;
+        }
     }
 
     boolean playerInRangeOfEnemy(Player player) {

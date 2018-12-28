@@ -1,2 +1,4 @@
 189120 för låg
 192075 för låg (en extra omgång på tidigare)
+201411 för hög
+201408  fel  (en attack mer från sista elf)

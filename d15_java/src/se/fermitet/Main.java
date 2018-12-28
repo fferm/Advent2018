@@ -7,7 +7,7 @@ public class Main {
     }
 
     private void run() throws Exception {
-        boolean smallInput = true;
+        boolean smallInput = false;
         String filename;
         if (smallInput) {
             filename = "inputs/1.txt";
