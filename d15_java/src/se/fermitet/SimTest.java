@@ -187,6 +187,22 @@ public class SimTest {
         assertNull(sim.selectFirstStep(goblin));
     }
 
+    @Test
+    public void moveRight() {
+        String input =
+                "#######" + "\n" +
+                "#.E..G#" + "\n" +
+                "#.#####" + "\n" +
+                "#G#####" + "\n" +
+                "#######";
+
+        Sim sim = Sim.fromString(input);
+        Player player = sim.getPlayerAt(new Coord(2, 1));
+
+        assertThat(sim.selectFirstStep(player), is(new Coord(3, 1)));
+    }
+
+
 /*    @Test
     public void selectFirstStep_shortestPathBack() {
         String input =

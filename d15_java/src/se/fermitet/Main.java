@@ -10,7 +10,7 @@ public class Main {
         boolean smallInput = false;
         String filename;
         if (smallInput) {
-            filename = "inputs/1.txt";
+            filename = "inputs/larger.txt";
 //            filename = "input_small.txt";
         } else {
             filename = "input.txt";
@@ -23,9 +23,7 @@ public class Main {
 
         Sim.Result result = sim.runFull(true);
 
-        System.out.println("Combat ends after " + result.numRounds + " full rounds");
-        System.out.println(result.winner + " wins with " + result.totalHitPoints + " left");
-        System.out.println("Outcome: " + result.numRounds + " * " + result.totalHitPoints + " = " + (result.numRounds * result.totalHitPoints));
+        result.print();
 
     }
 }

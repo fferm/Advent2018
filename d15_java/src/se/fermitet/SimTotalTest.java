@@ -64,4 +64,24 @@ public class SimTotalTest {
         assertThat(result.winner, is(PlayerType.GOBLIN));
         assertThat(result.numRounds, is(20));
         assertThat(result.totalHitPoints, is(937));
-    }}
+    }
+
+    @Test
+    public void moveRight() throws Exception {
+        String input = 
+                "#######" + "\n" +
+                "#.E..G#" + "\n" +
+                "#.#####" + "\n" +
+                "#G#####" + "\n" +
+                "#######";
+        
+        Sim sim = Sim.fromString(input);
+        Sim.Result result = sim.runFull(false);
+
+        assertThat(result.winner, is(PlayerType.GOBLIN));
+        assertThat(result.numRounds, is(34));
+        assertThat(result.totalHitPoints, is(301));
+    }
+
+}
+

@@ -17,6 +17,12 @@ class Sim {
         PlayerType winner;
         int numRounds;
         int totalHitPoints;
+
+        public void print() {
+            System.out.println("Combat ends after " + this.numRounds + " full rounds");
+            System.out.println(this.winner + " wins with " + this.totalHitPoints + " left");
+            System.out.println("Outcome: " + this.numRounds + " * " + this.totalHitPoints + " = " + (this.numRounds * this.totalHitPoints));
+        }
     }
 
     static Sim fromFile(String filename) throws Exception {
@@ -65,6 +71,11 @@ class Sim {
     }
 
     Result runFull(boolean debug) {
+        if (debug) {
+            System.out.println("Initial");
+            System.out.println(this);
+        }
+
         int i = 0;
         while (!this.didAnybodyWin().isPresent()) {
             Optional<PlayerType> didAnybodyWin = this.runRound();
@@ -82,6 +93,8 @@ class Sim {
         result.numRounds = i;
         result.winner = this.didAnybodyWin().get();
         result.totalHitPoints = this.getTotalHitPoints(result.winner);
+
+        if (debug) result.print();
 
         return result;
 
@@ -206,25 +219,28 @@ class Sim {
         List<Route> routesToTargets = this.pointsInRangeOfEnemy(player)
                 .map(c -> routeMap.get(c))
                 .filter(r -> r != null)
+                .collect(Collectors.toList());
+
+        Optional<Integer> shortestLengthOpt = routesToTargets.stream()
+                .map(r -> r.length())
+                .sorted()
+                .findFirst();
+        
+        if (!shortestLengthOpt.isPresent()) return null;
+
+        Integer shortestLength = shortestLengthOpt.get();
+
+        List<Route> routesToShortestTargets = routesToTargets.stream()
+                .filter(r -> r.length() == shortestLength)
                 .sorted((r1, r2) -> {
-                    Integer l1 = r1.length();
-                    Integer l2 = r2.length();
+                    Coord target1 = r1.getLastStep();
+                    Coord target2 = r2.getLastStep();
 
-                    if (l1 != l2) return l1.compareTo(l2);
-                    else {
-                        Coord c1 = r1.steps.get(1);
-                        Coord c2 = r2.steps.get(1);
-
-                        return c1.compareTo(c2);
-                    }
+                    return target1.compareTo(target2);
                 })
                 .collect(Collectors.toList());
 
-        if (routesToTargets.isEmpty()) return null;
-        else {
-            Route selectedRoute = routesToTargets.get(0);
-            return selectedRoute.steps.get(selectedRoute.steps.size() - 1);
-        }
+        return routesToShortestTargets.get(0).getFirstStep();
     }
 
     Coord selectFirstStep(Player player) {
@@ -241,7 +257,7 @@ class Sim {
             List<Coord> potentialMoves = player.pos.coordsInRange();
 
             List<Route> routesBack = potentialMoves.stream()
-                    .filter(c -> this.walls.contains(c))
+                    .filter(c -> !this.walls.contains(c))
                     .filter(c -> this.getPlayerAt(c) == null)
                     .map(c -> mapBack.get(c))
                     .filter(r -> r != null)
@@ -254,6 +270,7 @@ class Sim {
                 if (route.length() < minLength) {
                     shortestRoutes.clear();
                     shortestRoutes.add(route);
+                    minLength = route.length();
                 } else if (route.length() == minLength) {
                     shortestRoutes.add(route);
                 }
