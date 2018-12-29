@@ -17,14 +17,10 @@ public class Main {
 //            filename = "input_debug.txt";
         }
 
-        Sim sim = Sim.fromFile(filename);
-
-        System.out.println(sim);
-
-        Sim.Result result = sim.runFull(true);
+        String input = Sim.readFile(filename);
+        Sim.Result result = Sim.rullAllAndCheckNeededElfPower(true, input);
 
         result.print();
-
     }
 }
 

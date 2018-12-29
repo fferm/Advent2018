@@ -17,15 +17,17 @@ class Sim {
         PlayerType winner;
         int numRounds;
         int totalHitPoints;
+        int elfPower;
 
         public void print() {
             System.out.println("Combat ends after " + this.numRounds + " full rounds");
             System.out.println(this.winner + " wins with " + this.totalHitPoints + " left");
             System.out.println("Outcome: " + this.numRounds + " * " + this.totalHitPoints + " = " + (this.numRounds * this.totalHitPoints));
+            System.out.println("Required elf power was: " + this.elfPower);
         }
     }
 
-    static Sim fromFile(String filename) throws Exception {
+    static String readFile(String filename) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
 
         String st;
@@ -36,7 +38,7 @@ class Sim {
             result += "\n";
         }
 
-        return Sim.fromString(result);
+        return result;
     }
 
     static Sim fromString(String input) {
@@ -70,15 +72,39 @@ class Sim {
         return sim;
     }
 
-    Result runFull(boolean debug) {
+    static Result rullAllAndCheckNeededElfPower(boolean debug, String input) {
+        int elfPower = 3;
+        boolean elvesDied = true;
+
+        Result result = null;
+        while (elvesDied) {
+            if (debug) System.out.println("Trying elf power: " + elfPower);
+            Sim sim = Sim.fromString(input);
+
+            try {
+                result = sim.runFull(debug, elfPower);
+                elvesDied = false;
+                result.elfPower = elfPower;
+
+                return result;
+            } catch (ElfDiedException e) {
+                elfPower++;
+            }
+        }
+        return result;
+    }
+
+    Result runFull(boolean debug, int elfPower) throws ElfDiedException {
         if (debug) {
             System.out.println("Initial");
             System.out.println(this);
         }
 
+        setElfPower(elfPower);
+
         int i = 0;
         while (!this.didAnybodyWin().isPresent()) {
-            Optional<PlayerType> didAnybodyWin = this.runRound();
+            Optional<PlayerType> didAnybodyWin = this.runRound(debug);
 
             if (!didAnybodyWin.isPresent()) {
                 i++;
@@ -100,14 +126,20 @@ class Sim {
 
     }
 
-    Optional<PlayerType> runRound() {
+    private void setElfPower(int elfPower) {
+        this.players.stream()
+                .filter(p -> p.type == PlayerType.ELF)
+                .forEach(p -> p.attackPower = elfPower);
+    }
+
+    Optional<PlayerType> runRound(boolean debug) throws ElfDiedException {
         this.sortPlayers();
 
         for (Player player : players) {
             if (!player.alive) continue;
 
             if (!didAnybodyWin().isPresent()) {
-                runRoundForPlayer(player);
+                runRoundForPlayer(player, debug);
             } else {
                 return didAnybodyWin();
             }
@@ -122,7 +154,7 @@ class Sim {
                 .collect(Collectors.toList());
     }
 
-    Optional<PlayerType> runRoundForPlayer(Player player) {
+    Optional<PlayerType> runRoundForPlayer(Player player, boolean debug) throws ElfDiedException {
         if (!player.alive) return Optional.empty();
         if (didAnybodyWin().isPresent()) return didAnybodyWin();
 
@@ -156,10 +188,19 @@ class Sim {
 
             if (enemy.hitPoints <= 0) {
                 enemy.alive = false;
+
+                if (enemy.type == PlayerType.ELF) {
+                    if (debug) System.out.println("Elf died, stopping");
+                    throw new ElfDiedException();
+                }
             }
         }
 
         return didAnybodyWin();
+    }
+
+    class ElfDiedException extends Exception {
+
     }
 
     public Stream<Coord> pointsInRangeOfEnemy(Player player) {
